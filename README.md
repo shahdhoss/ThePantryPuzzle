@@ -5,4 +5,19 @@
     searching, customers can provide reviews and ratings for each recipe. Moreover, customers can share the results of each recipe with the
     community.
 # Competitve Analysis
-    ![Alt text](<Screenshot 2023-11-06 201810.png>)
+![Alt text](<Competitive Analysis.png>)
+
+# Technical Approach
+    Project Setup (MPA):
+    Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
+    Front-end: Vanilla JavaScript
+    Back-end: Flask
+    Database: to store the scraped recipe data (SQL databases)
+
+# Risk Mitigation 
+    How users respond is a great risk to our business, as our service is built upon users interacting and rating each other’s recipes. 
+    The main concern is that other users review bombing chefs' recipes they don't like, which could be avoided 
+    by verifying reviews before posting them through a captcha verification system.
+
+# Feasibility Matrix
+![Alt text](<Feasibility Matrix.png>)
