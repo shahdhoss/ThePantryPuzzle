@@ -21,3 +21,6 @@
 
 # Feasibility Matrix
 ![Alt text](<Feasibility Matrix.png>)
+
+# Context Diagram
+![Context Diagram](<Context Diagram.png>)
