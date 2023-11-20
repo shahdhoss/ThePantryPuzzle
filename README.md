@@ -24,3 +24,6 @@
 
 # Context Diagram
 ![Context Diagram](<Context Diagram.png>)
+
+# Class Diagram
+![Class Diagram](<Class Diagram.png>)
