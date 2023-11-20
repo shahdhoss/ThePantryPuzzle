@@ -27,3 +27,6 @@
 
 # Class Diagram
 ![Class Diagram](<Class Diagram.png>)
+
+# Use Case Diagrams
+![Use Case](<Use Case.png>)
