@@ -8,7 +8,8 @@ class Ingredients:
     def Get_Ingredient_from_database(database_name):
         connection = sqlite3.connect(database_name)
         cursor = connection.cursor()
-        data = cursor.execute('select * from Ingredient')
+        data = cursor.execute('select * from Ingredient') 
+        # then print the ingredients
         for row in data:
             print(row)
         connection.commit()
