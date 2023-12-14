@@ -1,0 +1,606 @@
+[
+ {
+  "Ingredient Name: ": "olive oil",
+  "Ingredient ID: ": 1
+ },
+ {
+  "Ingredient Name: ": "garlic",
+  "Ingredient ID: ": 2
+ },
+ {
+  "Ingredient Name: ": "russet potatoes",
+  "Ingredient ID: ": 3
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 4
+ },
+ {
+  "Ingredient Name: ": "white wine",
+  "Ingredient ID: ": 5
+ },
+ {
+  "Ingredient Name: ": "chicken stock",
+  "Ingredient ID: ": 6
+ },
+ {
+  "Ingredient Name: ": "parsley",
+  "Ingredient ID: ": 7
+ },
+ {
+  "Ingredient Name: ": "dried oregano",
+  "Ingredient ID: ": 8
+ },
+ {
+  "Ingredient Name: ": "Salt",
+  "Ingredient ID: ": 9
+ },
+ {
+  "Ingredient Name: ": "pepper",
+  "Ingredient ID: ": 10
+ },
+ {
+  "Ingredient Name: ": "frozen peas",
+  "Ingredient ID: ": 11
+ },
+ {
+  "Ingredient Name: ": "chicken - drumsticks",
+  "Ingredient ID: ": 12
+ },
+ {
+  "Ingredient Name: ": "thighs",
+  "Ingredient ID: ": 13
+ },
+ {
+  "Ingredient Name: ": "salt",
+  "Ingredient ID: ": 14
+ },
+ {
+  "Ingredient Name: ": "black pepper",
+  "Ingredient ID: ": 15
+ },
+ {
+  "Ingredient Name: ": "olive oil",
+  "Ingredient ID: ": 16
+ },
+ {
+  "Ingredient Name: ": "onion",
+  "Ingredient ID: ": 17
+ },
+ {
+  "Ingredient Name: ": "Anaheim pepper",
+  "Ingredient ID: ": 18
+ },
+ {
+  "Ingredient Name: ": "paprika",
+  "Ingredient ID: ": 19
+ },
+ {
+  "Ingredient Name: ": "chicken stock",
+  "Ingredient ID: ": 20
+ },
+ {
+  "Ingredient Name: ": "salt",
+  "Ingredient ID: ": 21
+ },
+ {
+  "Ingredient Name: ": "sour cream",
+  "Ingredient ID: ": 22
+ },
+ {
+  "Ingredient Name: ": "flour",
+  "Ingredient ID: ": 23
+ },
+ {
+  "Ingredient Name: ": "chicken breast",
+  "Ingredient ID: ": 24
+ },
+ {
+  "Ingredient Name: ": "coarse salt",
+  "Ingredient ID: ": 25
+ },
+ {
+  "Ingredient Name: ": "seasoning",
+  "Ingredient ID: ": 26
+ },
+ {
+  "Ingredient Name: ": "black pepper",
+  "Ingredient ID: ": 27
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 28
+ },
+ {
+  "Ingredient Name: ": "bacon",
+  "Ingredient ID: ": 29
+ },
+ {
+  "Ingredient Name: ": "garlic",
+  "Ingredient ID: ": 30
+ },
+ {
+  "Ingredient Name: ": "lemons",
+  "Ingredient ID: ": 31
+ },
+ {
+  "Ingredient Name: ": "dessert wine",
+  "Ingredient ID: ": 32
+ },
+ {
+  "Ingredient Name: ": "chicken stock",
+  "Ingredient ID: ": 33
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 34
+ },
+ {
+  "Ingredient Name: ": "carrots",
+  "Ingredient ID: ": 35
+ },
+ {
+  "Ingredient Name: ": "onion",
+  "Ingredient ID: ": 36
+ },
+ {
+  "Ingredient Name: ": "leek",
+  "Ingredient ID: ": 37
+ },
+ {
+  "Ingredient Name: ": "green pepper",
+  "Ingredient ID: ": 38
+ },
+ {
+  "Ingredient Name: ": "kosher salt",
+  "Ingredient ID: ": 39
+ },
+ {
+  "Ingredient Name: ": "black pepper",
+  "Ingredient ID: ": 40
+ },
+ {
+  "Ingredient Name: ": "Extra Virgin Olive Oil",
+  "Ingredient ID: ": 41
+ },
+ {
+  "Ingredient Name: ": "white wine",
+  "Ingredient ID: ": 42
+ },
+ {
+  "Ingredient Name: ": "Chicken broth",
+  "Ingredient ID: ": 43
+ },
+ {
+  "Ingredient Name: ": "onions",
+  "Ingredient ID: ": 44
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 45
+ },
+ {
+  "Ingredient Name: ": "mushrooms",
+  "Ingredient ID: ": 46
+ },
+ {
+  "Ingredient Name: ": "water",
+  "Ingredient ID: ": 47
+ },
+ {
+  "Ingredient Name: ": "red wine",
+  "Ingredient ID: ": 48
+ },
+ {
+  "Ingredient Name: ": "chicken stock",
+  "Ingredient ID: ": 49
+ },
+ {
+  "Ingredient Name: ": "mayonnaise",
+  "Ingredient ID: ": 50
+ },
+ {
+  "Ingredient Name: ": "cream",
+  "Ingredient ID: ": 51
+ },
+ {
+  "Ingredient Name: ": "parsley",
+  "Ingredient ID: ": 52
+ },
+ {
+  "Ingredient Name: ": "curry powder",
+  "Ingredient ID: ": 53
+ },
+ {
+  "Ingredient Name: ": "canola oil",
+  "Ingredient ID: ": 54
+ },
+ {
+  "Ingredient Name: ": "shallot",
+  "Ingredient ID: ": 55
+ },
+ {
+  "Ingredient Name: ": "chicken meat",
+  "Ingredient ID: ": 56
+ },
+ {
+  "Ingredient Name: ": "chicken thighs",
+  "Ingredient ID: ": 57
+ },
+ {
+  "Ingredient Name: ": "chicken livers",
+  "Ingredient ID: ": 58
+ },
+ {
+  "Ingredient Name: ": "garlic",
+  "Ingredient ID: ": 59
+ },
+ {
+  "Ingredient Name: ": "chives",
+  "Ingredient ID: ": 60
+ },
+ {
+  "Ingredient Name: ": "kosher salt",
+  "Ingredient ID: ": 61
+ },
+ {
+  "Ingredient Name: ": "black pepper",
+  "Ingredient ID: ": 62
+ },
+ {
+  "Ingredient Name: ": "square wonton wrappers",
+  "Ingredient ID: ": 63
+ },
+ {
+  "Ingredient Name: ": "chicken broth",
+  "Ingredient ID: ": 64
+ },
+ {
+  "Ingredient Name: ": "olive oil",
+  "Ingredient ID: ": 65
+ },
+ {
+  "Ingredient Name: ": "onion",
+  "Ingredient ID: ": 66
+ },
+ {
+  "Ingredient Name: ": "celery",
+  "Ingredient ID: ": 67
+ },
+ {
+  "Ingredient Name: ": "carrots",
+  "Ingredient ID: ": 68
+ },
+ {
+  "Ingredient Name: ": "chicken breasts",
+  "Ingredient ID: ": 69
+ },
+ {
+  "Ingredient Name: ": "white wine",
+  "Ingredient ID: ": 70
+ },
+ {
+  "Ingredient Name: ": "tomato pur\u00e9e",
+  "Ingredient ID: ": 71
+ },
+ {
+  "Ingredient Name: ": "chicken stock",
+  "Ingredient ID: ": 72
+ },
+ {
+  "Ingredient Name: ": "bay leaves",
+  "Ingredient ID: ": 73
+ },
+ {
+  "Ingredient Name: ": "sage",
+  "Ingredient ID: ": 74
+ },
+ {
+  "Ingredient Name: ": "rosemary sprig",
+  "Ingredient ID: ": 75
+ },
+ {
+  "Ingredient Name: ": "polenta",
+  "Ingredient ID: ": 76
+ },
+ {
+  "Ingredient Name: ": "butter",
+  "Ingredient ID: ": 77
+ },
+ {
+  "Ingredient Name: ": "parmesan",
+  "Ingredient ID: ": 78
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 79
+ },
+ {
+  "Ingredient Name: ": "Salt",
+  "Ingredient ID: ": 80
+ },
+ {
+  "Ingredient Name: ": "thyme",
+  "Ingredient ID: ": 81
+ },
+ {
+  "Ingredient Name: ": "Olive oil",
+  "Ingredient ID: ": 82
+ },
+ {
+  "Ingredient Name: ": "Chicken stock",
+  "Ingredient ID: ": 83
+ },
+ {
+  "Ingredient Name: ": "Parmesan cheese",
+  "Ingredient ID: ": 84
+ },
+ {
+  "Ingredient Name: ": "heavy cream",
+  "Ingredient ID: ": 85
+ },
+ {
+  "Ingredient Name: ": "cr\u00eapes",
+  "Ingredient ID: ": 86
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 87
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 88
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 89
+ },
+ {
+  "Ingredient Name: ": "chicken seasoning",
+  "Ingredient ID: ": 90
+ },
+ {
+  "Ingredient Name: ": "Canola oil",
+  "Ingredient ID: ": 91
+ },
+ {
+  "Ingredient Name: ": "chicken gravy",
+  "Ingredient ID: ": 92
+ },
+ {
+  "Ingredient Name: ": "garlic",
+  "Ingredient ID: ": 93
+ },
+ {
+  "Ingredient Name: ": "oil",
+  "Ingredient ID: ": 94
+ },
+ {
+  "Ingredient Name: ": "baked potatoes",
+  "Ingredient ID: ": 95
+ },
+ {
+  "Ingredient Name: ": "cooked chicken",
+  "Ingredient ID: ": 96
+ },
+ {
+  "Ingredient Name: ": "carrots",
+  "Ingredient ID: ": 97
+ },
+ {
+  "Ingredient Name: ": "onion",
+  "Ingredient ID: ": 98
+ },
+ {
+  "Ingredient Name: ": "chicken gravy",
+  "Ingredient ID: ": 99
+ },
+ {
+  "Ingredient Name: ": "stuffing mix",
+  "Ingredient ID: ": 100
+ },
+ {
+  "Ingredient Name: ": "cooked chicken breast",
+  "Ingredient ID: ": 101
+ },
+ {
+  "Ingredient Name: ": "fat-free sour cream",
+  "Ingredient ID: ": 102
+ },
+ {
+  "Ingredient Name: ": "crescent rolls",
+  "Ingredient ID: ": 103
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 104
+ },
+ {
+  "Ingredient Name: ": "chicken carcass",
+  "Ingredient ID: ": 105
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 106
+ },
+ {
+  "Ingredient Name: ": "yellow onion",
+  "Ingredient ID: ": 107
+ },
+ {
+  "Ingredient Name: ": "green onions",
+  "Ingredient ID: ": 108
+ },
+ {
+  "Ingredient Name: ": "black peppercorns",
+  "Ingredient ID: ": 109
+ },
+ {
+  "Ingredient Name: ": "red pepper flakes",
+  "Ingredient ID: ": 110
+ },
+ {
+  "Ingredient Name: ": "chicken parts",
+  "Ingredient ID: ": 111
+ },
+ {
+  "Ingredient Name: ": "celery",
+  "Ingredient ID: ": 112
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 113
+ },
+ {
+  "Ingredient Name: ": "Salt",
+  "Ingredient ID: ": 114
+ },
+ {
+  "Ingredient Name: ": "onion",
+  "Ingredient ID: ": 115
+ },
+ {
+  "Ingredient Name: ": "carrot",
+  "Ingredient ID: ": 116
+ },
+ {
+  "Ingredient Name: ": "parsnip",
+  "Ingredient ID: ": 117
+ },
+ {
+  "Ingredient Name: ": "salt",
+  "Ingredient ID: ": 118
+ },
+ {
+  "Ingredient Name: ": "pepper",
+  "Ingredient ID: ": 119
+ },
+ {
+  "Ingredient Name: ": "dill",
+  "Ingredient ID: ": 120
+ },
+ {
+  "Ingredient Name: ": "pepper",
+  "Ingredient ID: ": 121
+ },
+ {
+  "Ingredient Name: ": "butter",
+  "Ingredient ID: ": 122
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 123
+ },
+ {
+  "Ingredient Name: ": "chicken broth",
+  "Ingredient ID: ": 124
+ },
+ {
+  "Ingredient Name: ": "cream of chicken soup",
+  "Ingredient ID: ": 125
+ },
+ {
+  "Ingredient Name: ": "self-rising flour",
+  "Ingredient ID: ": 126
+ },
+ {
+  "Ingredient Name: ": "buttermilk",
+  "Ingredient ID: ": 127
+ },
+ {
+  "Ingredient Name: ": "Chicken Breasts",
+  "Ingredient ID: ": 128
+ },
+ {
+  "Ingredient Name: ": "Sour Cream",
+  "Ingredient ID: ": 129
+ },
+ {
+  "Ingredient Name: ": "Green Chillies",
+  "Ingredient ID: ": 130
+ },
+ {
+  "Ingredient Name: ": "Flour Tortillas",
+  "Ingredient ID: ": 131
+ },
+ {
+  "Ingredient Name: ": "Onion",
+  "Ingredient ID: ": 132
+ },
+ {
+  "Ingredient Name: ": "Cheese",
+  "Ingredient ID: ": 133
+ },
+ {
+  "Ingredient Name: ": "Cream of Chicken Soup",
+  "Ingredient ID: ": 134
+ },
+ {
+  "Ingredient Name: ": "Chicken",
+  "Ingredient ID: ": 135
+ },
+ {
+  "Ingredient Name: ": "Seasoning",
+  "Ingredient ID: ": 136
+ },
+ {
+  "Ingredient Name: ": "roasting chicken",
+  "Ingredient ID: ": 137
+ },
+ {
+  "Ingredient Name: ": "orange juice",
+  "Ingredient ID: ": 138
+ },
+ {
+  "Ingredient Name: ": "onions",
+  "Ingredient ID: ": 139
+ },
+ {
+  "Ingredient Name: ": "low sodium chicken stock",
+  "Ingredient ID: ": 140
+ },
+ {
+  "Ingredient Name: ": "chicken",
+  "Ingredient ID: ": 141
+ },
+ {
+  "Ingredient Name: ": "lemon",
+  "Ingredient ID: ": 142
+ },
+ {
+  "Ingredient Name: ": "blood orange",
+  "Ingredient ID: ": 143
+ },
+ {
+  "Ingredient Name: ": "clementine",
+  "Ingredient ID: ": 144
+ },
+ {
+  "Ingredient Name: ": "Kosher salt",
+  "Ingredient ID: ": 145
+ },
+ {
+  "Ingredient Name: ": "chicken broth",
+  "Ingredient ID: ": 146
+ },
+ {
+  "Ingredient Name: ": "chicken breast",
+  "Ingredient ID: ": 147
+ },
+ {
+  "Ingredient Name: ": "Bacardi",
+  "Ingredient ID: ": 148
+ },
+ {
+  "Ingredient Name: ": "tequila",
+  "Ingredient ID: ": 149
+ },
+ {
+  "Ingredient Name: ": "cilantro leaves",
+  "Ingredient ID: ": 150
+ },
+ {
+  "Ingredient Name: ": "chicken seasoning",
+  "Ingredient ID: ": 151
+ }
+]
