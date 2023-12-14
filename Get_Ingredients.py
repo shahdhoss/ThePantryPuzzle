@@ -29,6 +29,7 @@ if response.status_code == 200:
             
 
 json_object = json.dumps(ingredients_list, indent = 1)
+
 with open("ingredients.json", "w") as outfile:
     outfile.write(json_object)
 
