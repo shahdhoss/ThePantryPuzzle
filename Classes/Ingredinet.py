@@ -1,44 +1,43 @@
 import sqlite3
 import json
 
-def from_json_to_sql(path, id):
-    try:
-        with open(path, "r") as infile:
-            data = json.load(infile)
-            for ingredient in data:
-                if ingredient.get("Ingredient ID") == id:
-                    return ingredient.get("Ingredient")
-            return f"No ingredient found with this id: {id}"
-    except FileNotFoundError:
-        return f"File not found: {path}"
-    except json.JSONDecodeError:
-        return f"Error decoding json in file: {path}"
-
-
 class Ingredients:
-    def __init__(self, ingredient_name, ingredient_category):
-        self.ingredient_name = ingredient_name
-        self.ingredient_category = ingredient_category
-
     def get_ingredient_from_database(self, database_name):
         connection = sqlite3.connect(database_name)
         cursor = connection.cursor()
-        data = cursor.execute('select * from Ingredient') 
+        data = cursor.execute('select * from Ingredient where Ingredient_name is not null') 
+        ingredient_list = []
         # then print the ingredients
         for row in data:
-            print(row)
+            ingredient_list.append(row)
         connection.commit()
         connection.close()
+        return ingredient_list
 
-    def delete_ingredient(self, connection, id):
+    def delete_ingredient(self, connection, ingredient_name):
         cursor = connection.cursor()
-        cursor.execute('delete from Ingredient where Ingredient_id = ?', (id))
+        cursor.execute('delete from Ingredient where Ingredient_name = ?', (ingredient_name))
         connection.commit()
 
-Ingredient_object = Ingredients('Salt', 'Seasoning')
-database_name = "Tasty.db"
-Ingredient_object.Get_Ingredient_from_database("Tasty.db")
-connection = sqlite3.connect(database_name)
-Ingredient_object.Delete_Ingredient(connectio, 1)
-connection.close()
+    def fetch_nutrients_from_database(self, database_name, ingredient_name):
+        connection = sqlite3.connect(database_name)
+        cursor = connection.cursor()
+        cursor.execute('select Nutrients from Nutrients where Ingredient_name = ?', (ingredient_name,))
+        data = cursor.fetchone()
+        connection.commit()
+        connection.close()
+        return data
 
+    def display_nutrients(self, ingredient_name, database_name):
+        ingredient_list = self.get_ingredient_from_database(database_name)
+        for tuple_ingredient in ingredient_list:
+            for ingredient in tuple_ingredient:
+                if ingredient == ingredient_name:
+                    nutrient_data = self.fetch_nutrients_from_database(database_name, ingredient)
+        return nutrient_data[0]
+
+
+Ingredient_object = Ingredients()
+database_name = "C:\\Users\\salma\\Ingredients.db"
+print(Ingredient_object.display_nutrients("garlic", database_name))
+print("done")
