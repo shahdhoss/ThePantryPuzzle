@@ -1,6 +1,8 @@
 import sqlite3
-connection = sqlite3.connect("ThePantryPuzzle\instance\RecipesDB.db")                                 
+connection = sqlite3.connect("instance\MainDB.db") 
 cursor = connection.cursor()
+table = 'create table Recipes(RecipeName varchar(255), IngredientName varchar(255))'
+#cursor.execute(table)                                
 
 
 def Ltuple_toList(tuplee):                       #function to change a list of tuples to a normal list
@@ -74,8 +76,15 @@ temp=["fruit cocktail","walnuts","fat-free milk","pound cake","Salt","Kosher sal
     "unsalted butter","sugar","rice vinegar"]
 for i in temp:
     mypantry.AddIngredient_toPantry(i)
-print(mypantry.RecommendARecipe())
+#print(mypantry.RecommendARecipe())
 
+# data = cursor.execute('select * from Recipes')
+# for row in data:
+#     print(row)
+
+connection.commit()
+connection.close()
+print('done')
 
 
 
