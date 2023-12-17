@@ -5,7 +5,7 @@
     searching, customers can provide reviews and ratings for each recipe. Moreover, customers can share the results of each recipe with the
     community.
 # Competitve Analysis
-![Alt text](<ThePantryPuzzle\System Designs\Competitive Analysis.png>)
+![Alt text](<[ThePantryPuzzle\System Designs\Competitive Analysis.png](https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png)>)
 
 # Technical Approach
     Project Setup (MPA):
