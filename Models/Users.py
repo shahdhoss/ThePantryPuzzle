@@ -7,6 +7,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
-    age = db.Column(db.Integer)
-    dietry = db.Column(db.String(150))
     isChef = db.Column(db.String, default='off')
