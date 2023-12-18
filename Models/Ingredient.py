@@ -34,7 +34,8 @@ class Ingredients:
             for ingredient in tuple_ingredient:
                 if ingredient == ingredient_name:
                     nutrient_data = self.fetch_nutrients_from_database(database_name, ingredient)
-        return nutrient_data[0]
+                    return nutrient_data[0]
+        return "Ingredient not found." 
 
 
 Ingredient_object = Ingredients()
