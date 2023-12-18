@@ -1,7 +1,6 @@
-import sqlite3
-connection = sqlite3.connect("ThePantryPuzzle\instance\RecipesDB.db")                                 
-cursor = connection.cursor()
-
+import database
+mydatabase=database.database("RecipesDB")
+mydatabase.establish_connection()
 
 def Ltuple_toList(tuplee):                       #function to change a list of tuples to a normal list
     List=[]
@@ -11,26 +10,30 @@ def Ltuple_toList(tuplee):                       #function to change a list of t
     return List
 
 def get_recipeInfo(RecipeN):
-        cursor.execute("Select Ingredient from Recipes where Recipe_name = ?", ([RecipeN]))
+        cursor=mydatabase.cursor().execute("Select Ingredient from Recipes where Recipe_name = ?", ([RecipeN]))
         ingredients=cursor.fetchall()
         return ingredients
+def return_allRecipeNames():
+        cursor=mydatabase.cursor().execute("Select Distinct Recipe_name from Recipes")
+        recipeT=cursor.fetchall()           #recipe list of tuples
+        recipeL=Ltuple_toList(recipeT)      #list of recipe names
+        return recipeL
 
-cursor.execute("Select Distinct Ingredient from Recipes")
-ingredientListofTuples=cursor.fetchall()                 #the database returns a list of tuples.
-IngredientsList=Ltuple_toList(ingredientListofTuples)
+def return_IngredientList():
+    cursor=mydatabase.cursor().execute("Select Distinct Ingredient from Recipes")
+    ingredientListofTuples=cursor.fetchall()                 #the database returns a list of tuples.
+    IngredientsList=Ltuple_toList(ingredientListofTuples)
+    return IngredientsList
 
 RecipesandIngredientsDict={}
-
-cursor.execute("Select Distinct Recipe_name from Recipes")
-recipeT=cursor.fetchall()           #recipe list of tuples
-recipeL=Ltuple_toList(recipeT)      #list of recipe names
-
+recipeL=return_allRecipeNames()
 # dictionary containing the recipe name and all its ingredients in a list
 for recipe in recipeL:
     ingredientsT=get_recipeInfo(recipe)
     ingredientsL=Ltuple_toList(ingredientsT)
-    RecipesandIngredientsDict[recipe]=ingredientsL    
+    RecipesandIngredientsDict[recipe]=ingredientsL 
 
+IngredientsList=return_IngredientList()
 class pantry():
     def __init__(self):
         self.PantryList=[]
@@ -75,7 +78,6 @@ temp=["fruit cocktail","walnuts","fat-free milk","pound cake","Salt","Kosher sal
 for i in temp:
     mypantry.AddIngredient_toPantry(i)
 print(mypantry.RecommendARecipe())
-
 
 
 

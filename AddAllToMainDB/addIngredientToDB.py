@@ -1,14 +1,15 @@
 import sqlite3
 import json
-import ipdb
+#import ipdb
 
-connection = sqlite3.connect("C:\\Users\\salma\\Ingredients.db")
+connection = sqlite3.connect("instance\MainDB.db")
 cursor = connection.cursor()
 table = 'create table Ingredient(Ingredient_name varchar(255))'
 drop_table = 'drop table Ingredient'
 table_nutrients = 'create table Nutrients(Ingredient_name varchar(255), Nutrients varchar(255))'
 drop_table_nutrients = 'drop table Nutrients'
-# cursor.execute(table_nutrients)
+#cursor.execute(table_nutrients)
+#cursor.execute(table)
 
 def find_ingredient(path):
     try:
@@ -50,10 +51,12 @@ def combine_json_files(file1, file2, file3, output_file):
         json.dump(data_combined, outfile, indent=2)
 
 
-data = cursor.execute('select Nutrients from Nutrients') 
+data = cursor.execute('select * from Ingredient') 
 # then print the ingredients
 for row in data:
     print(row)
+#add_from_json_file('json files\\all_ingredients_unique.json')
+
 
 connection.commit()
 connection.close()
