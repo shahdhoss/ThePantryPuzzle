@@ -1,6 +1,5 @@
 import sqlite3
 
-
 class database_base_model:
     def __init__(self, database_name):
         self.database_name = database_name
@@ -18,7 +17,7 @@ class user_database(database_base_model):
     def __init__(self, database_name):
         super().__init__(database_name)
         self.establish_connection()
-    
+
     def create_user(self, user_id, email, password, first_name, last_name, is_chef):
         query = 'insert into User values (?, ?, ?, ?, ?, ?)'
         self.cursor().execute(query, (user_id, email, password, first_name, last_name, is_chef))
@@ -56,9 +55,37 @@ class user_database(database_base_model):
         data = self.cursor().execute('select * from User')
         return data.fetchall()
         
+class pantry_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+
+    def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
+        listt =[]
+        for item in tuplee:
+            for itemm in item:
+                listt.append(itemm)        # all the ingredients are now in a normal list
+        return listt
+    
+    def return_all_recipe_names(self):
+        cursor=self.cursor().execute("Select Distinct Recipe_name from Recipes")
+        recipe_t=cursor.fetchall()                            #recipe list of tuples
+        recipe_l=self.l_tuple_to_list(recipe_t)                #list of recipe names
+        return recipe_l
+    
+    def get_recipe_info(self,recipe_n):
+        cursor=self.cursor().execute("Select Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        ingredients=cursor.fetchall()
+        return ingredients
+    
+    def return_ingredient_list(self):
+        cursor=self.cursor().execute("Select Distinct Ingredient from Recipes")
+        ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
+        ingredients_list=self.l_tuple_to_list(ingredient_list_of_tuples)
+        return ingredients_list
 
 
-db_path = "D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db"
+db_path = "F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db"
 objectt = database_base_model(db_path)
 
 user_object = user_database(db_path)
