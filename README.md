@@ -4,6 +4,38 @@
     whatever recipes they want and gain insights about how well a recipe is from the customer trials. In addition to adding ingredients and recipe
     searching, customers can provide reviews and ratings for each recipe. Moreover, customers can share the results of each recipe with the
     community.
+
+# Installation
+    Download the required libraries
+    - sqlite3 --> https://www.sqlite.org/download.html 
+    - flask_login
+    '''bash
+        pip install flask_login
+    '''
+    - flask
+    '''bash
+        pip install flask
+    '''
+    - werkzeug.security
+    '''bash
+        pip install werkzeug
+    '''
+    - flask_sqlalchemy
+    '''bash
+        pip install Flask-SQLAlchemy
+    '''
+    - requests
+    '''bash
+        pip install requests
+    '''
+# How to create the database
+    - Download the 
+    - you can create the MainDB by running the files in the "add all to MainDB" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
+    - you can insert, delete and fetch the data from the database by running the functions in the "database.py" file in the controllers folder, just call the functions 
+
+# How to run the project
+    - make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> python main.py"
+
 # Competitve Analysis
 ![Alt text](<ThePantryPuzzle\System Designs\Competitive Analysis.png](https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
 
