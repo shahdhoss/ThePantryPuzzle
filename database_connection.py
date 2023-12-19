@@ -4,7 +4,7 @@ import json
 connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")                                  #add the database name as it is saved on ur laptop
 cursor = connection.cursor() 
 
-# with open('F:\Software Project-cloned repo\ThePantryPuzzle\json files\meat_queryIngredients.json', 'r') as json_file:     #add ur own json file path
+# with open("D:\\Downloads\\chicken_queryIngredients.json", 'r') as json_file:     #add ur own json file path
 #     file = json.load(json_file)
 
 # to insert into the recipes table using the json file
@@ -16,9 +16,10 @@ def insert_recipes_intotable(file):
             connection.commit()
 
 # #use when testing whether the database got the data or not::
+# insert_recipes_intotable(file)
 cursor.execute("select * from Recipes")       
-mydata=cursor.fetchall()  
-print(mydata)                 #fetch all function gets whats stored in the database
+mydata=cursor.fetchall()
+#fetch all function gets whats stored in the database
 for i in mydata:             
     print(i)
 

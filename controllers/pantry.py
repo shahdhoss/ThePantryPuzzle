@@ -1,5 +1,5 @@
-from database import pantry_database    
-mypantry=pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+import database    
+mypantry=database.pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
 
 Recipes_and_Ingredients_Dict={}
 recipe_l = mypantry.return_all_recipe_names()
@@ -47,10 +47,3 @@ class pantry():
                 if 0<len(navailable)<=2:
                     recommendedrecipes.append(key)
         return recommendedrecipes
-
-mypantry=pantry()
-temp=["fruit cocktail","walnuts","fat-free milk","pound cake","Salt","Kosher salt","olive oil","garlic","carrots","dried oregano","dried basil","vegetables","honey"
-    "unsalted butter","sugar","rice vinegar"]
-for i in temp:
-    mypantry.add_ingredient_to_pantry(i)
-print(mypantry.recommend_recipes())

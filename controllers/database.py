@@ -106,12 +106,8 @@ class shopping_list_database(database_base_model):
     
     def remove_item(self, user_id, ingredient_name):
         query = 'delete from ShopList where UserID = ? and IngredientName = ?'
-        list_ingredients = self.display_shopping_list(user_id)
-        for ingredient in list_ingredients:
-            if ingredient == ingredient_name:
-                self.cursor().execute(query, (user_id, ingredient_name))
-                return True
-        return False
+        self.cursor().execute(query, (user_id, ingredient_name))
+
 
         
 class pantry_database(database_base_model):

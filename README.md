@@ -6,31 +6,24 @@
     community.
 
 # Installation
-    Download the required libraries
-    - sqlite3 --> https://www.sqlite.org/download.html 
-    - flask_login
-    '''bash
-        pip install flask_login
-    '''
-    - flask
-    '''bash
-        pip install flask
-    '''
-    - werkzeug.security
-    '''bash
-        pip install werkzeug
-    '''
-    - flask_sqlalchemy
-    '''bash
-        pip install Flask-SQLAlchemy
-    '''
-    - requests
-    '''bash
-        pip install requests
-    '''
+    Installation
+1) Download and install Python from the official website: https://www.python.org/downloads/.
+
+2) Clone the repository or download the source code.
+
+3) Install the required libraries using the following commands:
+
+```bash
+pip install flask
+pip install flask_login
+pip install werkzeug
+pip install Flask-SQLAlchemy
+pip install requests
+```
+Note: The sqlite3 library is not required to be installed separately as it is included in the Python standard library.
+
 # How to create the database
-    - Download the 
-    - you can create the MainDB by running the files in the "add all to MainDB" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
+    - you can create the MainDB by running the files in the "add_all_to_main_db" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
     - you can insert, delete and fetch the data from the database by running the functions in the "database.py" file in the controllers folder, just call the functions 
 
 # How to run the project
