@@ -50,7 +50,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     by verifying reviews before posting them through a captcha verification system.
 
 # Feasibility Matrix
-![Alt text](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Feasibility%20Matrix.png>)
+![Feasibility Matrix](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Feasibility%20Matrix.png>)
 
 # Context Diagram
 ![Context Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Context%20Diagram.png>)
