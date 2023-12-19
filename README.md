@@ -28,7 +28,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
 
 # How to run the project
     - make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> 
-    ```bash
+   ```bash
     python main.py
     ```
 
