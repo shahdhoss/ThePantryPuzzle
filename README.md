@@ -7,43 +7,47 @@
 
 # Installation
     Download the required libraries
+    - flask
+    ```bash
+        pip install flask
+    ```
     - sqlite3 --> https://www.sqlite.org/download.html 
     - flask_login
-    '''bash
+    ```bash
         pip install flask_login
-    '''
-    - flask
-    '''bash
-        pip install flask
-    '''
+    ```
     - werkzeug.security
-    '''bash
+    ```bash
         pip install werkzeug
-    '''
+    ```
     - flask_sqlalchemy
-    '''bash
+    ```bash
         pip install Flask-SQLAlchemy
-    '''
+    ```
     - requests
-    '''bash
+    ```bash
         pip install requests
-    '''
+    ```
 # How to create the database
-    - Download the 
-    - you can create the MainDB by running the files in the "add all to MainDB" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
+    - you can create the MainDB by running the files in the "add_all_to_main_db" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
     - you can insert, delete and fetch the data from the database by running the functions in the "database.py" file in the controllers folder, just call the functions 
 
 # How to run the project
-    - make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> python main.py"
+    - make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> 
+    ```bash
+    python main.py
+    ```
 
 # Competitve Analysis
-![Alt text](<ThePantryPuzzle\System Designs\Competitive Analysis.png](https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
+![Competitve Analysis](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
 
 # Technical Approach
     Project Setup (MPA):
     Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
-    Front-end: Vanilla JavaScript
-    Back-end: Flask
+    Front-end: HTML, CSS
+    Back-end: Python
+    Framework: Flask
+    API: EdammamAPI
     Database: to store the scraped recipe data (SQL databases)
 
 # Risk Mitigation 
@@ -52,13 +56,13 @@
     by verifying reviews before posting them through a captcha verification system.
 
 # Feasibility Matrix
-![Alt text](<ThePantryPuzzle\System Designs\Feasibility Matrix.png>)
+![Alt text](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Feasibility%20Matrix.png>)
 
 # Context Diagram
-![Context Diagram](<ThePantryPuzzle\System Designs\Context Diagram.png>)
+![Context Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Context%20Diagram.png>)
 
 # Class Diagram
-![Class Diagram](<ThePantryPuzzle\System Designs\Class Diagram.png>)
+![Class Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Class%20Diagram.png>)
 
 # Use Case Diagrams
-![Use Case](<ThePantryPuzzle\System Designs\Use Case.png>)
+![Use Case](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Use%20Case.png>)
