@@ -1,5 +1,4 @@
-import database    
-mypantry=database.pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+
 
 Recipes_and_Ingredients_Dict={}
 recipe_l = mypantry.return_all_recipe_names()
@@ -12,22 +11,22 @@ for recipe in recipe_l:
 
 IngredientsList=mypantry.return_ingredient_list()
 class pantry():
-    def _init_(self):
-        self.pantry_list=[]
+    def init(self):
+        self.pantrylist=[]
 
     def add_ingredient_to_pantry(self,ingredientt):
         for ingred1 in IngredientsList:
             if ingredientt==ingred1:
-                self.pantry_list.append(ingredientt)
+                self.pantrylist.append(ingredientt)
     # no need for returning a message that says the ingredient is not found, might switch it up to something else later
 
     def remove_ingredient_from_pantry(self, ingred):
-        for ingred2 in self.pantry_list:
+        for ingred2 in self.pantrylist:
             if ingred == ingred2:
-                self.pantry_list.remove(ingred)
+                self.pantrylist.remove(ingred)
 
     def display_pantry(self):
-        for i in self.pantry_list:
+        for i in self.pantrylist:
             print(i)
 
     def recommend_recipes(self):
@@ -36,10 +35,10 @@ class pantry():
             available=[]
             navailable=[]
             for ingre1 in Recipes_and_Ingredients_Dict[key]:
-                    for ingre2 in self.pantry_list:
+                    for ingre2 in self.pantrylist:
                         if ingre1==ingre2:
                             available.append(ingre1)    
-                    if ingre1 not in self.pantry_list:
+                    if ingre1 not in self.pantrylist:
                         navailable.append(ingre1)
             if len(available)==len(Recipes_and_Ingredients_Dict[key]) :       #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
@@ -47,3 +46,4 @@ class pantry():
                 if 0<len(navailable)<=2:
                     recommendedrecipes.append(key)
         return recommendedrecipes
+
