@@ -6,7 +6,7 @@
     community.
 
 # Installation
-1) Download and install Python from the official website: https://www.python.org/downloads/.
+1) Download and install Python v3.10 from the official website: https://www.python.org/downloads/.
 
 2) Clone the repository or download the source code.
 
