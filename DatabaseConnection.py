@@ -1,6 +1,5 @@
 import sqlite3
 import json
-import pdb
 
 connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")                                  #add the database name as it is saved on ur laptop
 cursor = connection.cursor() 
