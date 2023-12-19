@@ -30,7 +30,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     - make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> 
    ```bash
     python main.py
-    ```
+```
 
 # Competitve Analysis
 ![Competitve Analysis](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
