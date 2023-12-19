@@ -2,13 +2,14 @@ import sqlite3
 import json
 import pdb
 
-connection = sqlite3.connect("MainDB")                                  #add the database name as it is saved on ur laptop
+connection = sqlite3.connect("F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db")                                  #add the database name as it is saved on ur laptop
 cursor = connection.cursor() 
 
-# with open('F:\Software Project-cloned repo\ThePantryPuzzle\json files\meat_queryIngredients.json', 'r') as json_file:     #add ur own json file path
+# with open('ThePantryPuzzle\json files\ish_queryIngredients.json', 'r') as json_file:     #add ur own json file path
 #     file = json.load(json_file)
 
 # to insert into the recipes table using the json file
+
 def insert_recipes_intotable(file):                                  
     for recipe in file:
         templist=file[recipe]
