@@ -9,9 +9,9 @@
     Download the required libraries
     - sqlite3 --> https://www.sqlite.org/download.html 
     - flask_login
-    '''bash
+    ```bash
         pip install flask_login
-    '''
+    
     - flask
     '''bash
         pip install flask
@@ -29,7 +29,6 @@
         pip install requests
     '''
 # How to create the database
-    - Download the 
     - you can create the MainDB by running the files in the "add all to MainDB" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
     - you can insert, delete and fetch the data from the database by running the functions in the "database.py" file in the controllers folder, just call the functions 
 
