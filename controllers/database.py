@@ -11,7 +11,9 @@ class database_base_model:
         return self.connection.close()
     def commit(self):
         return self.connection.commit()
-
+    def fetch_all(self, table_name):
+        data = self.cursor().execute(f'select * from {table_name}')
+        return data.fetchall()
 
 class user_database(database_base_model):
     def __init__(self, database_name):
@@ -51,9 +53,66 @@ class user_database(database_base_model):
         else:
             return None
     
-    def fetch_all(self):
-        data = self.cursor().execute('select * from User')
-        return data.fetchall()
+class favorite_recipe(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    
+    def add_favorite_recipe(self, recipe_name, user_id):
+        query = 'insert into Favorite values (?, ?)'
+        self.cursor().execute(query, (user_id, recipe_name))
+    
+    # returns a list of the user's favorite recipe
+    def display_favorite_recipe(self, id_user):
+        query = 'select id from Favorite'
+        query_2 = 'select * from Favorite where id = ?'
+        data = self.cursor().execute(query)
+        list_recipes = []
+        for user_id in data.fetchall():
+            if user_id[0] == id_user:
+                recipes = self.cursor().execute(query_2, (id_user,))
+                recipes_fav = recipes.fetchall()
+                for recipe in recipes_fav:
+                    list_recipes.append(recipe[1])
+                return list_recipes
+        return "No favorite recipes"
+
+    def remove_favorite_recipe(self, id_user, recipe_name):
+        list_recipes = self.display_favorite_recipe(id_user)
+        query = 'delete from Favorite where id = ? and Recipe_name = ?'
+        for recipe in list_recipes:
+            if recipe == recipe_name:
+                self.cursor().execute(query, (id_user, recipe_name))
+                return True
+        return False
+
+class shopping_list_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    
+    def add_item(self, user_id, ingredient_name):
+        query = 'insert into ShopList values (?, ?)'
+        self.cursor().execute(query, (user_id, ingredient_name))
+    
+    def display_shopping_list(self, user_id):
+        query = 'select * from ShopList where UserID = ?'
+        data = self.cursor().execute(query, (user_id,))
+        ingredients_tuple = data.fetchall()
+        list_ingredients = []
+        for ingredient in ingredients_tuple:
+            list_ingredients.append(ingredient[1])
+        return list_ingredients
+    
+    def remove_item(self, user_id, ingredient_name):
+        query = 'delete from ShopList where UserID = ? and IngredientName = ?'
+        list_ingredients = self.display_shopping_list(user_id)
+        for ingredient in list_ingredients:
+            if ingredient == ingredient_name:
+                self.cursor().execute(query, (user_id, ingredient_name))
+                return True
+        return False
+
         
 class pantry_database(database_base_model):
     def __init__(self, database_name):
@@ -87,9 +146,19 @@ class pantry_database(database_base_model):
 
 db_path = "F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db"
 objectt = database_base_model(db_path)
-
 user_object = user_database(db_path)
-# user_object.create_user(2, 'q@gmail.com', '1233', 'hamada', 'galal', 'off')
+favorite_object = favorite_recipe(db_path)
+shopping_object = shopping_list_database(db_path)
+
+# shopping_object.add_item(1, "Olive oil")
+# shopping_object.add_item(1, "Salt")
+# shopping_object.add_item(1, "Chicken")
+
+print(shopping_object.display_shopping_list(1))
+
+# print(favorite_object.fetch_all("Favorite"))
+
+# user_object.create_user(3, 'habiba@gmail.com', 'bibo', 'Habiba', 'Mekay', 'off')
 
 # print(user_object.tuple_to_dict(data))
 
@@ -97,7 +166,19 @@ user_object = user_database(db_path)
 
 # print(user_object.delete_user(2))
 
-print(user_object.fetch_all())
-user_object.commit()
-user_object.close()
+# print(user_object.fetch_all())
+
+
+# for the table of the shopping list
+shopping_object.commit()
+shopping_object.close()
+
+# for the table of the favorite recipes 
+# favorite_object.commit()
+# favorite_object.close()
+
+# for the table of the user
+# user_object.commit()
+# user_object.close()
+
 print('done')

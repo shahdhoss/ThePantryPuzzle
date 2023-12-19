@@ -1,6 +1,6 @@
 import sqlite3
 import json
-#import ipdb
+
 
 connection = sqlite3.connect("instance\MainDB.db")
 cursor = connection.cursor()
@@ -8,7 +8,7 @@ table = 'create table Ingredient(Ingredient_name varchar(255))'
 drop_table = 'drop table Ingredient'
 table_nutrients = 'create table Nutrients(Ingredient_name varchar(255), Nutrients varchar(255))'
 drop_table_nutrients = 'drop table Nutrients'
-#cursor.execute(table_nutrients)
+
 #cursor.execute(table)
 
 def find_ingredient(path):
