@@ -1,6 +1,6 @@
 import database
 
-mydatabase = database.database_base_model("ThePantryPuzzle\instance\MainDB.db")
+mydatabase = database.database_base_model("D:\\SWE - project\\ThePantryPuzzle\\instance\\RecipesDB.db")
 mydatabase.establish_connection()
 
 def l_tuple_to_list(tuplee):                       #function to change a list of tuples to a normal list
@@ -18,7 +18,7 @@ def get_recipe_info(recipe_n):
 def return_all_recipe_names():
         cursor=mydatabase.cursor().execute("Select Distinct Recipe_name from Recipes")
         recipe_t=cursor.fetchall()           #recipe list of tuples
-        recipe_l=Ltuple_toList(recipe_t)      #list of recipe names
+        recipe_l=l_tuple_to_list(recipe_t)      #list of recipe names
         return recipe_l
 
 def return_ingredient_list():
@@ -31,11 +31,11 @@ Recipes_and_Ingredients_Dict={}
 recipe_l = return_all_recipe_names()
 # dictionary containing the recipe name and all its ingredients in a list
 for recipe in recipe_l:
-    ingredients_t=get_recipe_info(recipe)
-    ingredients_t=l_tuple_to_list(ingredients_t)
+    ingredients_t = get_recipe_info(recipe)
+    ingredients_l = l_tuple_to_list(ingredients_t)
     Recipes_and_Ingredients_Dict[recipe]=ingredients_l
 
-IngredientsList=return_IngredientList()
+IngredientsList = return_ingredient_list()
 class pantry():
     def __init__(self):
         self.pantry_list=[]

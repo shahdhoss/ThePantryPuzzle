@@ -1,16 +1,16 @@
 import sqlite3
 
-connection = sqlite3.connect('instance/MainDB.db')
+connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
 cursor = connection.cursor()
 
 table = '''CREATE TABLE ShopList (
-                ID INTEGER PRIMARY KEY,
                 UserID INTEGER,
                 IngredientName varchar(255),
                 FOREIGN KEY(UserID) REFERENCES User(id),
                 FOREIGN KEY(IngredientName) REFERENCES Ingredient(Ingredient_name)
             )'''
 
+drop_table = 'drop table ShopList'
 cursor.execute(table)
 
 connection.commit()
