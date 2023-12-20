@@ -1,0 +1,58 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Recipes{% endblock %}
+{% block content %}
+<div class="container bootstrap snippets bootdey">
+  <div class="row">
+    <div class="profile-nav col-md-3">
+        <div class="panel">
+          <div class="user-heading round">
+              <h1>{{item[3]}} {{item[4]}}</h1>
+              <p>{{item[1]}}</p>
+          </div>
+  
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+            </ul>
+        </div>
+    </div>
+<div class="profile-info col-md-9">
+    <div class="panel">
+        <div class="bio-graph-heading" style="font-size: 36px;">
+            What do you wish to edit
+        </div>
+        <div class="panel-body bio-graph-info">
+          <form>
+            <div class="row">
+                <div class="bio-row">
+                    <p style="font-size: 24px;"><span>Change Name</span></p>
+                </div>
+                <div class="bio-row">
+                  <a type="button" class="GreenButton" value="Edit Name" methods="" style="font-size: 18px;">Edit</a>
+                </div>
+            </div>
+          </form>
+          <form>
+              <div class="row">
+                  <div class="bio-row">
+                      <p style="font-size: 24px;"><span>Edit Password </span></p>
+                  </div>
+                  <div class="bio-row">
+                    <a type="button" class="GreenButton" value="Edit Password" methods="" style="font-size: 18px;">Edit</a>
+                  </div>
+              </div>
+            </form>
+            <form>
+                <div class="row">
+                    <div class="bio-row">
+                        <p style="font-size: 24px;"><span>Delete Account </span></p>
+                    </div>
+                    <div class="bio-row">
+                      <a type="button" class="GreenButton" value="Delete Account" methods="" style="font-size: 18px;"> Delete</a>
+                    </div>
+                </div>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

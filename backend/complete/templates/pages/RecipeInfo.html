@@ -1,0 +1,22 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Recipe Info{% endblock %}
+{% block content %}
+<br><br>
+<br>
+<div class="recipe-info" style="padding-left: 10%; padding-right: 10%;">
+  <h2 style="  font-size: 2.5rem; text-align: center; justify-content: center; "> {{Recipe}} </h2>
+    <br>
+    <div class="row">
+      {% for item in ingredientlist %}
+      <div class="column">
+        <label style="text-align: center; font-size: 23px;"> {{item}} </label>
+      </div>
+      {% endfor %}
+    </div>
+    <br><br>
+    
+</div>
+<br><br>
+<a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center;" href="{{ url_for('views.about') }}">Back</a>
+
+{% endblock %}

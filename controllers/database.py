@@ -1,6 +1,12 @@
 import sqlite3
 
 class database_base_model:
+    def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
+        listt =[]
+        for item in tuplee:
+            for itemm in item:
+                listt.append(itemm)        # all the ingredients are now in a normal list
+        return listt    
     def __init__(self, database_name):
         self.database_name = database_name
     def establish_connection(self):
@@ -30,6 +36,13 @@ class user_database(database_base_model):
         if data.fetchone() is None:
             return False
         return True
+    
+    def get_user(self, user_id):
+        query = f'Select * from User where id = {user_id}'
+        cursor=self.cursor().execute(query)
+        data=cursor.fetchall()                          
+        data=self.l_tuple_to_list(data)                
+        return data
         
     def delete_user(self, user_id):
         found = self.find_user(user_id)
@@ -101,8 +114,12 @@ class shopping_list_database(database_base_model):
     
     def remove_item(self, user_id, ingredient_name):
         query = 'delete from ShopList where UserID = ? and IngredientName = ?'
-        self.cursor().execute(query, (user_id, ingredient_name))
-
+        list_ingredients = self.display_shopping_list(user_id)
+        for ingredient in list_ingredients:
+            if ingredient == ingredient_name:
+                self.cursor().execute(query, (user_id, ingredient_name))
+                return True
+        return False
 
         
 class pantry_database(database_base_model):
@@ -123,9 +140,16 @@ class pantry_database(database_base_model):
         recipe_l=self.l_tuple_to_list(recipe_t)                #list of recipe names
         return recipe_l
     
+    def get_similar_recipes(self, recipename):
+        cursor=self.cursor().execute("SELECT DISTINCT Recipe_name FROM Recipes WHERE Recipe_name LIKE ?", ('%' + recipename + '%',))
+        recipe_t=cursor.fetchall()                          
+        recipe_l=self.l_tuple_to_list(recipe_t)                
+        return recipe_l
+    
     def get_recipe_info(self,recipe_n):
         cursor=self.cursor().execute("Select Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
         ingredients=cursor.fetchall()
+        ingredients=self.l_tuple_to_list(ingredients) 
         return ingredients
     
     def return_ingredient_list(self):
