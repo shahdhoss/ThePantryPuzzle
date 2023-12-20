@@ -27,7 +27,7 @@
           <form method="POST">
             <div class="row">
               <div class="col-md-9 bio-row">
-                <p class="recipe-name">{{ingredient}}</p>
+                <span><p class="recipe-name">{{ingredient}}</p> <a href="{{ url_for('views.removeshoplistitem', userid=current_user.id, removeingredient=ingredient) }}"> > Done </a></span>
               </div>
             </div>
           </form>

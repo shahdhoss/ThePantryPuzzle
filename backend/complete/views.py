@@ -158,20 +158,25 @@ def shoppinglist(userid):
     userinfo= object.get_user(int(userid))
     return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
-@views.route('/newshoplist/<userid>')
-def generateshoplist(userid, ingredients):
+@views.route('/newshoplist/<userid>/<rname>')
+def generateshoplist(userid, rname):
+    object=pantry_database("instance\\MainDB.db")
+    ingredientslist=object.get_recipe_info(rname)
     object=shopping_list_database("instance\\MainDB.db")
-    for item in ingredients:
-        print(item + "  hi")
-        object.add_item(int(userid), item)
-    listofingrients=object.display_shopping_list(userid)
-
-    if not listofingrients:
-        listofingrients.append("Empty")
+    for item in ingredientslist:
+        object.add_item(userid, item)
     object = user_database("instance\\MainDB.db")
     userinfo= object.get_user(int(userid))
-    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
+    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=ingredientslist )
 
+@views.route('/removeshoplist/<userid>/<removeingredient>')
+def removeshoplistitem(userid, removeingredient):
+    object=shopping_list_database("instance\\MainDB.db")
+    object.remove_item(userid,removeingredient)
+    listofingrients=object.display_shopping_list(userid)
+    object = user_database("instance\\MainDB.db")
+    userinfo= object.get_user(int(userid))
+    return render_template('pages/usershoppinglist.html', item=userinfo, shoplist=listofingrients )
 
 # Error handlers.
 
