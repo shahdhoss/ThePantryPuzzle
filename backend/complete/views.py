@@ -10,7 +10,7 @@ import sqlite3
 from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
-from controllers.database import pantry_database, user_database, favorite_recipe
+from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -48,15 +48,9 @@ def login_required(test):
 def home():
     return render_template('pages/HomePage.html',  user=current_user)
 
-@views.route('/home2')
-@login_required
-def home2():
-    return render_template('pages/HomePage.html',  user=current_user)
-
-
 @views.route('/Recipes', methods=["POST", "GET"])
 def about():
-    object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    object = pantry_database("instance\\MainDB.db")
     if request.method == "GET":
         recipes= object.return_all_recipe_names()
         return render_template('pages/Recipes.html', recipelist=recipes)
@@ -97,7 +91,7 @@ def change_name(userid):
 
 @views.route('/change_password/<userid>', methods=["POST"])
 def change_password(userid):
-    user_db = user_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    user_db = user_database("instance\\MainDB.db")
 
     if request.method == 'POST':
         new_password = request.form.get("new_password")
@@ -112,13 +106,11 @@ def change_password(userid):
     return redirect(url_for('views.userprofile', userid=userid))
 
 
-
-
 @views.route('/add_favorite/<rname>', methods=["GET", "POST"])
 def add_favorite(rname):
     user = current_user 
     if request.method == 'POST':
-        object_favorite = favorite_recipe("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+        object_favorite = favorite_recipe("instance\\MainDB.db")
         object_favorite.add_favorite_recipe(rname, user.id)
         return redirect(url_for('views.userprofile', userid=user.id))
     
@@ -130,7 +122,7 @@ def add_favorite(rname):
 def remove_favorite(recipe_name):
     user = current_user
     if request.method == 'POST':
-        object_favorite = favorite_recipe("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+        object_favorite = favorite_recipe("instance\\MainDB.db")
         object_favorite.remove_favorite_recipe(user.id, recipe_name)
 
     return redirect(url_for('views.userprofile', userid=user.id))
@@ -139,36 +131,52 @@ def remove_favorite(recipe_name):
 @views.route('/RecipeInfo/<rname>', methods=["POST", "GET"])
 def recipeinfo(rname):
     recipename = rname
-    object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    object = pantry_database("instance\\MainDB.db")
     ingredients=object.get_recipe_info(recipename)
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename)
 
 @views.route('/userprofile/<userid>')
 def userprofile(userid):
-    object = user_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-    favorite_recipe_instance = favorite_recipe("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    object = user_database("instance\\MainDB.db")
+    favorite_recipe_instance = favorite_recipe("instance\\MainDB.db")
     userinfo= object.get_user(int(userid))
     favorite_recipes = favorite_recipe_instance.display_favorite_recipe(userid)
     return render_template('pages/userprofile.html', item=userinfo, favorite_recipes=favorite_recipes)
 
 @views.route('/useredit/<userid>')
 def useredit(userid):
-    object = user_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    object = user_database("instance\\MainDB.db")
     userinfo= object.get_user(int(userid))
 
     return render_template('pages/useredit.html',item=userinfo)
 
-# @views.route('/useredit')
-# def useredit():
+@views.route('/shoplist/<userid>')
+def shoppinglist(userid):
+    object=shopping_list_database("instance\\MainDB.db")
+    listofingrients=object.display_shopping_list(userid)
+    object = user_database("instance\\MainDB.db")
+    userinfo= object.get_user(int(userid))
+    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
+@views.route('/newshoplist/<userid>/<rname>')
+def generateshoplist(userid, rname):
+    object=pantry_database("instance\\MainDB.db")
+    ingredientslist=object.get_recipe_info(rname)
+    object=shopping_list_database("instance\\MainDB.db")
+    for item in ingredientslist:
+        object.add_item(userid, item)
+    object = user_database("instance\\MainDB.db")
+    userinfo= object.get_user(int(userid))
+    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=ingredientslist )
 
-
-
-
-# @app.route('/forgot')
-# def forgot():
-#     form = ForgotForm(request.form)
-#     return render_template('forms/forgot.html', form=form)
+@views.route('/removeshoplist/<userid>/<removeingredient>')
+def removeshoplistitem(userid, removeingredient):
+    object=shopping_list_database("instance\\MainDB.db")
+    object.remove_item(userid,removeingredient)
+    listofingrients=object.display_shopping_list(userid)
+    object = user_database("instance\\MainDB.db")
+    userinfo= object.get_user(int(userid))
+    return render_template('pages/usershoppinglist.html', item=userinfo, shoplist=listofingrients )
 
 # Error handlers.
 
