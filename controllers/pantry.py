@@ -1,6 +1,5 @@
-from database import pantry_database    
-mypantry=pantry_database("F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db")
-
+from database import pantry_database
+mypantry=pantry_database("instance\MainDB.db")
 Recipes_and_Ingredients_Dict={}
 recipe_l = mypantry.return_all_recipe_names()
 
@@ -12,7 +11,7 @@ for recipe in recipe_l:
 
 IngredientsList=mypantry.return_ingredient_list()
 class pantry():
-    def _init_(self):
+    def init(self):
         self.pantrylist=[]
 
     def add_ingredient_to_pantry(self,ingredientt):
@@ -48,10 +47,3 @@ class pantry():
                     recommendedrecipes.append(key)
         return recommendedrecipes
 
-mypantry=pantry()
-mypantry.pantrylist=["initializing the list"]
-temp=["fruit cocktail","walnuts","fat-free milk","pound cake","Salt","Kosher salt","olive oil","garlic","carrots","dried oregano","dried basil","vegetables","honey"
-    "unsalted butter","sugar","rice vinegar"]
-for i in temp:
-    mypantry.add_ingredient_to_pantry(i)
-print(mypantry.recommend_recipes())

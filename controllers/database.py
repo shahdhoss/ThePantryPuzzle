@@ -106,12 +106,8 @@ class shopping_list_database(database_base_model):
     
     def remove_item(self, user_id, ingredient_name):
         query = 'delete from ShopList where UserID = ? and IngredientName = ?'
-        list_ingredients = self.display_shopping_list(user_id)
-        for ingredient in list_ingredients:
-            if ingredient == ingredient_name:
-                self.cursor().execute(query, (user_id, ingredient_name))
-                return True
-        return False
+        self.cursor().execute(query, (user_id, ingredient_name))
+
 
         
 class pantry_database(database_base_model):
@@ -142,43 +138,3 @@ class pantry_database(database_base_model):
         ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
         ingredients_list=self.l_tuple_to_list(ingredient_list_of_tuples)
         return ingredients_list
-
-
-db_path = "F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db"
-objectt = database_base_model(db_path)
-user_object = user_database(db_path)
-favorite_object = favorite_recipe(db_path)
-shopping_object = shopping_list_database(db_path)
-
-# shopping_object.add_item(1, "Olive oil")
-# shopping_object.add_item(1, "Salt")
-# shopping_object.add_item(1, "Chicken")
-
-print(shopping_object.display_shopping_list(1))
-
-# print(favorite_object.fetch_all("Favorite"))
-
-# user_object.create_user(3, 'habiba@gmail.com', 'bibo', 'Habiba', 'Mekay', 'off')
-
-# print(user_object.tuple_to_dict(data))
-
-# print(user_object.get_user_by_id(2))
-
-# print(user_object.delete_user(2))
-
-# print(user_object.fetch_all())
-
-
-# for the table of the shopping list
-shopping_object.commit()
-shopping_object.close()
-
-# for the table of the favorite recipes 
-# favorite_object.commit()
-# favorite_object.close()
-
-# for the table of the user
-# user_object.commit()
-# user_object.close()
-
-print('done')

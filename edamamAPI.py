@@ -21,6 +21,6 @@ if response.status_code == 200:
             food_list[hit['recipe']['label']]=temp_list
         temp_list=[]
 
-json_object = json.dumps(food_list, indent=4)
-with open("F:\downloads\cake_queryIngredients.json", "w") as outfile:
-    outfile.write(json_object)
+# json_object = json.dumps(food_list, indent=4)
+# with open("F:\downloads\cake_queryIngredients.json", "w") as outfile:
+#     outfile.write(json_object)

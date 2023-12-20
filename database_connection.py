@@ -1,6 +1,5 @@
 import sqlite3
 import json
-import pdb
 
 connection = sqlite3.connect("F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db")                                  #add the database name as it is saved on ur laptop
 cursor = connection.cursor() 
@@ -18,8 +17,10 @@ def insert_recipes_intotable(file):
             connection.commit()
 
 # #use when testing whether the database got the data or not::
+# insert_recipes_intotable(file)
 cursor.execute("select * from Recipes")       
-mydata=cursor.fetchall()                   #fetch all function gets whats stored in the database
+mydata=cursor.fetchall()
+#fetch all function gets whats stored in the database
 for i in mydata:             
     print(i)
 

@@ -4,14 +4,43 @@
     whatever recipes they want and gain insights about how well a recipe is from the customer trials. In addition to adding ingredients and recipe
     searching, customers can provide reviews and ratings for each recipe. Moreover, customers can share the results of each recipe with the
     community.
+
+# Installation
+1) Download and install Python v3.10 from the official website: https://www.python.org/downloads/.
+
+2) Clone the repository or download the source code.
+
+3) Install the required libraries using the following commands:
+
+```bash
+pip install flask
+pip install flask_login
+pip install werkzeug
+pip install Flask-SQLAlchemy
+pip install requests
+```
+Note: The sqlite3 library is not required to be installed separately as it is included in the Python standard library.
+
+# How to create the database
+1) you can create the MainDB by running the files in the "add_all_to_main_db" folder, all you have to do is change the path of the sqlite3 connection and then, it will create the tables needed and save the database in the chosen path 
+2) you can insert, delete and fetch the data from the database by running the functions in the "database.py" file in the controllers folder, just call the functions 
+
+# How to run the project
+    make sure that no files are missing and the paths changed to your correct paths and run the "main.py" from the integrated terminal or from the external terminal by running the following "<your file path> 
+   ```bash
+    python main.py
+```
+
 # Competitve Analysis
-![Alt text](<ThePantryPuzzle\System Designs\Competitive Analysis.png](https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
+![Competitve Analysis](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
 
 # Technical Approach
     Project Setup (MPA):
     Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
-    Front-end: Vanilla JavaScript
-    Back-end: Flask
+    Front-end: HTML, CSS
+    Back-end: Python
+    Framework: Flask
+    API: EdammamAPI
     Database: to store the scraped recipe data (SQL databases)
 
 # Risk Mitigation 
@@ -20,13 +49,13 @@
     by verifying reviews before posting them through a captcha verification system.
 
 # Feasibility Matrix
-![Alt text](<ThePantryPuzzle\System Designs\Feasibility Matrix.png>)
+![Feasibility Matrix](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Feasibility%20Matrix.png>)
 
 # Context Diagram
-![Context Diagram](<ThePantryPuzzle\System Designs\Context Diagram.png>)
+![Context Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Context%20Diagram.png>)
 
 # Class Diagram
-![Class Diagram](<ThePantryPuzzle\System Designs\Class Diagram.png>)
+![Class Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Class%20Diagram.png>)
 
 # Use Case Diagrams
-![Use Case](<ThePantryPuzzle\System Designs\Use Case.png>)
+![Use Case](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Use%20Case.png>)
