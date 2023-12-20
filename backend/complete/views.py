@@ -156,16 +156,14 @@ def shoppinglist(userid):
     listofingrients=object.display_shopping_list(userid)
     object = user_database("instance\\MainDB.db")
     userinfo= object.get_user(int(userid))
-    return render_template('pages/usershoppinglist.html',item=userinfo)
+    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
 @views.route('/newshoplist/<userid>')
 def generateshoplist(userid, ingredients):
     object=shopping_list_database("instance\\MainDB.db")
     for item in ingredients:
-        print(item)
-        object.add_item(userid, item)
-
-
+        print(item + "  hi")
+        object.add_item(int(userid), item)
     listofingrients=object.display_shopping_list(userid)
 
     if not listofingrients:

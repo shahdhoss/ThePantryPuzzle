@@ -17,7 +17,6 @@
     
 </div>
 <br><br>
-<h1>{{ingredientlist}}</h1>
 <a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center;" href="{{ url_for('views.about') }}">Back</a>
 <a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center;" href="{{ url_for('views.generateshoplist', userid=current_user.id, ingredients=ingredientlist)}}">Generate Shopping List</a>
 {% endblock %}
