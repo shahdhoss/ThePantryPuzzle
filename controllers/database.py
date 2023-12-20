@@ -10,7 +10,7 @@ class database_base_model:
     def __init__(self, database_name):
         self.database_name = database_name
     def establish_connection(self):
-        self.connection = sqlite3.connect(self.database_name)
+        self.connection = sqlite3.connect(self.database_name, timeout = 5000)
     def cursor(self):
         return self.connection.cursor()
     def close(self):
@@ -43,14 +43,36 @@ class user_database(database_base_model):
         data=cursor.fetchall()                          
         data=self.l_tuple_to_list(data)                
         return data
-        
+
     def delete_user(self, user_id):
         found = self.find_user(user_id)
         if found:
             query = 'delete from User where id = ?'
             self.cursor().execute(query, (user_id,))
+            self.commit()
             return "User deleted"
         return "User not found"
+
+    def change_password(self, user_id, new_password):
+        query = 'update User set password = ? where id = ?'
+        try:
+            self.cursor().execute(query, (new_password, user_id))
+            self.commit()
+        except Exception as e:
+            print(f"Error changing password: {e}")
+            # Add additional logging or raise the exception if needed
+        finally:
+            self.close()
+    
+    def change_name(self, user_id, newfirstname, newlastname):
+        query = 'update User set first_name = ?, last_name = ? where id = ?'
+        try:
+            self.cursor().execute(query, (newfirstname, newlastname, user_id))
+            self.commit()
+        except Exception as e:
+            print(f"Error changing name: {e}")
+        finally:
+            self.close()
 
     def tuple_to_dict(self, user_tuple):
         user_info = user_tuple.fetchone()
@@ -70,29 +92,38 @@ class favorite_recipe(database_base_model):
     def __init__(self, database_name):
         super().__init__(database_name)
         self.establish_connection()
-    
+
     def add_favorite_recipe(self, recipe_name, user_id):
         query = 'insert into Favorite values (?, ?)'
-        self.cursor().execute(query, (user_id, recipe_name))
+        try:
+            self.cursor().execute(query, (user_id, recipe_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error adding favorite recipe: {e}")
+        finally:
+            self.close()
+
     
     # returns a list of the user's favorite recipe
     def display_favorite_recipe(self, id_user):
-        query = 'select id from Favorite'
-        query_2 = 'select * from Favorite where id = ?'
-        data = self.cursor().execute(query)
+        query = 'select Recipe_name from Favorite where id = ?'
+        data = self.cursor().execute(query, (id_user,))
         list_recipes = []
-        for user_id in data.fetchall():
-            if user_id[0] == id_user:
-                recipes = self.cursor().execute(query_2, (id_user,))
-                recipes_fav = recipes.fetchall()
-                for recipe in recipes_fav:
-                    list_recipes.append(recipe[1])
-                return list_recipes
-        return "No favorite recipes"
+        for recipe in data.fetchall():
+            list_recipes.append(recipe[0])
+        return list_recipes
 
-    def remove_favorite_recipe(self, id_user, recipe_name):
+    def remove_favorite_recipe(self, user_id, recipe_name):
         query = 'delete from Favorite where id = ? and Recipe_name = ?'
-        self.cursor().execute(query, (id_user, recipe_name))
+        try:
+            self.cursor().execute(query, (user_id, recipe_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error removing favorite recipe: {e}")
+            # Add additional logging or raise the exception if needed
+        finally:
+            self.close()
+
 
 class shopping_list_database(database_base_model):
     def __init__(self, database_name):
@@ -101,7 +132,13 @@ class shopping_list_database(database_base_model):
     
     def add_item(self, user_id, ingredient_name):
         query = 'insert into ShopList values (?, ?)'
-        self.cursor().execute(query, (user_id, ingredient_name))
+        try:
+            self.cursor().execute(query, (user_id, ingredient_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error adding shopping item: {e}")
+        finally:
+            self.close()
     
     def display_shopping_list(self, user_id):
         query = 'select * from ShopList where UserID = ?'
@@ -114,12 +151,14 @@ class shopping_list_database(database_base_model):
     
     def remove_item(self, user_id, ingredient_name):
         query = 'delete from ShopList where UserID = ? and IngredientName = ?'
-        list_ingredients = self.display_shopping_list(user_id)
-        for ingredient in list_ingredients:
-            if ingredient == ingredient_name:
-                self.cursor().execute(query, (user_id, ingredient_name))
-                return True
-        return False
+        try:
+            self.cursor().execute(query, (user_id, ingredient_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error removing shopping item: {e}")
+            # Add additional logging or raise the exception if needed
+        finally:
+            self.close()
 
         
 class pantry_database(database_base_model):
