@@ -1,0 +1,404 @@
+
+/**
+ * @file
+ * Main stylesheet file.
+ */
+
+
+/*****************************************************************************
+ * Main elements
+ ****************************************************************************/
+html {
+  overflow-y: scroll;
+}
+a {
+  cursor: pointer;
+}
+::selection {
+  background: #555;
+  color: #FFF;
+}
+::-moz-selection {
+  background: #555;
+  color: #FFF;
+}
+::-webkit-selection {
+  background: #555;
+  color: #FFF;
+}
+/* Main elements end */
+
+
+/*****************************************************************************
+ * Various other styles
+ 
+ ****************************************************************************/
+
+/* Various other styles end */
+
+.GreenButton {
+  background-color: #3F704D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.GreenButton:hover {
+  background-color: #4CAF50;
+}
+  a:hover
+{text-decoration: none; }
+.banner {
+  width: 100%;
+  text-align: center;
+  padding: 5px; 
+  margin: 0;
+  box-sizing: border-box;
+}
+.banner img {
+  max-width: 100%;
+  height: 75%;
+  transform: scale(1.2);
+}
+
+.CenteredDivision{
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+.Grey-box {
+  width: 100%; 
+  height: 40px; 
+  background-color: lightgrey; 
+  color: #fff;  
+  border-radius: 10px; 
+  text-align: left; 
+  align-items: center;
+  vertical-align: middle;
+  display: flex;
+  padding-left: 20px;
+}
+.Recipe-Box {
+  width: 100%; 
+  height: 180px; 
+  background-color: #c8ccb4; 
+  color: black;
+  border-radius: 50px; 
+  text-align: center; 
+  align-items: center;
+  vertical-align: middle;
+  padding-left: 140px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.recipe-info {
+  width: 100%; 
+  height: 500px; 
+  background-color: #c8ccb4; 
+  color: black;
+  border-radius: 50px; 
+  vertical-align: middle;
+  padding-left: 140px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.column {
+  float: left;
+  width: 50%;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+body {
+  color: #797979;
+  background: #f1f2f7;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0px !important;
+  margin: 0px !important;
+  font-size: 13px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+}
+
+.container {
+  margin-top: 30px;
+}
+
+.profile-nav {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.panel {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.user-heading {
+  background-color: #3F704D;
+  color: #ffffff;
+  padding: 30px;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+}
+
+.user-heading h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.user-heading p {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.profile-nav ul {
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+.profile-nav ul > li {
+  list-style: none;
+  padding: 10px 0;
+  border-bottom: 1px solid #ebeae6;
+}
+
+.profile-nav ul > li:last-child {
+  border-bottom: none;
+}
+
+.profile-nav ul > li > a {
+  color: #89817f;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.profile-nav ul > li > a:hover,
+.profile-nav ul > li > a:focus {
+  color: #3F704D;
+}
+
+.profile-info {
+  margin-top: 30px;
+}
+
+.bio-graph-heading {
+  background-color: #3F704D;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 4px 4px 0 0;
+}
+
+.bio-graph-heading h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+.bio-row {
+  margin-bottom: 20px;
+}
+
+.bio-row p {
+  margin: 0;
+}
+
+/* Buttons */
+.RedButton {
+  background-color: #E74C3C;
+  color: #ffffff;
+}
+
+button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Recipe Names */
+.recipe-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Margins */
+.row {
+  margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .profile-info {
+    margin-top: 0;
+  }
+}
+
+.activity {
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.activity.alt {
+  width: 100%;
+  float: right;
+  margin-bottom: 10px;
+}
+
+.activity span {
+  float: left;
+}
+
+.activity.alt span {
+  float: right;
+}
+.activity span, .activity.alt span {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  background: #eee;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+}
+
+.activity.terques span {
+  background: #8dd7d6;
+}
+
+.activity.terques h4 {
+  color: #8dd7d6;
+}
+.activity.purple span {
+  background: #b984dc;
+}
+
+.activity.purple h4 {
+  color: #b984dc;
+}
+.activity.blue span {
+  background: #90b4e6;
+}
+
+.activity.blue h4 {
+  color: #90b4e6;
+}
+.activity.green span {
+  background: #aec785;
+}
+
+.activity.green h4 {
+  color: #aec785;
+}
+
+.activity h4 {
+  margin-top:0 ;
+  font-size: 16px;
+}
+
+.activity p {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.activity .activity-desk i, .activity.alt .activity-desk i {
+  float: left;
+  font-size: 18px;
+  margin-right: 10px;
+  color: #bebebe;
+}
+
+.activity .activity-desk {
+  margin-left: 70px;
+  position: relative;
+}
+
+.activity.alt .activity-desk {
+  margin-right: 70px;
+  position: relative;
+}
+
+.activity.alt .activity-desk .panel {
+  float: right;
+  position: relative;
+}
+
+.activity-desk .panel {
+  background: #F4F4F4 ;
+  display: inline-block;
+}
+
+
+.activity .activity-desk .arrow {
+  border-right: 8px solid #F4F4F4 !important;
+}
+.activity .activity-desk .arrow {
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  display: block;
+  height: 0;
+  left: -7px;
+  position: absolute;
+  top: 13px;
+  width: 0;
+}
+
+.activity-desk .arrow-alt {
+  border-left: 8px solid #F4F4F4 !important;
+}
+
+.activity-desk .arrow-alt {
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  display: block;
+  height: 0;
+  right: -7px;
+  position: absolute;
+  top: 13px;
+  width: 0;
+}
+
+.activity-desk .album {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.activity-desk .album a{
+  margin-right: 10px;
+}
+
+.activity-desk .album a:last-child{
+  margin-right: 0px;
+}

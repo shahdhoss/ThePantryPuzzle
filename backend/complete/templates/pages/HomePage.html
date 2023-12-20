@@ -1,0 +1,30 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<div class="banner">
+  <img src="static\img\Food.jpeg" alt="Banner Image">
+</div>
+<br><br>
+<div class="CenteredDivision">
+  <h1 style="color: black; font-size: 56px; font-family: 'Times New Roman', Times, serif;" >All Your Favorite Dishes Are One <br>
+              Click Away</h1> 
+              <br>
+    <br>
+              <a class="GreenButton" type="button" value="Browse" size="40px" style="text-decoration: none;" href="{{ url_for('views.about') }}">Browse Recipes</a>
+</div>
+<br><br><br>
+<div style="text-align: center;">
+  <p>WHAT WE BELIEVE</p>
+  <p>We believe in the ability of cuisines to bring people together </p>
+  <br>
+  <p style="justify-items: center; text-align: left;">
+    Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers. Jicamas. Cauliflowers.
+    Brussels sprouts. Shallots. Japanese eggplants. Asparagus. Radishes. Broccoli. Baby
+    broccoli. Broccolini. Bok choy. Scallions. Ginger. Cherries. Raspberries. Cilantro.
+    Parsley. Dill. Salt. Sugar. Paprika. Black Pepper. Ginger. Onion, and many more are all
+    magical instruments by which mankind has made a plethora of dishes. These dishes
+    have brought people together, and built so many memories, and we mean to make a
+    library to honor them. 
+  </p>
+</div>
+{% endblock %}

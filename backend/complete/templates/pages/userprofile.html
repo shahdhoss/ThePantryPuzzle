@@ -1,0 +1,42 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="profile-nav col-md-3">
+      <div class="panel">
+        <div class="user-heading round">
+          <h1>{{item[3]}} {{item[4]}}</h1>
+          <p>{{item[1]}}</p>
+        </div>
+
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+          <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-info col-md-9">
+      <div class="panel">
+        <div class="bio-graph-heading">
+          <h2>Favorite Recipes</h2>
+        </div>
+        <div class="panel-body bio-graph-info">
+          {% for recipe in favorite_recipes %}
+          <form method="POST" action="{{ url_for('views.remove_favorite', recipe_name=recipe, userid=current_user.id) }}">
+            <div class="row">
+              <div class="col-md-8 bio-row">
+                <p class="recipe-name">{{ recipe }}</p>
+              </div>
+              <div class="col-md-4 bio-row">
+                <button class="GreenButton" type="submit">Unfavorite</button>
+              </div>
+            </div>
+          </form>
+        {% endfor %}        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
