@@ -22,46 +22,19 @@
           <h2>Favorite Recipes</h2>
         </div>
         <div class="panel-body bio-graph-info">
-          <form>
+          {% for recipe in favorite_recipes %}
+          <form method="POST" action="{{ url_for('views.remove_favorite', recipe_name=recipe, userid=current_user.id) }}">
             <div class="row">
               <div class="col-md-8 bio-row">
-                <p class="recipe-name">Chocoalte Waffles</p>
+                <p class="recipe-name">{{ recipe }}</p>
               </div>
               <div class="col-md-4 bio-row">
-                <button class="GreenButton" type="button">Unfavorite</button>
+                <button class="GreenButton" type="submit">Unfavorite</button>
               </div>
             </div>
           </form>
-          <form>
-            <div class="row">
-              <div class="col-md-8 bio-row">
-                <p class="recipe-name">Strawberry Waffles</p>
-              </div>
-              <div class="col-md-4 bio-row">
-                <button class="GreenButton" type="button">Unfavorite</button>
-              </div>
-            </div>
-          </form>
+        {% endfor %}        
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="profile-info col-md-9">
-    <div class="panel">
-      <div class="bio-graph-heading">
-        <h2>Saved Recipes</h2>
-      </div>
-      <div class="panel-body bio-graph-info">
-        <form>
-          <div class="row">
-            <div class="col-md-8 bio-row">
-              <p class="recipe-name">Chocoalte Waffles</p>
-            </div>
-            <div class="col-md-4 bio-row">
-              <button class="RedButton" type="button">Delete</button>
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   </div>
