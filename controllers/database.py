@@ -133,6 +133,8 @@ class shopping_list_database(database_base_model):
     def add_item(self, user_id, ingredient_name):
         query = 'insert into ShopList values (?, ?)'
         try:
+            print("---------------------------------------")
+            print(ingredient_name)
             self.cursor().execute(query, (user_id, ingredient_name))
             self.commit()
         except Exception as e:
