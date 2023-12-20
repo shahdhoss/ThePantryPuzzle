@@ -1,5 +1,5 @@
 {% extends 'layouts/main.html' %}
-{% block title %}Recipes{% endblock %}
+{% block title %}User Info{% endblock %}
 {% block content %}
 <div class="container bootstrap snippets bootdey">
   <div class="row">
@@ -11,8 +11,9 @@
           </div>
   
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
                 <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
             </ul>
         </div>
     </div>

@@ -1,7 +1,13 @@
 import sqlite3
 import json
 
+<<<<<<< HEAD
 connection = sqlite3.connect("F:\Software Project-cloned repo\ThePantryPuzzle\instance\MainDB.db")                                  #add the database name as it is saved on ur laptop
+||||||| 553f084
+connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")                                  #add the database name as it is saved on ur laptop
+=======
+connection = sqlite3.connect("instance\\MainDB.db", timeout=5000)                                  #add the database name as it is saved on ur laptop
+>>>>>>> e464feb2a025ebd7159ba4bbb64756594ff43692
 cursor = connection.cursor() 
 
 # with open('ThePantryPuzzle\json files\ish_queryIngredients.json', 'r') as json_file:     #add ur own json file path
@@ -21,17 +27,6 @@ def insert_recipes_intotable(file):
 cursor.execute("select * from Recipes")       
 mydata=cursor.fetchall()
 #fetch all function gets whats stored in the database
-for i in mydata:             
-    print(i)
-
-# def get_recipeInfo(RecipeN):
-#         cursor.execute("Select Ingredient from Recipes where Recipe_name = ?", ([RecipeN]))
-#         ingredients=cursor.fetchall()
-#         return ingredients
-
-# ingredientss=get_recipeInfo("Meat Loaf")    #choose the recipe that u want to get the ingredients for
-# for ingredient in ingredientss:
-#     print(ingredient)
 
 connection.close()
 

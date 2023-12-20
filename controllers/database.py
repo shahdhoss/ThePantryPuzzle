@@ -137,8 +137,6 @@ class shopping_list_database(database_base_model):
             self.commit()
         except Exception as e:
             print(f"Error adding shopping item: {e}")
-        finally:
-            self.close()
     
     def display_shopping_list(self, user_id):
         query = 'select * from ShopList where UserID = ?'
@@ -157,8 +155,9 @@ class shopping_list_database(database_base_model):
         except Exception as e:
             print(f"Error removing shopping item: {e}")
             # Add additional logging or raise the exception if needed
-        finally:
-            self.close()
+
+    def connection_close(self):
+        self.close()
 
         
 class pantry_database(database_base_model):
