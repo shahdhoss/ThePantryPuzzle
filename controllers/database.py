@@ -78,13 +78,8 @@ class favorite_recipe(database_base_model):
         return "No favorite recipes"
 
     def remove_favorite_recipe(self, id_user, recipe_name):
-        list_recipes = self.display_favorite_recipe(id_user)
         query = 'delete from Favorite where id = ? and Recipe_name = ?'
-        for recipe in list_recipes:
-            if recipe == recipe_name:
-                self.cursor().execute(query, (id_user, recipe_name))
-                return True
-        return False
+        self.cursor().execute(query, (id_user, recipe_name))
 
 class shopping_list_database(database_base_model):
     def __init__(self, database_name):
