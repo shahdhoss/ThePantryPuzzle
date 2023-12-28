@@ -1,5 +1,5 @@
 from database import pantry_database
-mypantry=pantry_database("instance\\MainDB.db")
+mypantry=pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
 
 Recipes_and_Ingredients_Dict={}
 recipe_l = mypantry.return_all_recipe_names()
