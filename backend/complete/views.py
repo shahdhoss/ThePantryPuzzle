@@ -147,7 +147,6 @@ def userprofile(userid):
 def useredit(userid):
     object = user_database("instance\MainDB.db")
     userinfo= object.get_user(int(userid))
-
     return render_template('pages/useredit.html',item=userinfo)
 
 @views.route('/shoplist/<userid>')
@@ -165,18 +164,38 @@ def generateshoplist(userid, rname):
     object=shopping_list_database("instance\MainDB.db")
     for item in ingredientslist:
         object.add_item(userid, item)
-    object = user_database("instance\MainDB.db")
-    userinfo= object.get_user(int(userid))
-    return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=ingredientslist )
+    return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
 def removeshoplistitem(userid, removeingredient):
     object=shopping_list_database("instance\MainDB.db")
     object.remove_item(userid,removeingredient)
     listofingrients=object.display_shopping_list(userid)
+    return shoppinglist(userid)
+
+@views.route('/pantry/<userid>', methods=["POST", "GET"])
+def viewpantry(userid):
     object = user_database("instance\MainDB.db")
     userinfo= object.get_user(int(userid))
-    return render_template('pages/usershoppinglist.html', item=userinfo, shoplist=listofingrients )
+    object = pantry_database("instance\MainDB.db")
+    ingredients= object.display_pantry(userid)
+    autofill = object.ingredient_list()
+    return render_template('pages/pantryprofile.html', item= userinfo, pantrylist=ingredients, autofiller=autofill)
+
+@views.route('/pantryadd/<userid>/', methods=["POST", "GET"])
+def addtopantry(userid):
+    object = pantry_database("instance\MainDB.db")
+    ingredientt= request.form.get("ing")
+    ingredientsinput = ingredientt.split()
+    for item in ingredientsinput:
+        object.insert_into_pantry(userid, item)
+    return viewpantry(userid)
+    
+@views.route('/pantrydelete/<userid>/<ingredients>', methods=["POST", "GET"])
+def remove_from_pantry(userid, ingredients):
+        object= pantry_database("instance\MainDB.db")
+        object.remove_from_pantry(userid,ingredients)
+        return viewpantry(userid)
 
 # Error handlers.
 
