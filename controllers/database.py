@@ -17,6 +17,7 @@ class database_base_model:
         return self.connection.close()
     def commit(self):
         return self.connection.commit()
+
     def fetch_all(self, table_name):
         data = self.cursor().execute(f'select * from {table_name}')
         return data.fetchall()
@@ -106,7 +107,7 @@ class favorite_recipe(database_base_model):
     
     # returns a list of the user's favorite recipe
     def display_favorite_recipe(self, id_user):
-        query = 'select Recipe_name from Favorite where id = ?'
+        query = 'select distinct Recipe_name from Favorite where id = ?'
         data = self.cursor().execute(query, (id_user,))
         list_recipes = []
         for recipe in data.fetchall():
@@ -139,7 +140,7 @@ class shopping_list_database(database_base_model):
             print(f"Error adding shopping item: {e}")
     
     def display_shopping_list(self, user_id):
-        query = 'select * from ShopList where UserID = ?'
+        query = 'select distinct * from ShopList where UserID = ?'
         data = self.cursor().execute(query, (user_id,))
         ingredients_tuple = data.fetchall()
         list_ingredients = []
@@ -176,22 +177,62 @@ class pantry_database(database_base_model):
         cursor=self.cursor().execute("Select Distinct Recipe_name from Recipes")
         recipe_t=cursor.fetchall()                            #recipe list of tuples
         recipe_l=self.l_tuple_to_list(recipe_t)                #list of recipe names
+        cursor.close()
         return recipe_l
     
     def get_similar_recipes(self, recipename):
         cursor=self.cursor().execute("SELECT DISTINCT Recipe_name FROM Recipes WHERE Recipe_name LIKE ?", ('%' + recipename + '%',))
         recipe_t=cursor.fetchall()                          
-        recipe_l=self.l_tuple_to_list(recipe_t)                
+        recipe_l=self.l_tuple_to_list(recipe_t)
+        cursor.close()                
         return recipe_l
     
     def get_recipe_info(self,recipe_n):
-        cursor=self.cursor().execute("Select Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        cursor=self.cursor().execute("Select distinct Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
         ingredients=cursor.fetchall()
         ingredients=self.l_tuple_to_list(ingredients) 
+        cursor.close()
         return ingredients
-    
-    def return_ingredient_list(self):
+    def recipe_ingredient_dict(self):
+        recipes_and_ingredients_dict={}
+        recipe_l=self.return_all_recipe_names()
+        for recipe in recipe_l:
+            ingredients_l=self.get_recipe_info(recipe)
+            recipes_and_ingredients_dict[recipe]=ingredients_l
+        return recipes_and_ingredients_dict
+    def recommend_recipes(self,user_id):
+        recommendedrecipes = []
+        dict=self.recipe_ingredient_dict()
+        for key in dict:
+            available=[]
+            for ingre1 in dict[key]:
+                    for ingre2 in self.display_pantry(user_id):
+                        if ingre1==ingre2:
+                            available.append(ingre1)    
+            if (len(dict[key])-len(available))<=3 :       #if all the ingredients are available in the pantry
+                recommendedrecipes.append(key)
+        return recommendedrecipes
+    def ingredient_list(self):
         cursor=self.cursor().execute("Select Distinct Ingredient from Recipes")
         ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
         ingredients_list=self.l_tuple_to_list(ingredient_list_of_tuples)
+        cursor.close()
         return ingredients_list
+    def display_pantry(self,id):
+        cursor=self.cursor().execute("Select distinct ingredient from Userspantry where User_id=?",(id,))
+        ingredient_tuple=cursor.fetchall()
+        users_ingredients=self.l_tuple_to_list(ingredient_tuple)
+        return users_ingredients
+    def insert_into_pantry(self,user_id,ingredient):
+        all_ingredients= self.ingredient_list()
+        users_pantry=self.display_pantry(user_id)
+        if ingredient in all_ingredients:
+            if ingredient not in users_pantry:
+                self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",(user_id,ingredient))
+                self.commit()
+    def remove_from_pantry(self,user_id,ingredient):
+        users_pantry=self.display_pantry(user_id)
+        if ingredient in users_pantry:
+            self.cursor().execute("delete from Userspantry where User_id = ? and ingredient = ?",(user_id,ingredient))
+            self.commit()
+

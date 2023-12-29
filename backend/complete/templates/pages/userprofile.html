@@ -14,6 +14,7 @@
           <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
           <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
           <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
+          <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
         </ul>
       </div>
     </div>
