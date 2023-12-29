@@ -48,7 +48,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     by verifying reviews before posting them through a captcha verification system.
 
 # Feasibility Matrix
-![Feasibility Matrix](<system_designs\Feasibility Matrix.png>)
+![Feasibility Matrix](<system_designs/Feasibility Matrix.png>)
 
 # Context Diagram
 ![Context Diagram](<system_designs/Context Diagram.png>)
