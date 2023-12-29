@@ -32,8 +32,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
 ```
 
 # Competitve Analysis
-![Competitve Analysis](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Competitive%20Analysis.png>)
-
+![Competitive Analysis](<system_designs/Competitive Analysis.png>)
 # Technical Approach
     Project Setup (MPA):
     Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
@@ -49,13 +48,13 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     by verifying reviews before posting them through a captcha verification system.
 
 # Feasibility Matrix
-![Feasibility Matrix](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Feasibility%20Matrix.png>)
+![Feasibility Matrix](<system_designs/Feasibility Matrix.png>)
 
 # Context Diagram
-![Context Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Context%20Diagram.png>)
+![Context Diagram](<system_designs/Context Diagram.png>)
 
 # Class Diagram
-![Class Diagram](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Class%20Diagram.png>)
+![Class Diagram](<system_designs/Class Diagram.png>)
 
 # Use Case Diagrams
-![Use Case](<https://github.com/malak-elbanna/ThePantryPuzzle/blob/main/System%20Designs/Use%20Case.png>)
+![Use Case](<system_designs/Use Case.png>)
