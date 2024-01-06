@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Blueprint, render_template, request, url_for, redirect, flash
+from flask import Blueprint, render_template, request, url_for, redirect, flash, send_file
 # from flask.ext.sqlalchemy import SQLAlchemy
 import logging
 import sqlalchemy
@@ -11,7 +11,8 @@ from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
 from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe
-
+import base64
+import ipdb
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -113,10 +114,14 @@ def add_favorite(rname):
         object_favorite = favorite_recipe("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
         object_favorite.add_favorite_recipe(rname, user.id)
         return redirect(url_for('views.userprofile', userid=user.id))
+    else:
+        pantry_object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+        image_data = pantry_object.get_recipe_image(rname)
+        if image_data:
+            image = image_data[0]
+            image_data_base64 = base64.b64encode(image).decode('utf-8')
+            return render_template('pages/Recipes.html', image_data_base64=image_data_base64)
     
-    # Handle GET request (if needed)
-    # You can add additional logic for handling GET requests here
-    return render_template('pages/add_favorite.html')  # Example template for GET request
 
 @views.route('/remove_favorite/<recipe_name>', methods=["POST"])
 def remove_favorite(recipe_name):
@@ -127,13 +132,33 @@ def remove_favorite(recipe_name):
 
     return redirect(url_for('views.userprofile', userid=user.id))
 
+@views.route('/get_recipe_image/<rname>', methods=["GET", "POST"])
+def get_recipe_image(rname):
+    pantry_object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    image_data = pantry_object.get_recipe_image(rname)
+
+    if image_data:
+        image = image_data[0]
+        image_data_base64 = base64.b64encode(image).decode('utf-8')
+        return render_template('pages/Recipes.html', image_data_base64=image_data_base64)
+    else:
+        return 'Image not found', 404
+
+    
+
         
 @views.route('/RecipeInfo/<rname>', methods=["POST", "GET"])
 def recipeinfo(rname):
     recipename = rname
     object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredients=object.get_recipe_info(recipename)
-    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename)
+    image_data = object.get_recipe_image(rname)
+    # if image_data:
+    image = image_data[0]
+    image_data_base64 = base64.b64encode(image).decode('utf-8')
+    
+    # image_data = object.get_recipe_image(recipename)
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64)
 
 @views.route('/userprofile/<userid>')
 def userprofile(userid):
@@ -159,11 +184,11 @@ def shoppinglist(userid):
 
 @views.route('/newshoplist/<userid>/<rname>')
 def generateshoplist(userid, rname):
-    object=pantry_database("instance\MainDB.db")
+    object=pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
-    object= pantry_database("instance\MainDB.db")
+    object= pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     present=object.display_pantry(userid)
-    object=shopping_list_database("instance\MainDB.db")
+    object=shopping_list_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
         if item not in present:
             object.add_item(userid, item)

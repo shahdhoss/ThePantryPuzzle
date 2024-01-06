@@ -235,4 +235,16 @@ class pantry_database(database_base_model):
         if ingredient in users_pantry:
             self.cursor().execute("delete from Userspantry where User_id = ? and ingredient = ?",(user_id,ingredient))
             self.commit()
+    def get_recipe_image(self, recipe_name):
+        image_data = self.cursor().execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
+        print(image_data)
+        return image_data
 
+# database_connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+# cursor = database_connection.cursor()
+# recipe_name = 'Meat Stock'
+# image = cursor.execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
+# print(image[0])
+
+# database_connection.commit()
+# database_connection.close()
