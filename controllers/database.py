@@ -263,7 +263,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("instance\MainDB.db")
+        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
@@ -283,24 +283,3 @@ class reviews_database(database_base_model):
     
     def connection_close(self):
         self.close()
-
-
-# reviews = reviews_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-
-# reviews.establish_connection()
-
-
-# # reviews.add_review(1, "wow amazing", "Meat Stock")
-# # reviews.add_review(2, "amazing", "Meat Stock")
-# # reviews.add_review(3, "wow", "Meat Stock")
-# # reviews.add_review(1, "wow amazing", "Homemade Meat Broth")
-# reviews.edit_review(1, "Meat Stock", "yaaaa3")
-# # reviews.remove_review(1, "Meat Stock")
-# data = reviews.display_review("Meat Stock")
-# for item in data:
-#     print(item[0])
-#     print(item[1])
-
-
-# reviews.commit()
-# reviews.close()
