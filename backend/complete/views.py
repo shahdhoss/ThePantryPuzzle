@@ -195,12 +195,9 @@ def shoppinglist(userid):
 def generateshoplist(userid, rname):
     object=pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
-    object= pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-    present=object.display_pantry(userid)
     object=shopping_list_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
-        if item not in present:
-            object.add_item(userid, item)
+        object.add_item(userid, item)
     return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
