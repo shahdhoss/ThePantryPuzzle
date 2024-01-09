@@ -10,13 +10,14 @@ import sqlite3
 from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
-from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe
+from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database
 import base64
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
 views = Blueprint('views', __name__)
+
 
 #db = SQLAlchemy(app)
 
@@ -149,15 +150,22 @@ def get_recipe_image(rname):
 @views.route('/RecipeInfo/<rname>', methods=["POST", "GET"])
 def recipeinfo(rname):
     recipename = rname
-    object = pantry_database("instance/MainDB.db")
+    form = Reviews()
+    reviews_db = reviews_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    if form.validate_on_submit():
+        review_text = form.review.data
+        user_id = current_user.id if current_user.is_authenticated else None
+        reviews_db.add_review(user_id, review_text, recipename)
+        return redirect(url_for('views.recipeinfo', rname=recipename))
+
+    object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredients=object.get_recipe_info(recipename)
     image_data = object.get_recipe_image(rname)
-    # if image_data:
+    review_list = reviews_db.display_review(rname)
     image = image_data[0]
     image_data_base64 = base64.b64encode(image).decode('utf-8')
-    
-    # image_data = object.get_recipe_image(recipename)
-    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64)
+
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64, form=form, review_list=review_list)
 
 @views.route('/userprofile/<userid>')
 def userprofile(userid):
@@ -189,8 +197,7 @@ def generateshoplist(userid, rname):
     present=object.display_pantry(userid)
     object=shopping_list_database("instance/MainDB.db")
     for item in ingredientslist:
-        if item not in present:
-            object.add_item(userid, item)
+        object.add_item(userid, item)
     return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
@@ -224,9 +231,16 @@ def remove_from_pantry(userid, ingredients):
         object.remove_from_pantry(userid,ingredients)
         return viewpantry(userid)
 
+
+# @views.route('/reviews', methods=['GET', 'POST'])
+# def reviews():
+#     form = Reviews()
+#     if form.validate_on_submit():
+#         return "Success"
+#     return render_template("pages/RecipeInfo.html", form=form)
+
+
 # Error handlers.
-
-
 @views.errorhandler(500)
 def internal_error(error):
     #db_session.rollback()

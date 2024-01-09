@@ -237,14 +237,61 @@ class pantry_database(database_base_model):
             self.commit()
     def get_recipe_image(self, recipe_name):
         image_data = self.cursor().execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
-        print(image_data)
         return image_data
 
-# database_connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-# cursor = database_connection.cursor()
-# recipe_name = 'Meat Stock'
-# image = cursor.execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
-# print(image[0])
 
-# database_connection.commit()
-# database_connection.close()
+class reviews_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    
+    def add_review(self, user_id, review, recipe_name):
+        query = "insert into Reviews values (?, ?, ?)"
+        try:
+            self.cursor().execute(query, (user_id, review, recipe_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error adding review: {e}")
+    
+    def remove_review(self, user_id, recipe_name):
+        query = "delete from Reviews where User_ID = ? and Recipe_Name = ?"
+        try:
+            self.cursor().execute(query, (user_id, recipe_name))
+        except Exception as e:
+            print(f"error removing reviews: {e}")
+    
+    def display_review(self, recipe_name):
+        query = "select comment from Reviews where Recipe_Name = ?"
+        data = self.cursor().execute(query, (recipe_name,)).fetchall()
+        list_reviews = []
+        for review in data:
+            list_reviews.append(review[0])
+        return list_reviews
+
+    def edit_review(self, user_id, recipe_name, new_review):
+        query = "update Reviews set comment = ? where User_ID = ? and Recipe_Name = ?"
+        try:
+            self.cursor().execute(query, (new_review, user_id, recipe_name))
+        except Exception as e:
+            print(f"error editing review: {e}")
+    
+    def connection_close(self):
+        self.close()
+
+
+# reviews = reviews_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+
+# reviews.establish_connection()
+
+
+# # reviews.add_review(1, "wow amazing", "Meat Stock")
+# # reviews.add_review(2, "amazing", "Meat Stock")
+# # reviews.add_review(3, "wow", "Meat Stock")
+# # reviews.add_review(1, "wow amazing", "Homemade Meat Broth")
+# reviews.edit_review(1, "Meat Stock", "yaaaa3")
+# # reviews.remove_review(1, "Meat Stock")
+# print(reviews.display_review("Meat Stock"))
+
+
+# reviews.commit()
+# reviews.close()

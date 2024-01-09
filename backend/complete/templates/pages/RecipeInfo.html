@@ -3,6 +3,45 @@
 {% block content %}
 <br><br>
 <br>
+<style>
+  .form-label {
+      font-size: 24px;
+      color: #333; 
+  }
+  .reviews-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .review-block {
+        background-color: #f8f8f8; /* Set your desired background color */
+        border: 1px solid #ddd; /* Set your desired border color */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;}
+    
+  .form-control {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 1.5;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-control:focus {
+      border-color: #80bdff; 
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); 
+  }
+  .comment-section {
+        display: flex;
+        align-items: flex-start;
+    }
+
+</style>
+
 <div class="recipe-info" style="padding-left: 10%; padding-right: 10%;">
 
   <h2 style="font-size: 2.5rem; text-align: center; justify-content: center;"> {{Recipe}} </h2>
@@ -28,7 +67,30 @@
 </div>
 <br><br>
 
-
-<a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center;" href="{{ url_for('views.about') }}">Back</a>
-<a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center;" href="{{ url_for('views.generateshoplist', userid=current_user.id, rname=Recipe)}}">Generate Shopping List</a>
+<div style="height: 10px;"></div>
+<div class="comment-section" style="">
+  <div class="form-floating mt-5">
+  <form method="post">
+    {{form.csrt_token}}
+    {{form.hidden_tag()}}
+    <div class="mb-3">
+      {{ form.review.label(class="form-label") }}
+      {{ form.review(size=20, class="form-control", style="width: 250px;") }}
+    </div> <br>
+    {{form.recaptcha}}
+    <button class="GreenButton" style="display: inline-block; color: white;">Add Comment</button>
+  </form>
+  </div>   
+</div>
+<div style="height: 30px;"></div>
+<div class="reviews-container" style="margin-left: 10px;">
+  {% for review in review_list %}
+      <div class="review-block">
+          <label style="text-align: center; font-size: 16px;"> {{ review }}</label>
+      </div>
+  {% endfor %}
+</div>
+<div style="height: 30px;"></div>
+<a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center; color: white;" href="{{ url_for('views.about') }}">Back</a>
+<a class="GreenButton" type="button" style="text-align: center; align-items: center; font-size: 2.5rem; align-self: center; color: white;" href="{{ url_for('views.generateshoplist', userid=current_user.id, rname=Recipe)}}">Generate Shopping List</a>
 {% endblock %}
