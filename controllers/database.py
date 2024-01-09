@@ -208,8 +208,9 @@ class pantry_database(database_base_model):
             for ingre1 in dict[key]:
                     for ingre2 in self.display_pantry(user_id):
                         if ingre1==ingre2:
-                            available.append(ingre1)    
-            if (len(dict[key])-len(available))<=3 :       #if all the ingredients are available in the pantry
+                            available.append(ingre1)
+            intersection = set(available) & set(dict[key])
+            if (len(dict[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
         return recommendedrecipes
     def ingredient_list(self):
@@ -263,7 +264,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
+        tempobject=user_database("instance\MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
