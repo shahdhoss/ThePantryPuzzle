@@ -66,11 +66,11 @@
 
 </div>
 <br><br>
-
+<h1>{{current_user.id}}</h1>
 <div style="height: 10px;"></div>
 <div class="comment-section" style="">
   <div class="form-floating mt-5">
-  <form method="post" action="{{ url_for('views.recipeinfo', rname=Recipe, userid=current_user.id) }}">
+  <form method="post" action="{{ url_for('views.recipeinfo', rname=Recipe, userid= current_user.id) }}">
     {{form.csrt_token}}
     {{form.hidden_tag()}}
     <div class="mb-3">
