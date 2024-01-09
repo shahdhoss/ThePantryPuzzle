@@ -1,5 +1,4 @@
 import sqlite3
-
 class database_base_model:
     def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
         listt =[]
@@ -39,7 +38,7 @@ class user_database(database_base_model):
         return True
     
     def get_user(self, user_id):
-        query = f'Select * from User where id = {user_id}'
+        query = f"Select * from User where id = '{user_id}'"
         cursor=self.cursor().execute(query)
         data=cursor.fetchall()                          
         data=self.l_tuple_to_list(data)                
@@ -246,7 +245,6 @@ class pantry_database(database_base_model):
             self.commit()
     def get_recipe_image(self, recipe_name):
         image_data = self.cursor().execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
-        print(image_data)
         return image_data
     def get_recipe_directions(self,recipe_n):
         cursor=self.cursor().execute("Select distinct Instruction from Instructions where Recipe_name = ?", ([recipe_n]))
@@ -280,11 +278,47 @@ print(user.is_chef('12'))
 #fetch all function gets whats stored in the database
 
 
-# database_connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-# cursor = database_connection.cursor()
-# recipe_name = 'Meat Stock'
-# image = cursor.execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
-# print(image[0])
 
-# database_connection.commit()
-# database_connection.close()
+class reviews_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    
+    def add_review(self, user_id, review, recipe_name):
+        query = "insert into Reviews values (?, ?, ?)"
+        try:
+            self.cursor().execute(query, (user_id, review, recipe_name))
+            self.commit()
+        except Exception as e:
+            print(f"Error adding review: {e}")
+    
+    def remove_review(self, user_id, recipe_name):
+        query = "delete from Reviews where User_ID = ? and Recipe_Name = ?"
+        try:
+            self.cursor().execute(query, (user_id, recipe_name))
+        except Exception as e:
+            print(f"error removing reviews: {e}")
+    
+    def display_review(self, recipe_name):
+        query = "select User_ID, comment from Reviews where Recipe_Name = ?"
+        data = self.cursor().execute(query, (recipe_name,)).fetchall()
+        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
+        finaltuple=()
+        listfadya=[]
+        for items in data:
+            temp = tempobject.get_user(items[0])
+            finaltuple = (temp[3], items[1])
+            listfadya.append(finaltuple)
+        print(listfadya)
+        return listfadya
+        
+
+    def edit_review(self, user_id, recipe_name, new_review):
+        query = "update Reviews set comment = ? where User_ID = ? and Recipe_Name = ?"
+        try:
+            self.cursor().execute(query, (new_review, user_id, recipe_name))
+        except Exception as e:
+            print(f"error editing review: {e}")
+    
+    def connection_close(self):
+        self.close()

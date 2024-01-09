@@ -33,6 +33,17 @@
 <!--[if lt IE 9]><script src="/static/js/libs/respond-1.4.2.min.js"></script><![endif]-->
 <!-- /scripts -->
 
+<style>
+  .btn.btn-success {
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  .btn.btn-success:hover {
+      background-color: #3F704D;
+      color: #fff;
+  }
+</style>
+
 </head>
 <body>
 
@@ -54,6 +65,7 @@
           <ul class="nav navbar-nav">
             <li {% if request.endpoint == 'views.home' %} class="active" {% endif %}><a href="{{ url_for('views.home') }}">Home</a></li>
             <li {% if request.endpoint == 'views.about' %} class="active" {% endif %}><a href="{{ url_for('views.about') }}">Recipes</a></li>
+            <li {% if request.endpoint == 'views.faqs' %} class="active" {% endif %}><a href="{{ url_for('views.faqs') }}">FAQs</a></li>
             <!-- <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -75,6 +87,9 @@
             <li><a href="{{ url_for('auth.signup') }}" style="color: #3F704D;">Signup</a></li>
             <li><a href="{{ url_for('auth.login') }}" style="color: #3F704D;">Login</a></li>
           {%endif%}
+            <li>
+              <a href="mailto:malakelbanna2004@gmail.com" style="border-radius: 20px; padding: 10px 20px; margin-top: 4px; color: #3F704D;">Email Us</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

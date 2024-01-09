@@ -37,24 +37,16 @@ rel="stylesheet" type="text/css" />
         </div>
         <div class="row">
         <div class="panel-body bio-graph-info">
-                <form method="POST" action="{{ url_for('views.addtopantry', userid=current_user.id) }}">
-                    <input type="text" style="color: black;" class="Grey-box" placeholder="Ingredient..." name="ing" id="ing ">
+                  <form method="POST" action="{{ url_for('views.addtopantry', userid=current_user.id) }}">
+                    <input type="text" style="color: black;" class="Grey-box" placeholder="Ingredient..." name="ing" id="ing" list="ingredients">
                 </form>
-                <script> 
-                  $( function() { 
-                    var availableTags = [ 
-                        {% for fill in autofiller %} 
-                            "{{fill}}", 
-                        {% endfor %} 
-                    ]; 
-                    $( "#ing" ).autocomplete({ 
-                      source: availableTags 
-                    }); 
-                  } ); 
-                  </script> 
                 <br><br>
+                <datalist id="ingredients">
+                    {% for Ing1 in ingr %}
+                        <option value="{{ Ing1 }}" />
+                    {% endfor %}
+                </datalist>
                 {% for K in pantrylist %}
-                
                 <form method="POST" action="{{ url_for('views.remove_from_pantry',userid=current_user.id, ingredients= K) }}">
                   <div class="row">
                     <div class="col-md-8 bio-row">
@@ -65,8 +57,10 @@ rel="stylesheet" type="text/css" />
                     </div>
                   </div>
                 </form>
-
                 {%endfor%}
+                <form method="POST" action="{{ url_for('views.pantrysearch', userid=current_user.id) }}">
+                  <button class="GreenButton" type="submit" style="text-align: center; align-items: center; font-size: 2.5rem;">Search with Pantry</button>
+                </form>
             </div>
         </div>
       </div>

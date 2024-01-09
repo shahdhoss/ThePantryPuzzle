@@ -1,5 +1,4 @@
 import sqlite3
-
 connection = sqlite3.connect("ThePantryPuzzle\instance\MainDB.db")                                 
 cursor = connection.cursor() 
 
