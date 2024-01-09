@@ -263,11 +263,16 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        # list_reviews = []
-        # for review in data:
-        #     list_reviews.append(review[0])
-        # return list_reviews
-        return data
+        tempobject=user_database("instance\MainDB.db")
+        finaltuple=()
+        listfadya=[]
+        for items in data:
+            temp = tempobject.get_user(items[0])
+            finaltuple = (temp[3], items[1])
+            listfadya.append(finaltuple)
+        print(listfadya)
+        return listfadya
+        
 
     def edit_review(self, user_id, recipe_name, new_review):
         query = "update Reviews set comment = ? where User_ID = ? and Recipe_Name = ?"
