@@ -13,9 +13,8 @@ from flask_login import login_required, current_user, logout_user
 from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database
 from Models.validation import Reviews
 import base64
-import ipdb
-from models.validation import Reviews
-from urllib.parse import quote
+#from models.validation import Reviews
+#from urllib.parse import quote
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -52,6 +51,11 @@ def login_required(test):
 # @login_required
 def home():
     return render_template('pages/HomePage.html',  user=current_user)
+
+@views.route('/FAQs')
+# @login_required
+def faqs():
+    return render_template('pages/FAQs.html',  user=current_user)
 
 @views.route('/Recipes', methods=["POST", "GET"])
 def about():
