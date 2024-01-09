@@ -11,6 +11,7 @@ from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
 from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database
+from Models.validation import Reviews
 import base64
 import ipdb
 from models.validation import Reviews
@@ -199,6 +200,7 @@ def shoppinglist(userid):
 def generateshoplist(userid, rname):
     object=pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
+    object= pantry_database("instance/MainDB.db")
     present=object.display_pantry(userid)
     object_shop=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
@@ -221,7 +223,7 @@ def viewpantry(userid):
     object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredients= object.display_pantry(userid)
     autofill = object.ingredient_list()
-    return render_template('pages/pantryprofile.html', item= userinfo, pantrylist=ingredients, autofiller=autofill)
+    return render_template('pages/pantryprofile.html', item= userinfo, pantrylist=ingredients, ingr=autofill)
 
 @views.route('/pantryadd/<userid>/', methods=["POST", "GET"])
 @login_required
@@ -239,6 +241,14 @@ def remove_from_pantry(userid, ingredients):
         object= pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
         object.remove_from_pantry(userid,ingredients)
         return viewpantry(userid)
+
+@views.route('/pantrysearch/<userid>', methods=["POST", "GET"])
+def pantrysearch(userid):
+        object= pantry_database("instance\MainDB.db")
+        Recipesfrompantry= object.recommend_recipes(userid)
+        return render_template('pages/pantryRecipes.html',recipelist=Recipesfrompantry)
+
+
 
 
 # @views.route('/reviews', methods=['GET', 'POST'])
