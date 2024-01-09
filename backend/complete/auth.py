@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .extensions import db
 from .models import User
@@ -59,7 +60,7 @@ def signup():
             flash('Password must be at least 7 characters.', category='error')
         else:
             print("hello, world!")
-            new_user = User(email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name= last_name, isChef = isChef)
+            new_user = User(id=str(uuid.uuid4()), email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name=last_name, isChef=isChef)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
