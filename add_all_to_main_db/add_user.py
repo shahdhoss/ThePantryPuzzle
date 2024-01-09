@@ -1,9 +1,9 @@
 import sqlite3
 
-connection = sqlite3.connect("instance/MainDB.db")
+connection = sqlite3.connect("ThePantryPuzzle\\instance\\MainDB.db")
 cursor = connection.cursor()
 
-cursor.execute('DROP TABLE IF EXISTS User')
+# cursor.execute('DROP TABLE User')
 
 table = '''CREATE TABLE User (
                 id VARCHAR(36) PRIMARY KEY,

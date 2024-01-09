@@ -70,7 +70,7 @@
 <div style="height: 10px;"></div>
 <div class="comment-section" style="">
   <div class="form-floating mt-5">
-  <form method="post">
+  <form method="post" action="{{ url_for('views.recipeinfo', rname=Recipe, userid=current_user.id) }}">
     {{form.csrt_token}}
     {{form.hidden_tag()}}
     <div class="mb-3">
@@ -86,7 +86,7 @@
 <div class="reviews-container" style="margin-left: 10px;">
   {% for review in review_list %}
       <div class="review-block">
-          <label style="text-align: center; font-size: 16px;"> {{ review }}</label>
+          <label style="text-align: center; font-size: 16px;">{{review[0]}} : {{review[1]}}</label>
       </div>
   {% endfor %}
 </div>

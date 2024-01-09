@@ -13,6 +13,9 @@ from flask_login import login_required, current_user, logout_user
 from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database
 from Models.validation import Reviews
 import base64
+import ipdb
+from models.validation import Reviews
+from urllib.parse import quote
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -52,7 +55,7 @@ def home():
 
 @views.route('/Recipes', methods=["POST", "GET"])
 def about():
-    object = pantry_database("instance\MainDB.db")
+    object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     if request.method == "GET":
         recipes= object.return_all_recipe_names()
         return render_template('pages/Recipes.html', recipelist=recipes)
@@ -64,7 +67,7 @@ def about():
 
 @views.route('/delete_account/<userid>', methods=["POST"])
 def delete_account(userid):
-    user_db = user_database("instance\MainDB.db")
+    user_db = user_database("ThePantryPuzzle\\instance\\MainDB.db")
     result = user_db.delete_user(userid)
 
     if result == "User deleted":
@@ -77,7 +80,7 @@ def delete_account(userid):
 
 @views.route('/change_name/<userid>', methods=["POST"])
 def change_name(userid):
-    user_db = user_database("instance\MainDB.db")
+    user_db = user_database("ThePantryPuzzle\\instance\\MainDB.db")
 
     if request.method == 'POST':
         new_firstname = request.form.get("new_firstname")
@@ -93,7 +96,7 @@ def change_name(userid):
 
 @views.route('/change_password/<userid>', methods=["POST"])
 def change_password(userid):
-    user_db = user_database("instance\MainDB.db")
+    user_db = user_database("ThePantryPuzzle\\instance\\MainDB.db")
 
     if request.method == 'POST':
         new_password = request.form.get("new_password")
@@ -112,11 +115,11 @@ def change_password(userid):
 def add_favorite(rname):
     user = current_user 
     if request.method == 'POST':
-        object_favorite = favorite_recipe("instance\MainDB.db")
+        object_favorite = favorite_recipe("ThePantryPuzzle\\instance\\MainDB.db")
         object_favorite.add_favorite_recipe(rname, user.id)
         return redirect(url_for('views.userprofile', userid=user.id))
     else:
-        pantry_object = pantry_database("instance\MainDB.db")
+        pantry_object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
         image_data = pantry_object.get_recipe_image(rname)
         if image_data:
             image = image_data[0]
@@ -128,14 +131,14 @@ def add_favorite(rname):
 def remove_favorite(recipe_name):
     user = current_user
     if request.method == 'POST':
-        object_favorite = favorite_recipe("instance\MainDB.db")
+        object_favorite = favorite_recipe("ThePantryPuzzle\\instance\\MainDB.db")
         object_favorite.remove_favorite_recipe(user.id, recipe_name)
 
     return redirect(url_for('views.userprofile', userid=user.id))
 
 @views.route('/get_recipe_image/<rname>', methods=["GET", "POST"])
 def get_recipe_image(rname):
-    pantry_object = pantry_database("instance\MainDB.db")
+    pantry_object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     image_data = pantry_object.get_recipe_image(rname)
 
     if image_data:
@@ -148,31 +151,30 @@ def get_recipe_image(rname):
     
 
         
-@views.route('/RecipeInfo/<rname>', methods=["POST", "GET"])
-def recipeinfo(rname):
-    recipename = rname
+@views.route('/RecipeInfo/<rname>/<userid>', methods=["POST", "GET"])
+def recipeinfo(rname, userid):
     form = Reviews()
-    reviews_db = reviews_database("instance\MainDB.db")
+    reviews_db = reviews_database("ThePantryPuzzle\\instance\\MainDB.db")
     if form.validate_on_submit():
         review_text = form.review.data
-        user_id = current_user.id if current_user.is_authenticated else None
-        reviews_db.add_review(user_id, review_text, recipename)
-        return redirect(url_for('views.recipeinfo', rname=recipename))
+        # user_id = current_user.id if current_user.is_authenticated else None
+        reviews_db.add_review(userid, review_text, rname)
+        return redirect(url_for('views.recipeinfo', rname=rname, userid=userid))
 
-    object = pantry_database("instance\MainDB.db")
-    ingredients=object.get_recipe_info(recipename)
+    object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
+    ingredients=object.get_recipe_info(rname)
     image_data = object.get_recipe_image(rname)
     review_list = reviews_db.display_review(rname)
     image = image_data[0]
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
-    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64, form=form, review_list=review_list)
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname, image_data_base64=image_data_base64, form=form, review_list=review_list)
 
 @views.route('/userprofile/<userid>')
 @login_required
 def userprofile(userid):
-    object = user_database("instance\MainDB.db")
-    favorite_recipe_instance = favorite_recipe("instance\MainDB.db")
+    object = user_database("ThePantryPuzzle\\instance\\MainDB.db")
+    favorite_recipe_instance = favorite_recipe("ThePantryPuzzle\\instance\\MainDB.db")
     userinfo= object.get_user(userid)
     favorite_recipes = favorite_recipe_instance.display_favorite_recipe(userid)
     return render_template('pages/userprofile.html', item=userinfo, favorite_recipes=favorite_recipes)
@@ -180,35 +182,35 @@ def userprofile(userid):
 @views.route('/useredit/<userid>')
 @login_required
 def useredit(userid):
-    object = user_database("instance\MainDB.db")
+    object = user_database("ThePantryPuzzle\\instance\\MainDB.db")
     userinfo= object.get_user(userid)
     return render_template('pages/useredit.html',item=userinfo)
 
 @views.route('/shoplist/<userid>')
 @login_required
 def shoppinglist(userid):
-    object=shopping_list_database("instance\MainDB.db")
+    object=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     listofingrients=object.display_shopping_list(userid)
-    object = user_database("instance\MainDB.db")
+    object = user_database("ThePantryPuzzle\\instance\\MainDB.db")
     userinfo= object.get_user(userid)
     return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
 @views.route('/newshoplist/<userid>/<rname>')
 @login_required
 def generateshoplist(userid, rname):
-    object=pantry_database("instance\MainDB.db")
+    object=pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
-    object= pantry_database("instance\MainDB.db")
+    object= pantry_database("instance/MainDB.db")
     present=object.display_pantry(userid)
-    object=shopping_list_database("instance\MainDB.db")
+    object_shop=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
-        object.add_item(userid, item)
+        object_shop.add_item(userid, item)
     return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
 @login_required
 def removeshoplistitem(userid, removeingredient):
-    object=shopping_list_database("instance\MainDB.db")
+    object=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     object.remove_item(userid,removeingredient)
     listofingrients=object.display_shopping_list(userid)
     return shoppinglist(userid)
@@ -216,9 +218,9 @@ def removeshoplistitem(userid, removeingredient):
 @views.route('/pantry/<userid>', methods=["POST", "GET"])
 @login_required
 def viewpantry(userid):
-    object = user_database("instance\MainDB.db")
+    object = user_database("ThePantryPuzzle\\instance\\MainDB.db")
     userinfo= object.get_user(userid)
-    object = pantry_database("instance\MainDB.db")
+    object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredients= object.display_pantry(userid)
     autofill = object.ingredient_list()
     return render_template('pages/pantryprofile.html', item= userinfo, pantrylist=ingredients, ingr=autofill)
@@ -226,7 +228,7 @@ def viewpantry(userid):
 @views.route('/pantryadd/<userid>/', methods=["POST", "GET"])
 @login_required
 def addtopantry(userid):
-    object = pantry_database("instance\MainDB.db")
+    object = pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredientt= request.form.get("ing")
     ingredientsinput = ingredientt.split()
     for item in ingredientsinput:
@@ -236,7 +238,7 @@ def addtopantry(userid):
 @views.route('/pantrydelete/<userid>/<ingredients>', methods=["POST", "GET"])
 @login_required
 def remove_from_pantry(userid, ingredients):
-        object= pantry_database("instance\MainDB.db")
+        object= pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
         object.remove_from_pantry(userid,ingredients)
         return viewpantry(userid)
 
