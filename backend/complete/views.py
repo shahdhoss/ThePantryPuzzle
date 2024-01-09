@@ -14,6 +14,7 @@ from controllers.database import pantry_database, shopping_list_database, user_d
 import base64
 import ipdb
 from models.validation import Reviews
+from urllib.parse import quote
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -187,17 +188,17 @@ def useredit(userid):
 def shoppinglist(userid):
     object=shopping_list_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     listofingrients=object.display_shopping_list(userid)
-    object = user_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
-    userinfo= object.get_user(int(userid))
+    object_user = user_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    userinfo= object_user.get_user(int(userid))
     return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
 @views.route('/newshoplist/<userid>/<rname>')
 def generateshoplist(userid, rname):
     object=pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
-    object=shopping_list_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
+    object_shop=shopping_list_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
-        object.add_item(userid, item)
+        object_shop.add_item(userid, item)
     return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
