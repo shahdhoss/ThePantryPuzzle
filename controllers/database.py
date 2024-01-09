@@ -261,12 +261,13 @@ class reviews_database(database_base_model):
             print(f"error removing reviews: {e}")
     
     def display_review(self, recipe_name):
-        query = "select comment from Reviews where Recipe_Name = ?"
+        query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        list_reviews = []
-        for review in data:
-            list_reviews.append(review[0])
-        return list_reviews
+        # list_reviews = []
+        # for review in data:
+        #     list_reviews.append(review[0])
+        # return list_reviews
+        return data
 
     def edit_review(self, user_id, recipe_name, new_review):
         query = "update Reviews set comment = ? where User_ID = ? and Recipe_Name = ?"
@@ -290,7 +291,10 @@ class reviews_database(database_base_model):
 # # reviews.add_review(1, "wow amazing", "Homemade Meat Broth")
 # reviews.edit_review(1, "Meat Stock", "yaaaa3")
 # # reviews.remove_review(1, "Meat Stock")
-# print(reviews.display_review("Meat Stock"))
+# data = reviews.display_review("Meat Stock")
+# for item in data:
+#     print(item[0])
+#     print(item[1])
 
 
 # reviews.commit()
