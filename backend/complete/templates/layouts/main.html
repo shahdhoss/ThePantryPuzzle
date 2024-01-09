@@ -33,6 +33,17 @@
 <!--[if lt IE 9]><script src="/static/js/libs/respond-1.4.2.min.js"></script><![endif]-->
 <!-- /scripts -->
 
+<style>
+  .btn.btn-success {
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  .btn.btn-success:hover {
+      background-color: #3F704D;
+      color: #fff;
+  }
+</style>
+
 </head>
 <body>
 
@@ -75,6 +86,9 @@
             <li><a href="{{ url_for('auth.signup') }}" style="color: #3F704D;">Signup</a></li>
             <li><a href="{{ url_for('auth.login') }}" style="color: #3F704D;">Login</a></li>
           {%endif%}
+            <li>
+              <a href="mailto:malakelbanna2004@gmail.com" class="btn btn-success" style="border-radius: 20px; padding: 10px 20px; margin-top: 8px;">Email Us</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
