@@ -65,6 +65,7 @@
           <ul class="nav navbar-nav">
             <li {% if request.endpoint == 'views.home' %} class="active" {% endif %}><a href="{{ url_for('views.home') }}">Home</a></li>
             <li {% if request.endpoint == 'views.about' %} class="active" {% endif %}><a href="{{ url_for('views.about') }}">Recipes</a></li>
+            <li {% if request.endpoint == 'views.faqs' %} class="active" {% endif %}><a href="{{ url_for('views.faqs') }}">FAQs</a></li>
             <!-- <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
