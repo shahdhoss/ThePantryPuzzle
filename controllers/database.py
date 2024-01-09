@@ -237,7 +237,6 @@ class pantry_database(database_base_model):
             self.commit()
     def get_recipe_image(self, recipe_name):
         image_data = self.cursor().execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
-        print(image_data)
         return image_data
 
 

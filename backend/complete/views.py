@@ -153,21 +153,21 @@ def get_recipe_image(rname):
 def recipeinfo(rname):
     recipename = rname
     form = Reviews()
+    reviews_db = reviews_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     if form.validate_on_submit():
         review_text = form.review.data
         user_id = current_user.id if current_user.is_authenticated else None
-        reviews_db = reviews_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
         reviews_db.add_review(user_id, review_text, recipename)
         return redirect(url_for('views.recipeinfo', rname=recipename))
 
     object = pantry_database("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
     ingredients=object.get_recipe_info(recipename)
     image_data = object.get_recipe_image(rname)
-
+    review_list = reviews_db.display_review(rname)
     image = image_data[0]
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
-    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64, form=form)
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64, form=form, review_list=review_list)
 
 @views.route('/userprofile/<userid>')
 def userprofile(userid):
