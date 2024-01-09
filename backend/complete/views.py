@@ -169,6 +169,7 @@ def recipeinfo(rname):
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=recipename, image_data_base64=image_data_base64, form=form, review_list=review_list)
 
 @views.route('/userprofile/<userid>')
+@login_required
 def userprofile(userid):
     object = user_database("instance\MainDB.db")
     favorite_recipe_instance = favorite_recipe("instance\MainDB.db")
@@ -177,12 +178,14 @@ def userprofile(userid):
     return render_template('pages/userprofile.html', item=userinfo, favorite_recipes=favorite_recipes)
 
 @views.route('/useredit/<userid>')
+@login_required
 def useredit(userid):
     object = user_database("instance\MainDB.db")
     userinfo= object.get_user(userid)
     return render_template('pages/useredit.html',item=userinfo)
 
 @views.route('/shoplist/<userid>')
+@login_required
 def shoppinglist(userid):
     object=shopping_list_database("instance\MainDB.db")
     listofingrients=object.display_shopping_list(userid)
@@ -191,6 +194,7 @@ def shoppinglist(userid):
     return render_template('pages/usershoppinglist.html',item=userinfo, shoplist=listofingrients)
 
 @views.route('/newshoplist/<userid>/<rname>')
+@login_required
 def generateshoplist(userid, rname):
     object=pantry_database("instance\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
@@ -202,6 +206,7 @@ def generateshoplist(userid, rname):
     return shoppinglist(userid)
 
 @views.route('/removeshoplist/<userid>/<removeingredient>')
+@login_required
 def removeshoplistitem(userid, removeingredient):
     object=shopping_list_database("instance\MainDB.db")
     object.remove_item(userid,removeingredient)
@@ -209,6 +214,7 @@ def removeshoplistitem(userid, removeingredient):
     return shoppinglist(userid)
 
 @views.route('/pantry/<userid>', methods=["POST", "GET"])
+@login_required
 def viewpantry(userid):
     object = user_database("instance\MainDB.db")
     userinfo= object.get_user(userid)
@@ -218,6 +224,7 @@ def viewpantry(userid):
     return render_template('pages/pantryprofile.html', item= userinfo, pantrylist=ingredients, ingr=autofill)
 
 @views.route('/pantryadd/<userid>/', methods=["POST", "GET"])
+@login_required
 def addtopantry(userid):
     object = pantry_database("instance\MainDB.db")
     ingredientt= request.form.get("ing")
@@ -227,6 +234,7 @@ def addtopantry(userid):
     return viewpantry(userid)
     
 @views.route('/pantrydelete/<userid>/<ingredients>', methods=["POST", "GET"])
+@login_required
 def remove_from_pantry(userid, ingredients):
         object= pantry_database("instance\MainDB.db")
         object.remove_from_pantry(userid,ingredients)
