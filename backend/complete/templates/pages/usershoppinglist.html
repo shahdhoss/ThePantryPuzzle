@@ -25,14 +25,18 @@
         </div>
         <div class="panel-body bio-graph-info">
           {% for ingredient in shoplist %}
-          <form method="POST">
-            <div class="row">
-              <div class="col-md-9 bio-row">
-                <span><p class="recipe-name">{{ingredient}}</p> <a href="{{ url_for('views.removeshoplistitem', userid=current_user.id, removeingredient=ingredient) }}"> > Done </a></span>
+            <form method="POST" action="{{url_for('views.removeshoplistitem', userid = current_user.id, removeingredient=ingredient)}}">
+              <div class="row">
+                <div class="col-md-9 bio-row">
+                  <label>
+                    <input type="checkbox" name="completed_ingredient" value="{{ ingredient }}" onchange="this.form.submit()">
+                    <span class="recipe-name">{{ ingredient }}</span>
+                  </label>
+                </div>
               </div>
-            </div>
-          </form>
-        {% endfor %}        
+            </form>
+          {% endfor %}
+    
         </div>
       </div>
     </div>

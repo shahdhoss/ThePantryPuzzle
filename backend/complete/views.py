@@ -198,14 +198,13 @@ def shoppinglist(userid):
 def generateshoplist(userid, rname):
     object=pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
-    object= pantry_database("instance/MainDB.db")
     present=object.display_pantry(userid)
     object_shop=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
         object_shop.add_item(userid, item)
     return shoppinglist(userid)
 
-@views.route('/removeshoplist/<userid>/<removeingredient>')
+@views.route('/removeshoplist/<userid>/<removeingredient>', methods=["POST"])
 @login_required
 def removeshoplistitem(userid, removeingredient):
     object=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
