@@ -39,7 +39,7 @@ class user_database(database_base_model):
         return True
     
     def get_user(self, user_id):
-        query = f'Select * from User where id = {user_id}'
+        query = f"Select * from User where id = '{user_id}'"
         cursor=self.cursor().execute(query)
         data=cursor.fetchall()                          
         data=self.l_tuple_to_list(data)                
