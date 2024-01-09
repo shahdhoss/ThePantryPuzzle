@@ -1,0 +1,60 @@
+{% extends 'layouts/main.html' %}
+{% block title %}User Info{% endblock %}
+{% block content %}
+<div class="container bootstrap snippets bootdey">
+  <div class="row">
+    <div class="profile-nav col-md-3">
+        <div class="panel">
+          <div class="user-heading round">
+              <h1>{{item[3]}} {{item[4]}}</h1>
+              <p>{{item[1]}}</p>
+          </div>
+  
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
+                <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
+            {% if item[5]=='on' %}
+            <li><a href="{{ url_for('views.viewaddrecipe', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Add a recipe</a></li>
+            {%endif%}
+            </ul>
+        </div>
+    </div>
+    <div class="profile-info col-md-9">
+        <div class="panel">
+            <div class="bio-graph-heading" style="font-size: 20px; font-weight: bold;">
+                Add a Recipe
+            </div>
+            <div class="panel-body bio-graph-info">
+                <form method="POST" action="{{ url_for('views.add_recipe', userid=current_user.id) }}">
+                    <div class="row">
+                        <div class="bio-row">
+                            <label for="recipe_name" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Choose your recipe name:</label>
+                            <input type="text" id="recipe_name" name="recipe_name" required>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="bio-row">
+                            <label for="quantities" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Add your quantities:</label>
+                            <textarea id="quantities" name="quantities" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="bio-row">
+                            <label for="instructions" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Add your instructions:</label>
+                            <textarea id="instructions" name="instructions" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <button class="GreenButton" type="submit" style="font-size: 18px;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

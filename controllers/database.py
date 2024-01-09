@@ -88,6 +88,14 @@ class user_database(database_base_model):
             return dictionary
         else:
             return None
+    def is_chef(self,id):
+        cursor=self.cursor().execute("select count(*) from User where id = ? and isChef = 'on' ",(str(id),))
+        count=cursor.fetchall()
+        countt=self.l_tuple_to_list(count)
+        if countt[0]>0:
+            return True
+        else:
+            return False
     
 class favorite_recipe(database_base_model):
     def __init__(self, database_name):
@@ -188,11 +196,12 @@ class pantry_database(database_base_model):
         return recipe_l
     
     def get_recipe_info(self,recipe_n):
-        cursor=self.cursor().execute("Select distinct Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        cursor=self.cursor().execute("Select distinct Quantity from Quantities where Recipe_name = ?", ([recipe_n]))
         ingredients=cursor.fetchall()
         ingredients=self.l_tuple_to_list(ingredients) 
         cursor.close()
         return ingredients
+    
     def recipe_ingredient_dict(self):
         recipes_and_ingredients_dict={}
         recipe_l=self.return_all_recipe_names()
@@ -239,6 +248,37 @@ class pantry_database(database_base_model):
         image_data = self.cursor().execute("select Recipe_Image from Recipe_Images where Recipe_Name = ?", (recipe_name,)).fetchone()
         print(image_data)
         return image_data
+    def get_recipe_directions(self,recipe_n):
+        cursor=self.cursor().execute("Select distinct Instruction from Instructions where Recipe_name = ?", ([recipe_n]))
+        ingredients=cursor.fetchall()
+        ingredients=self.l_tuple_to_list(ingredients) 
+        cursor.close()
+        return ingredients
+class chef_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    def add_recipe_name(self,id,recipe):
+        self.cursor().execute("insert into Instructions (Recipe_name) VALUES (?)", (str(recipe),))
+        self.commit()
+        self.cursor().execute("insert into Quantities (Recipe_name) VALUES(?)",(str(recipe),))
+        self.commit()
+        self.cursor().execute("insert into Chef (id, recipe_name) VALUES(?,?)", (str(id), str(recipe)) )
+        self.commit()
+        self.cursor().execute("insert into Recipes (Recipe_name) VALUES(?)", (str(recipe),))
+        self.commit()
+    def add_recipe_quantites(self,recipe_name,quantities):
+        self.cursor().execute("update Quantities set Quantity=? where Recipe_name=? ",(str(quantities), str(recipe_name)))
+        self.commit()
+    def add_recipe_instructions(self,recipe_name,instructions):
+        self.cursor().execute("update Instructions set Instruction =? where Recipe_name=? ",(str(instructions), str(recipe_name)))
+        self.commit()
+
+user=user_database("ThePantryPuzzle\instance\MainDB.db")
+user.establish_connection()
+print(user.is_chef('12'))    
+#fetch all function gets whats stored in the database
+
 
 # database_connection = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
 # cursor = database_connection.cursor()
