@@ -201,12 +201,17 @@ class pantry_database(database_base_model):
         ingredients=self.l_tuple_to_list(ingredients) 
         cursor.close()
         return ingredients
-    
+    def get_recipe_ingredients(self,recipe_n):
+        cursor=self.cursor().execute("Select distinct Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        ingredients=cursor.fetchall()
+        ingredients=self.l_tuple_to_list(ingredients) 
+        cursor.close()
+        return ingredients
     def recipe_ingredient_dictt(self):
         recipes_and_ingredients_dictt={}
         recipe_l=self.return_all_recipe_names()
         for recipe in recipe_l:
-            ingredients_l=self.get_recipe_info(recipe)
+            ingredients_l=self.get_recipe_ingredients(recipe)
             recipes_and_ingredients_dictt[recipe]=ingredients_l
         return recipes_and_ingredients_dictt
     def recommend_recipes(self,user_id):
@@ -218,8 +223,7 @@ class pantry_database(database_base_model):
                     for ingre2 in self.display_pantry(user_id):
                         if ingre1==ingre2:
                             available.append(ingre1)
-            intersection = set(available) & set(dictt[key])
-            if (len(dictt[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
+            if len(available)>0:                        #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
         return recommendedrecipes
     def ingredient_list(self):
