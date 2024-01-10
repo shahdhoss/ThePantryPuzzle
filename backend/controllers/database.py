@@ -1,14 +1,14 @@
 import sqlite3
 import base64
 class database_base_model:
+    def __init__(self, database_name):
+        self.database_name = database_name
     def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
         listt =[]
         for item in tuplee:
             for itemm in item:
                 listt.append(itemm)        # all the ingredients are now in a normal list
         return listt    
-    def __init__(self, database_name):
-        self.database_name = database_name
     def establish_connection(self):
         self.connection = sqlite3.connect(self.database_name, timeout = 5000)
     def cursor(self):
@@ -75,19 +75,6 @@ class user_database(database_base_model):
         finally:
             self.close()
 
-    def tuple_to_dictt(self, user_tuple):
-        user_info = user_tuple.fetchone()
-        if user_info:
-            dicttionary = {
-                "Id": user_info[0],
-                "Email": user_info[1],
-                "Password" :user_info[2],
-                "First name" : user_info[3],
-                "Last name" : user_info[4]
-            }
-            return dicttionary
-        else:
-            return None
     def is_chef(self,id):
         cursor=self.cursor().execute("select count(*) from User where id = ? and isChef = 'on' ",(str(id),))
         count=cursor.fetchall()
@@ -211,19 +198,21 @@ class pantry_database(database_base_model):
         return recipes_and_ingredients_dictt
     def recommend_recipes(self,user_id):
         recommendedrecipes = []
-        dictt=self.recipe_ingredient_dictt()
-        for key in dictt:
+        dict =self.ingredient_list()
+        pantryitems = self.display_pantry(user_id)
+        for key in dict:
             available=[]
-            for ingre1 in dictt[key]:
-                    for ingre2 in self.display_pantry(user_id):
-                        if ingre1==ingre2:
-                            available.append(ingre1)
-            intersection = set(available) & set(dictt[key])
-            if (len(dictt[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
+            for ingre1 in dict[key]:
+                print(ingre1)
+                if ingre1 in pantryitems:
+                    print(pantryitems)
+                    available.append(ingre1)
+            print(available)
+            if (len(dict[key])-len(available))<=3 and len(available)> 0 :       #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
         return recommendedrecipes
     def ingredient_list(self):
-        cursor=self.cursor().execute("Select Distinct Ingredient from Recipes")
+        cursor=self.cursor().execute("Select Distinct Recipe_name, Ingredient from Recipes")
         ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
         ingredients_list=self.l_tuple_to_list(ingredient_list_of_tuples)
         cursor.close()
@@ -237,7 +226,7 @@ class pantry_database(database_base_model):
         all_ingredients= self.ingredient_list()
         users_pantry=self.display_pantry(user_id)
         if ingredient in all_ingredients and ingredient not in users_pantry:
-            self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",(user_id,ingredient))
+            self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",((user_id),(ingredient)))
             self.commit()
     def remove_from_pantry(self,user_id,ingredient):
         users_pantry=self.display_pantry(user_id)
@@ -304,7 +293,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
+        tempobject=user_database("instance/MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
