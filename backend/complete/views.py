@@ -13,7 +13,7 @@ from controllers.database import pantry_database, shopping_list_database, user_d
 import base64
 from Models.validation import Reviews
 from urllib.parse import quote
-from PIL import Image
+#from PIL import Image
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -150,6 +150,7 @@ def recipeinfo(rname, userid):
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname, image_data_base64=image_data_base64, form=form, review_list=review_list)
+
 @views.route('/recipedirections/<rname>', methods=["POST", "GET"])
 def recipe_directions(rname):
     recipename = rname
