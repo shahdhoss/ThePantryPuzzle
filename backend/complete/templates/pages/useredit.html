@@ -4,62 +4,66 @@
 <div class="container bootstrap snippets bootdey">
   <div class="row">
     <div class="profile-nav col-md-3">
+      <div class="panel">
+        <div class="user-heading round">
+            <h1>{{item[3]}} {{item[4]}}</h1>
+            <p>{{item[1]}}</p>
+        </div>
+
+          <ul class="nav nav-pills nav-stacked">
+              <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+              <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
+              <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
+          </ul>
+      </div>
+    </div>
+    <div class="profile-info col-md-9">
         <div class="panel">
-          <div class="user-heading round">
-              <h1>{{item[3]}} {{item[4]}}</h1>
-              <p>{{item[1]}}</p>
-          </div>
-  
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
-                <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
-                <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
-                <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
-            </ul>
+            <div class="bio-graph-heading" style="font-size: 36px;">
+                What do you wish to edit
+            </div>
+            <div class="panel-body bio-graph-info">
+                <form method="POST" action="{{ url_for('views.change_name', userid=current_user.id) }}">
+                    <div class="bio-row">
+                        <div class="bio-row" style="font-size: 24px;">
+                            <p><span>Change Name</span></p>
+                        </div>
+                        <div class="bio-row">
+                            <label for="new_firstname" class="form-label"></label>
+                            <input type="text" id="new_firstname" name="new_firstname" class="form-control" placeholder="First Name" required>
+
+                            <label for="new_lastname" class="form-label"></label>
+                            <input type="text" id="new_lastname" name="new_lastname" class="form-control" placeholder="Last Name" required>
+                            <br>
+                            <button type="submit" class="GreenButton">Edit</button>
+                        </div>
+                    </div>
+                </form>
+
+                <form method="POST" action="{{ url_for('views.change_password', userid=current_user.id) }}">
+                    <div class="bio-row">
+                        <p style="font-size: 24px;"><span>Edit Password</span></p>
+                    </div>
+                    <div class="bio-row">
+                        <label for="new_password" class="form-label">New Password:</label>
+                        <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Password" required> <br>
+                        <button class="GreenButton" type="submit">Edit</button>
+                    </div>
+                </form>
+
+                <form method="POST" action="{{ url_for('views.delete_account', userid=current_user.id) }}">
+                    <div class="bio-row">
+                        <p style="font-size: 24px;"><span>Delete Account</span></p>
+                    </div>
+                    <div class="bio-row">
+                        <button class="RedButton" type="submit">Delete</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-<div class="profile-info col-md-9">
-    <div class="panel">
-        <div class="bio-graph-heading" style="font-size: 36px;">
-            What do you wish to edit
-        </div>
-        <div class="panel-body bio-graph-info">
-          <form method="POST" action="{{ url_for('views.change_name', userid=current_user.id) }}">
-            <div class="row">
-              <div class="bio-row" style="font-size: 24px;">
-                <p><span>Change Name</span></p>
-              </div>
-              <div class="bio-row">
-                <label for="new_firstname" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">New First Name:</label>
-                <input type="text" id="new_firstname" name="new_firstname" required>
-          
-                <label for="new_lastname" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">New Last Name:</label>
-                <input type="text" id="new_lastname" name="new_lastname" required>
-          
-                <button type="submit" class="GreenButton" style="font-size: 18px;">Edit</button>
-              </div>
-            </div>
-          </form>
-          <form method="POST" action="{{ url_for('views.change_password', userid=current_user.id) }}">
-              <div class="bio-row">
-                <p style="font-size: 24px;"><span>Edit Password </span></p>
-              </div>
-              <div class="bio-row">
-                <label style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;"></label> <br>
-                <input type="password" name="new_password" required>
-                <button class="GreenButton" type="submit" style="font-size: 18px;">Edit</button>
-              </div>
-          </form>
-          
-          <form method="POST" action="{{ url_for('views.delete_account', userid=current_user.id) }}">
-              <div class="bio-row">
-                <p style="font-size: 24px;"><span>Delete Account</span></p>
-              </div>
-              <div class="bio-row">
-                <button class="GreenButton" type="submit" style="font-size: 18px;">Delete</button>
-              </div>
-            </div>
-          </form>
-    </div>
+  </div>
 </div>
 {% endblock %}
+

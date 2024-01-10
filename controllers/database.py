@@ -264,7 +264,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("instance\MainDB.db")
+        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:

@@ -1,14 +1,9 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">   
-</script>   
-
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">   
-</script>  
-
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-rel="stylesheet" type="text/css" />  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
 
 <div class="container">
   <div class="row">
@@ -18,12 +13,11 @@ rel="stylesheet" type="text/css" />
           <h1>{{item[3]}} {{item[4]}}</h1>
           <p>{{item[1]}}</p>
         </div>
-
         <ul class="nav nav-pills nav-stacked">
-          <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
+          <li><a href="{{ url_for('views.userprofile', userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
           <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
-          <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
-          <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
+          <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Shopping list</a></li>
+          <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Pantry</a></li>
         </ul>
       </div>
     </div>
@@ -33,32 +27,31 @@ rel="stylesheet" type="text/css" />
           <h2>Pantry</h2>
         </div>
         <div class="row">
-        <div class="panel-body bio-graph-info">
-                  <form method="POST" action="{{ url_for('views.addtopantry', userid=current_user.id) }}">
-                    <input type="text" style="color: black;" class="Grey-box" placeholder="Ingredient..." name="ing" id="ing" list="ingredients">
-                </form>
-                <br><br>
-                <datalist id="ingredients">
-                    {% for Ing1 in ingr %}
-                        <option value="{{ Ing1 }}" />
-                    {% endfor %}
-                </datalist>
-                {% for K in pantrylist %}
-                <form method="POST" action="{{ url_for('views.remove_from_pantry',userid=current_user.id, ingredients= K) }}">
-                  <div class="row">
-                    <div class="col-md-8 bio-row">
-                      <p class="recipe-name">{{ K }}</p>
-                    </div>
-                    <div class="col-md-4 bio-row">
-                      <button class="GreenButton" type="submit">Remove</button>
-                    </div>
-                  </div>
-                </form>
-                {%endfor%}
-                <form method="POST" action="{{ url_for('views.pantrysearch', userid=current_user.id) }}">
-                  <button class="GreenButton" type="submit" style="text-align: center; align-items: center; font-size: 2.5rem;">Search with Pantry</button>
-                </form>
-            </div>
+          <div class="panel-body bio-graph-info">
+            <form method="POST" action="{{ url_for('views.addtopantry', userid=current_user.id) }}">
+              <input type="text" class="form-control" placeholder="Ingredient..." name="ing" id="ing" list="ingredients">
+            </form>
+            <datalist id="ingredients">
+              {% for Ing1 in ingr %}
+              <option value="{{ Ing1 }}">
+              {% endfor %}
+            </datalist>
+            {% for K in pantrylist %}
+            <form method="POST" action="{{ url_for('views.remove_from_pantry',userid=current_user.id, ingredients= K) }}">
+              <div class="row">
+                <div class="col-md-8 bio-row">
+                  <p class="recipe-name">{{ K }}</p>
+                </div>
+                <div class="col-md-4 bio-row">
+                  <button class="btn btn-danger" type="submit">Remove</button>
+                </div>
+              </div>
+            </form>
+            {% endfor %}
+            <form method="POST" action="{{ url_for('views.pantrysearch', userid=current_user.id) }}"> <br>
+              <button class="GreenButton" type="submit" style="width: 100%;">Search with Pantry</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
