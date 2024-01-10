@@ -1,5 +1,4 @@
 from backend.complete import create_app
-from os import urandom
 
 app = create_app()
 
