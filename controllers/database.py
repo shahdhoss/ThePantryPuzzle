@@ -284,3 +284,20 @@ class reviews_database(database_base_model):
     
     def connection_close(self):
         self.close()
+
+class dietary_prefernces_database(database_base_model):
+    def __init__(self, database_name):
+        super().__init__(database_name)
+        self.establish_connection()
+    
+    def get_recipes_dietary(self, preference):
+        query = "select Recipe_Name from Dietary where preference = ?"
+        data = self.cursor().execute(query, (preference,)).fetchall()
+        recipes_preferences = []
+        for recipe in data:
+            recipes_preferences.append(recipe[0])
+        return recipes_preferences
+    
+    def connection_close(self):
+        self.close()
+    

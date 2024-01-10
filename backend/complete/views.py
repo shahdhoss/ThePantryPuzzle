@@ -10,7 +10,7 @@ import sqlite3
 from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
-from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database
+from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database
 import base64
 from models.validation import Reviews
 from urllib.parse import quote
@@ -252,7 +252,53 @@ def pantrysearch(userid):
         Recipesfrompantry= object.recommend_recipes(userid)
         return render_template('pages/pantryRecipes.html',recipelist=Recipesfrompantry, userid = useridd)
 
+@views.route('/keto', methods=['POST', 'GET'])
+def keto():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Keto")
+    return render_template('pages/Recipes.html', recipelist=recipes)
 
+@views.route('/lactose_free', methods=['POST', 'GET'])
+def lactose_free():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Lactose-free")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/omnivorous', methods=['POST', 'GET'])
+def omnivorous():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Omnivorous")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/pescatarian', methods=['POST', 'GET'])
+def pescatarian():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Pescatarian")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/non_vegetarian', methods=['POST', 'GET'])
+def non_vegetarian():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Non-Vegetarian")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/vegetarian', methods=['POST', 'GET'])
+def vegetarian():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Vegetarian")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/vegan', methods=['POST', 'GET'])
+def vegan():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Vegan")
+    return render_template('pages/Recipes.html', recipelist=recipes)
+
+@views.route('/gluten_free', methods=['POST', 'GET'])
+def gluten_free():
+    object= dietary_prefernces_database("ThePantryPuzzle\\instance\\MainDB.db")
+    recipes = object.get_recipes_dietary("Gluten-free")
+    return render_template('pages/Recipes.html', recipelist=recipes)
 
 
 # @views.route('/reviews', methods=['GET', 'POST'])
