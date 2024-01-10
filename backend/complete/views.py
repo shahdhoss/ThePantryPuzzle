@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Blueprint, render_template, request, url_for, redirect, flash, send_file
+from flask import Blueprint, render_template, request, url_for, redirect, flash, send_file, Flask
 import logging
 import sqlalchemy
 import sqlite3
@@ -298,11 +298,13 @@ def add_recipe(userid):
         objectt2.add_recipe_name(userid,recipe_name)
         quantities = request.form.get("quantities")
         instructions = request.form.get("instructions")
-        objectt2.add_recipe_quantites(recipe_name,quantities)
-        objectt2.add_recipe_instructions(recipe_name,instructions)
         recipeimage = request.files['recipe_image']
-        recipe_image = Image.open(recipeimage)
-        objectt2.add_picture(recipe_name,recipe_image)
+        recipeimag2=recipeimage.read()
+        recipeimagebase64=base64.b64encode(recipeimag2)
+        recipeimagebinary=base64.b64decode(recipeimagebase64)
+        object2.add_recipe_quantites(recipe_name,quantities)
+        object2.add_recipe_instructions(recipe_name,instructions)
+        object2.add_picture(recipe_name,recipeimagebinary)
     return render_template('pages/addrecipe.html', item=userinfo)
 
 # Error handlers.
