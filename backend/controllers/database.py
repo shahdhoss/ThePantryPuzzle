@@ -1,4 +1,5 @@
 import sqlite3
+from math import floor
 import base64
 class database_base_model:
     def __init__(self, database_name):
@@ -279,6 +280,34 @@ class chef_database(database_base_model):
             return chef_id[0][0]
         else:
             return None
+    def get_chef_rating(self, chefid):
+        result = self.cursor().execute("SELECT Rating FROM Chef WHERE id = ?", (chefid,))
+        Rating = result.fetchone()
+        result = self.cursor().execute("SELECT rNum FROM Chef WHERE id = ?", (chefid,))
+        number = result.fetchone()
+        return floor(Rating/number)
+
+    def add_Rating(self, chefid, rating_to_add):
+        result = self.cursor().execute("SELECT Rating, rNum FROM Chef WHERE id = ?", (chefid,))
+        chef_data = result.fetchone()
+
+        if chef_data is None:
+            result = self.cursor().execute("INSERT INTO Chef (id, Rating, rNum) VALUES (?, ?, ?)", (chefid, rating_to_add, 1))
+        else:
+            current_rating, rNum = chef_data
+
+            if current_rating is not None and rNum is not None:
+                new_rating = current_rating + rating_to_add
+                new_rNum = rNum + 1
+            else:
+                new_rating = rating_to_add
+                new_rNum = 1
+
+            result = self.cursor().execute("UPDATE Chef SET Rating = ?, rNum = ? WHERE id = ?", (new_rating, new_rNum, chefid))
+        self.commit()
+        return
+
+        
     def get_recipes(self, chef_id):
         query = "select recipe_name from Chef where id = ?"
         data = self.cursor().execute(query, (chef_id,)).fetchall()
@@ -313,7 +342,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("ThePantryPuzzle/instance/MainDB.db")
+        tempobject=user_database("instance/MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
