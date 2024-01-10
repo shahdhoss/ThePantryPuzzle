@@ -13,7 +13,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
-database_path = "instance/MainDB.db"
+database_path = "ThePantryPuzzle/instance/MainDB.db"
 user_profile = 'views.userprofile'
 Page_Recipes = 'pages/Recipes.html'
 
@@ -130,14 +130,31 @@ def recipeinfo(rname, userid):
         reviews_db.add_review(userid, review_text, rname)
         return redirect(url_for('views.recipeinfo', rname=rname, userid=userid))
 
-    databasemanager = pantry_database(database_path)
-    ingredients=databasemanager.get_recipe_info(rname)
-    image_data = databasemanager.get_recipe_image(rname)
+    database_manager = pantry_database(database_path)
+    ingredients = database_manager.get_recipe_info(rname)
+    image_data = database_manager.get_recipe_image(rname)
+    database_manager_chef = chef_database(database_path)
     review_list = reviews_db.display_review(rname)
     image = image_data[0]
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
-    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname, image_data_base64=image_data_base64, form=form, review_list=review_list)
+    if database_manager_chef.get_chef_id(rname):
+        chef_id = database_manager_chef.get_chef_id(rname)
+
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname,
+                           image_data_base64=image_data_base64, form=form, review_list=review_list, chef_id=chef_id)
+
+@views.route('/chef_profile/<chef_id>', methods=["GET"])
+def chef_profile(chef_id):
+    user_db = user_database(database_path)
+    chef_db = chef_database(database_path)
+    list_recipes = chef_db.get_recipes(chef_id)
+    chef_info = user_db.get_user(chef_id)
+    if chef_info:
+        return render_template('pages/chef_profile.html', chef_info=chef_info, list_recipes=list_recipes)
+    else:
+        flash("Chef not found", "error")
+
 @views.route('/recipedirections/<rname>', methods=["POST", "GET"])
 def recipe_directions(rname):
     recipename = rname

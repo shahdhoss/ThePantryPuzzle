@@ -268,6 +268,22 @@ class chef_database(database_base_model):
         self.commit()
         self.cursor().execute("update Recipe_Images set Recipe_Image =? where Recipe_Name=?", ((pic), str(recipe_name)))
         self.commit()
+    def get_chef_id(self, recipe_name):
+        result = self.cursor().execute("SELECT id FROM Chef WHERE recipe_name = ?", (recipe_name,))
+        chef_id = result.fetchall()
+        if chef_id:
+            return chef_id[0][0]
+        else:
+            return None
+    def get_recipes(self, chef_id):
+        query = "select recipe_name from Chef where id = ?"
+        data = self.cursor().execute(query, (chef_id,)).fetchall()
+        recipes_list = []
+        for recipe in data:
+            recipes_list.append(recipe[0])
+        return recipes_list
+
+
 #fetch all function gets whats stored in the database
 
 class reviews_database(database_base_model):
@@ -293,7 +309,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("instance/MainDB.db")
+        tempobject=user_database("ThePantryPuzzle/instance/MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
@@ -330,3 +346,5 @@ class dietary_prefernces_database(database_base_model):
     def connection_close(self):
         self.close()
     
+# chef = chef_database("ThePantryPuzzle/instance/MainDB.db")
+# print(chef.get_chef("Okra"))
