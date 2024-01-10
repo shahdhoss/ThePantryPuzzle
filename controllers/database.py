@@ -74,17 +74,17 @@ class user_database(database_base_model):
         finally:
             self.close()
 
-    def tuple_to_dict(self, user_tuple):
+    def tuple_to_dictt(self, user_tuple):
         user_info = user_tuple.fetchone()
         if user_info:
-            dictionary = {
+            dicttionary = {
                 "Id": user_info[0],
                 "Email": user_info[1],
                 "Password" :user_info[2],
                 "First name" : user_info[3],
                 "Last name" : user_info[4]
             }
-            return dictionary
+            return dicttionary
         else:
             return None
     def is_chef(self,id):
@@ -201,24 +201,24 @@ class pantry_database(database_base_model):
         cursor.close()
         return ingredients
     
-    def recipe_ingredient_dict(self):
-        recipes_and_ingredients_dict={}
+    def recipe_ingredient_dictt(self):
+        recipes_and_ingredients_dictt={}
         recipe_l=self.return_all_recipe_names()
         for recipe in recipe_l:
             ingredients_l=self.get_recipe_info(recipe)
-            recipes_and_ingredients_dict[recipe]=ingredients_l
-        return recipes_and_ingredients_dict
+            recipes_and_ingredients_dictt[recipe]=ingredients_l
+        return recipes_and_ingredients_dictt
     def recommend_recipes(self,user_id):
         recommendedrecipes = []
-        dict=self.recipe_ingredient_dict()
-        for key in dict:
+        dictt=self.recipe_ingredient_dictt()
+        for key in dictt:
             available=[]
-            for ingre1 in dict[key]:
+            for ingre1 in dictt[key]:
                     for ingre2 in self.display_pantry(user_id):
                         if ingre1==ingre2:
                             available.append(ingre1)
-            intersection = set(available) & set(dict[key])
-            if (len(dict[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
+            intersection = set(available) & set(dictt[key])
+            if (len(dictt[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
         return recommendedrecipes
     def ingredient_list(self):
@@ -235,10 +235,9 @@ class pantry_database(database_base_model):
     def insert_into_pantry(self,user_id,ingredient):
         all_ingredients= self.ingredient_list()
         users_pantry=self.display_pantry(user_id)
-        if ingredient in all_ingredients:
-            if ingredient not in users_pantry:
-                self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",(user_id,ingredient))
-                self.commit()
+        if ingredient in all_ingredients and ingredient not in users_pantry:
+            self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",(user_id,ingredient))
+            self.commit()
     def remove_from_pantry(self,user_id,ingredient):
         users_pantry=self.display_pantry(user_id)
         if ingredient in users_pantry:

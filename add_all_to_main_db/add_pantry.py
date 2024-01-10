@@ -2,8 +2,6 @@ import sqlite3
 connection = sqlite3.connect("ThePantryPuzzle\instance\MainDB.db")                                 
 cursor = connection.cursor() 
 
-# with open('F:\downloads\egetables_text.json', 'r') as json_file:     #add ur own json file path
-#     file = json.load(json_file)
 
 # to insert into the recipes table using the json file
 def insert_recipes_intotable(file):                                  
@@ -29,21 +27,5 @@ def insert_quantities_intotable(file):
             connection.commit()
 
 
-# #use when testing whether the database got the data or not::
-# cursor.execute("select count(*) from User where id=12 and isChef = 'on' ")                             #change the Instructions with Quantites if u want display the quantites table     
-cursor.execute("select * from Chef")
-mydata=cursor.fetchall()
-#fetch all function gets whats stored in the database
-for i in mydata:             
-    print(i)
-
-# def get_recipeInfo(RecipeN):
-#         cursor.execute("Select Ingredient from Recipes where Recipe_name = ?", ([RecipeN]))
-#         ingredients=cursor.fetchall()
-#         return ingredients
-
-# ingredientss=get_recipeInfo("Meat Loaf")    #choose the recipe that u want to get the ingredients for
-# for ingredient in ingredientss:
-#     print(ingredient)
 
 connection.close()

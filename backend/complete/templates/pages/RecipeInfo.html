@@ -72,7 +72,7 @@
 </div>
 <br><br>
 <div style="height: 10px;"></div>
-<div class="comment-section" style="">
+<div class="comment-section">
   <div class="form-floating mt-5">
   <form method="post" action="{{ url_for('views.recipeinfo', rname=Recipe, userid= current_user.id) }}">
     {{form.csrt_token}}

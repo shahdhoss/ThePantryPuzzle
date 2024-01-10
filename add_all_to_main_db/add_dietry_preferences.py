@@ -3,12 +3,7 @@ import sqlite3
 con = sqlite3.connect("D:\\SWE - project\\ThePantryPuzzle\\instance\\MainDB.db")
 cursor = con.cursor()
 drop = "drop table Dietry"
-# query = """
-#     create table Dietary(
-#         Recipe_Name varchar(50),
-#         preference varchar(50)
-#     )
-# """
+
 
 # Meat-Based Recipes
 meat_queries = [
@@ -177,9 +172,6 @@ keto_queries = [
     "INSERT INTO Dietary (Recipe_name, preference) VALUES ('Margarita Chicken', 'Keto');"
 ]
 
-
-# for query in gluten_free_queries:
-#     cursor.execute(query)
 
 con.commit()
 con.close()
