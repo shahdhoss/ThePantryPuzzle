@@ -1,6 +1,5 @@
 import sqlite3
-
-connection = sqlite3.connect("instance\MainDB.db")                                 
+connection = sqlite3.connect("ThePantryPuzzle\instance\MainDB.db")                                 
 cursor = connection.cursor() 
 
 # with open('F:\downloads\egetables_text.json', 'r') as json_file:     #add ur own json file path
@@ -31,7 +30,8 @@ def insert_quantities_intotable(file):
 
 
 # #use when testing whether the database got the data or not::
-cursor.execute("select * from Instructions")                             #change the Instructions with Quantites if u want display the quantites table     
+# cursor.execute("select count(*) from User where id=12 and isChef = 'on' ")                             #change the Instructions with Quantites if u want display the quantites table     
+cursor.execute("select * from Chef")
 mydata=cursor.fetchall()
 #fetch all function gets whats stored in the database
 for i in mydata:             

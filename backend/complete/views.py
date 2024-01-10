@@ -10,11 +10,11 @@ import sqlite3
 from logging import Formatter, FileHandler
 from .forms import *
 from flask_login import login_required, current_user, logout_user
-from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database
+from controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database, chef_database
 import base64
 from models.validation import Reviews
 from urllib.parse import quote
-
+from PIL import Image
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -151,9 +151,6 @@ def get_recipe_image(rname):
         return render_template('pages/Recipes.html', image_data_base64=image_data_base64)
     else:
         return 'Image not found', 404
-
-    
-
         
 @views.route('/RecipeInfo/<rname>/<userid>', methods=["POST", "GET"])
 def recipeinfo(rname, userid):
@@ -173,6 +170,12 @@ def recipeinfo(rname, userid):
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname, image_data_base64=image_data_base64, form=form, review_list=review_list)
+@views.route('/recipedirections/<rname>', methods=["POST", "GET"])
+def recipe_directions(rname):
+    recipename = rname
+    object = pantry_database("ThePantryPuzzle\instance\MainDB.db")
+    ingredients=object.get_recipe_directions(recipename)
+    return render_template('pages/recipedirections.html', ingredientlist=ingredients, Recipe=recipename)
 
 @views.route('/userprofile/<userid>')
 @login_required
@@ -204,6 +207,7 @@ def shoppinglist(userid):
 def generateshoplist(userid, rname):
     object=pantry_database("ThePantryPuzzle\\instance\\MainDB.db")
     ingredientslist=object.get_recipe_info(rname)
+    object= pantry_database("ThePantryPuzzle\instance\MainDB.db")
     present=object.display_pantry(userid)
     object_shop=shopping_list_database("ThePantryPuzzle\\instance\\MainDB.db")
     for item in ingredientslist:
@@ -308,6 +312,29 @@ def gluten_free():
 #         return "Success"
 #     return render_template("pages/RecipeInfo.html", form=form)
 
+
+@views.route('/addrecipe/<userid>', methods=["POST", "GET"])
+def viewaddrecipe(userid):
+    object = user_database("ThePantryPuzzle\instance\MainDB.db")
+    userinfo= object.get_user(userid)
+    return render_template('pages/addrecipe.html', item=userinfo)
+
+@views.route('/addedrecipe/<userid>', methods=["POST", "GET"])
+def add_recipe(userid):
+    object = user_database("ThePantryPuzzle\instance\MainDB.db")
+    userinfo= object.get_user(userid)
+    if request.method == 'POST':
+        recipe_name = request.form.get("recipe_name")
+        object2=chef_database("ThePantryPuzzle\instance\MainDB.db")
+        object2.add_recipe_name(userid,recipe_name)
+        quantities = request.form.get("quantities")
+        instructions = request.form.get("instructions")
+        object2.add_recipe_quantites(recipe_name,quantities)
+        object2.add_recipe_instructions(recipe_name,instructions)
+        recipeimage = request.files['recipe_image']
+        recipe_image = Image.open(recipeimage)
+        object2.add_picture(recipe_name,recipe_image)
+    return render_template('pages/addrecipe.html', item=userinfo)
 
 # Error handlers.
 @views.errorhandler(500)

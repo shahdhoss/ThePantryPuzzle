@@ -9,13 +9,14 @@
           <h1>{{item[3]}} {{item[4]}}</h1>
           <p>{{item[1]}}</p>
         </div>
-
         <ul class="nav nav-pills nav-stacked">
           <li><a href="{{ url_for('views.userprofile',userid=current_user.id) }}"> <i class="fa fa-user"></i> Profile</a></li>
-          <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
-          <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
-          <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
-        </ul>
+            <li><a href="{{ url_for('views.useredit', userid=current_user.id) }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
+            <li><a href="{{ url_for('views.shoppinglist', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Shopping list</a></li>
+            <li><a href="{{ url_for('views.viewpantry', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Pantry</a></li>
+          {% if item[5]=='on' %}
+            <li><a href="{{ url_for('views.viewaddrecipe', userid=current_user.id) }}"> <i class="fa fa-edit"></i>Add a recipe</a></li>
+            {%endif%}
       </div>
     </div>
     <div class="profile-info col-md-9">
