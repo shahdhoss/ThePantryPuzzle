@@ -7,7 +7,7 @@ from .forms import *
 from flask_login import login_required, current_user, logout_user
 from backend.controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database, chef_database
 import base64
-from models.validation import Reviews
+from Models.validation import Reviews
 from urllib.parse import quote
 from werkzeug.security import generate_password_hash, check_password_hash
 
