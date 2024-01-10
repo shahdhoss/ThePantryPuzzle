@@ -188,31 +188,34 @@ class pantry_database(database_base_model):
         ingredients=self.l_tuple_to_list(ingredients) 
         cursor.close()
         return ingredients
-    
+    def get_recipe_ingredients(self,recipe_n):
+        cursor=self.cursor().execute("Select distinct Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        ingredients=cursor.fetchall()
+        ingredients=self.l_tuple_to_list(ingredients) 
+        cursor.close()
+        return ingredients
     def recipe_ingredient_dictt(self):
         recipes_and_ingredients_dictt={}
         recipe_l=self.return_all_recipe_names()
         for recipe in recipe_l:
-            ingredients_l=self.get_recipe_info(recipe)
+            ingredients_l=self.get_recipe_ingredients(recipe)
             recipes_and_ingredients_dictt[recipe]=ingredients_l
         return recipes_and_ingredients_dictt
+    
     def recommend_recipes(self,user_id):
         recommendedrecipes = []
-        dict =self.ingredient_list()
-        pantryitems = self.display_pantry(user_id)
-        for key in dict:
+        dictt=self.recipe_ingredient_dictt()
+        for key in dictt:
             available=[]
-            for ingre1 in dict[key]:
-                print(ingre1)
-                if ingre1 in pantryitems:
-                    print(pantryitems)
-                    available.append(ingre1)
-            print(available)
-            if (len(dict[key])-len(available))<=3 and len(available)> 0 :       #if all the ingredients are available in the pantry
-                recommendedrecipes.append(key)
-        return recommendedrecipes
+            for ingre1 in dictt[key]:
+                    for ingre2 in self.display_pantry(user_id):
+                        if ingre1==ingre2:
+                            available.append(ingre1)
+            if len(available)>0: 
+                recommendedrecipes.append(key)                               #if all the ingredients are available in the pantry
+        return recommendedrecipes 
     def ingredient_list(self):
-        cursor=self.cursor().execute("Select Distinct Recipe_name, Ingredient from Recipes")
+        cursor=self.cursor().execute("Select Distinct Ingredient from Recipes")
         ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
         ingredients_list=self.l_tuple_to_list(ingredient_list_of_tuples)
         cursor.close()
@@ -222,6 +225,7 @@ class pantry_database(database_base_model):
         ingredient_tuple=cursor.fetchall()
         users_ingredients=self.l_tuple_to_list(ingredient_tuple)
         return users_ingredients
+    
     def insert_into_pantry(self,user_id,ingredient):
         all_ingredients= self.ingredient_list()
         users_pantry=self.display_pantry(user_id)

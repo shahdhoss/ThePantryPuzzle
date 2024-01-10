@@ -98,7 +98,6 @@ def add_favorite(rname):
             image = image_data[0]
             image_data_base64 = base64.b64encode(image).decode('utf-8')
             return render_template(Page_Recipes, image_data_base64=image_data_base64)
-    
 
 @views.route('/remove_favorite/<recipe_name>', methods=["POST"])
 def remove_favorite(recipe_name):
@@ -191,7 +190,7 @@ def shoppinglist(userid):
 @login_required
 def generateshoplist(userid, rname):
     databasemanager=pantry_database(database_path)
-    ingredientslist=databasemanager.get_recipe_info(rname)
+    ingredientslist=databasemanager.get_recipe_ingredients(rname)
     databasemanager_shop=shopping_list_database(database_path)
     for item in ingredientslist:
         databasemanager_shop.add_item(userid, item)
