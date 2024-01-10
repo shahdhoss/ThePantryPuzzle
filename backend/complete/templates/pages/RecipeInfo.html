@@ -45,31 +45,82 @@
         align-items: flex-start;
     }
 
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 </style>
 
 <div class="recipe-info" style="padding-left: 10%; padding-right: 10%;">
 
   <h2 style="font-size: 2.5rem; text-align: center; justify-content: center;"> {{Recipe}} </h2>
   <br>
-  <div class="row">
+  <div class="bio-row"> 
     {% for item in ingredientlist %}
     <div class="column">
       <label style="text-align: center; font-size: 17px;"> {{item}} </label>
     </div>
     {% endfor %}
-    <div class="" style="text-align: right;">
-      {% if image_data_base64 %}
-        <div style="border-radius: 50%; overflow: hidden; display: inline-block;">
-          <img src="data:image/png;base64,{{image_data_base64}}" alt="Image" style="height: 400px; width: 400px; object-fit: cover;">
-        </div>
-      {% else %}
-        <p>No image available for this recipe.</p>
-      {% endif %}
-    </div>
   </div>
-  <br><br>
-
+  <div style="text-align: right;">
+    {% if image_data_base64 %}
+      <div style=" overflow: hidden; display: inline-block;">
+        <img src="data:image/png;base64,{{image_data_base64}}" alt="Image" style=" border-radius: 50%; height: 40%; width: 40%; object-fit: cover;">
+      </div>
+    {% else %}
+      <p>No image available for this recipe.</p>
+    {% endif %}
+  </div>
 </div>
+<br><br><br><br>
+{% if chef_id %}
+<div class="dropdown">
+  <button class="dropbtn">Rate</button>
+  <div class="dropdown-content">
+    <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=1,rname=Recipe)}}">1 Star</a>
+    <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=2,rname=Recipe)}}">2 Star</a>
+    <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=3,rname=Recipe)}}">3 Star</a>
+    <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=4,rname=Recipe)}}">4 Star</a>
+    <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=5,rname=Recipe)}}">5 Star</a>
+  </div>
+</div>
+{%endif%}
 <br><br>
 <div style="height: 10px;"></div>
 <div class="comment-section">
