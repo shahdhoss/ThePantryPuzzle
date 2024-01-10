@@ -1,7 +1,7 @@
 import sqlite3
 import json
 
-connection = sqlite3.connect("ThePantryPuzzle\instance\MainDB.db")
+connection = sqlite3.connect("ThePantryPuzzle/instance/MainDB.db")
 cursor = connection.cursor()
 table = '''create table if not exists Chef (
                 id INTEGER,
@@ -11,3 +11,5 @@ table = '''create table if not exists Chef (
             )'''
 
 cursor.execute(table)
+connection.commit()
+connection.close()
