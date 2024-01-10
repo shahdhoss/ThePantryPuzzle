@@ -216,8 +216,9 @@ class pantry_database(database_base_model):
             for ingre1 in dict[key]:
                     for ingre2 in self.display_pantry(user_id):
                         if ingre1==ingre2:
-                            available.append(ingre1)    
-            if (len(dict[key])-len(available))<=3 :       #if all the ingredients are available in the pantry
+                            available.append(ingre1)
+            intersection = set(available) & set(dict[key])
+            if (len(dict[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
                 recommendedrecipes.append(key)
         return recommendedrecipes
     def ingredient_list(self):
@@ -271,13 +272,13 @@ class chef_database(database_base_model):
     def add_recipe_instructions(self,recipe_name,instructions):
         self.cursor().execute("update Instructions set Instruction =? where Recipe_name=? ",(str(instructions), str(recipe_name)))
         self.commit()
-
-user=user_database("ThePantryPuzzle\instance\MainDB.db")
-user.establish_connection()
-print(user.is_chef('12'))    
+    def add_picture(self, recipe_name,pic):
+        self.cursor().execute("update Chef set recipe_image = ? where recipe_name",(recipe_name),)
+        self.commit()
+        self.cursor().execute("update Recipe_Images set  Recipe_Image =? where Recipe_Name",(recipe_name),)
+        self.commit()
+  
 #fetch all function gets whats stored in the database
-
-
 
 class reviews_database(database_base_model):
     def __init__(self, database_name):
@@ -302,7 +303,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
+        tempobject=user_database("ThePantryPuzzle\instance\MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:

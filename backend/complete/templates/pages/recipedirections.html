@@ -5,12 +5,12 @@
 <br>
 <div class="recipe-info" style="padding-left: 10%; padding-right: 10%;">
 
-  <h2 style="font-size: 2.5rem; text-align: center; justify-content: center;"> {{Recipe}} </h2>
+  <h2 style="font-size: 2.5rem; text-align: center; justify-content: center;"> {{ Recipe }} </h2>
   <br>
   <div class="row">
     {% for item in ingredientlist %}
-    <div class="column">
-      <label style="text-align: center; font-size: 14px;"> {{item}} </label>
+    <div class="column" style="display: flex; align-items: center; justify-content: center;">
+      <label style="text-align: center; font-size: 15px;"> {{ item }} </label>
     </div>
     {% endfor %}
   </div>

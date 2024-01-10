@@ -27,30 +27,39 @@
                 Add a Recipe
             </div>
             <div class="panel-body bio-graph-info">
-                <form method="POST" action="{{ url_for('views.add_recipe', userid=current_user.id) }}">
+                <form method="POST" action="{{ url_for('views.add_recipe', userid=current_user.id) }}" enctype="multipart/form-data">
                     <div class="row">
                         <div class="bio-row">
-                            <label for="recipe_name" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Choose your recipe name:</label>
+                            <label for="image" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Upload an image for your recipe:</label>
+                            <br>
+                            <img id="imagePreview" src="https://static.vecteezy.com/system/resources/previews/003/170/825/original/isolated-food-plate-fork-and-spoon-design-free-vector.jpg" alt="Placeholder Image" style="max-width: 180px; max-height: 180px; object-fit: cover; padding-left: 17px;">
+                            <input type="file" id="recipe_image" name="recipe_image" accept="image/*" class="hidden"  style="font-size: 19px; padding-left: 30px; ">
+                            <br><br>
+                            <label for="recipe_image" class="GreenButton" style="font-size: 15px; margin-left: 20px;">Choose a picture</label>
+                        </div>
+                    </div>
+            
+                    <div class="row" > 
+                        <div class="bio-row; margin-left=20px">
+                            <label for="recipe_name" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Choose a name:</label>
                             <input type="text" id="recipe_name" name="recipe_name" required>
                         </div>
                     </div>
-    
+            
                     <div class="row">
                         <div class="bio-row">
                             <label for="quantities" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Add your quantities:</label>
-                            <textarea id="quantities" name="quantities" rows="4" cols="50"></textarea>
+                            <textarea id="quantities" name="quantities" rows="4" cols="50" ></textarea>
                         </div>
                     </div>
-    
+            
                     <div class="row">
                         <div class="bio-row">
-                            <label for="instructions" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333;">Add your instructions:</label>
-                            <textarea id="instructions" name="instructions" rows="4" cols="50"></textarea>
+                            <label for="instructions" style="display: block; font-size: 18px; font-weight: bold; margin-bottom: 1px; color: #333; ">Add your instructions:</label>
+                            <textarea id="instructions" name="instructions" rows="4" cols="50" margin-left: 20px;></textarea>
                         </div>
-                    </div>
-    
                     <div class="row">
-                        <button class="GreenButton" type="submit" style="font-size: 18px;">Submit</button>
+                        <button class="GreenButton" type="submit" style="font-size: 18px; margin-left: 50px;">Submit</button>
                     </div>
                 </form>
             </div>
