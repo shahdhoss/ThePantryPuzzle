@@ -13,7 +13,6 @@ from controllers.database import pantry_database, shopping_list_database, user_d
 import base64
 from Models.validation import Reviews
 from urllib.parse import quote
-from PIL import Image
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
