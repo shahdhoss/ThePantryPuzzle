@@ -1,4 +1,5 @@
 import sqlite3
+import base64
 class database_base_model:
     def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
         listt =[]
@@ -266,6 +267,8 @@ class chef_database(database_base_model):
         self.commit()
         self.cursor().execute("insert into Recipes (Recipe_name) VALUES(?)", (str(recipe),))
         self.commit()
+        self.cursor().execute("insert into Recipe_Images (Recipe_Name) VALUES(?)", (str(recipe),))
+        self.commit()
     def add_recipe_quantites(self,recipe_name,quantities):
         self.cursor().execute("update Quantities set Quantity=? where Recipe_name=? ",(str(quantities), str(recipe_name)))
         self.commit()
@@ -273,11 +276,10 @@ class chef_database(database_base_model):
         self.cursor().execute("update Instructions set Instruction =? where Recipe_name=? ",(str(instructions), str(recipe_name)))
         self.commit()
     def add_picture(self, recipe_name,pic):
-        self.cursor().execute("update Chef set recipe_image = ? where recipe_name",(recipe_name),)
+        self.cursor().execute("update Chef set recipe_image = ? where recipe_name =?",((pic), str(recipe_name)))
         self.commit()
-        self.cursor().execute("update Recipe_Images set  Recipe_Image =? where Recipe_Name",(recipe_name),)
+        self.cursor().execute("update Recipe_Images set Recipe_Image =? where Recipe_Name=?", ((pic), str(recipe_name)))
         self.commit()
-  
 #fetch all function gets whats stored in the database
 
 class reviews_database(database_base_model):
@@ -323,3 +325,7 @@ class reviews_database(database_base_model):
     
     def connection_close(self):
         self.close()
+
+akla=pantry_database("ThePantryPuzzle\instance\MainDB.db")
+recipe=akla.get_recipe_image("ferakh")
+print(recipe)
