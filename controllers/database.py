@@ -325,7 +325,3 @@ class reviews_database(database_base_model):
     
     def connection_close(self):
         self.close()
-
-akla=pantry_database("ThePantryPuzzle\instance\MainDB.db")
-recipe=akla.get_recipe_image("ferakh")
-print(recipe)

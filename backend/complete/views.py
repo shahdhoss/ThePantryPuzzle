@@ -167,7 +167,6 @@ def recipeinfo(rname, userid):
     image_data = object.get_recipe_image(rname)
     review_list = reviews_db.display_review(rname)
     image = image_data[0]
-    print(type(image))
     image_data_base64 = base64.b64encode(image).decode('utf-8')
 
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname, image_data_base64=image_data_base64, form=form, review_list=review_list)
@@ -286,7 +285,6 @@ def add_recipe(userid):
         instructions = request.form.get("instructions")
         recipeimage = request.files['recipe_image']
         recipeimag2=recipeimage.read()
-        print(type(recipeimag2))
         recipeimagebase64=base64.b64encode(recipeimag2)
         recipeimagebinary=base64.b64decode(recipeimagebase64)
         object2.add_recipe_quantites(recipe_name,quantities)
