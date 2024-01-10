@@ -2,20 +2,28 @@
 {% block title %}Recipes{% endblock %}
 {% block content %}
 <br><br>
+
 <form method="POST">
  <span><input type="text" class="inputbox" style="color: #334455; font-size: 24px; border: none; width: 100%; ;" placeholder="Enter Recipe Name here..." id="recipename" name="recipename" type="text"></span>
-</form>
+</form><br>
+<div class="dropdown">
+  <button class="GreenButton dropdown-toggle" type="button" id="preference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Dietary Preferences
+  <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="preference">
+  <li><a href="{{url_for('views.keto')}}">Keto</a></li>
+  <li><a href="{{url_for('views.lactose_free')}}">Lactose-free</a></li>
+  <li><a href="{{url_for('views.omnivorous')}}">Omnivorous</a></li>
+  <li><a href="{{url_for('views.pescatarian')}}">Pescatarian</a></li>
+  <li><a href="{{url_for('views.non_vegetarian')}}">Non-Vegetarian</a></li>
+  <li><a href="{{url_for('views.vegetarian')}}">Vegetarian</a></li>
+  <li><a href="{{url_for('views.vegan')}}">Vegan</a></li>
+  <li><a href="{{url_for('views.gluten_free')}}">Gluten-free</a></li>
+</div>
 {% for item in recipelist %}
   <br>
   <div class="Recipe-Box" style="padding-left: 10%; padding-right: 10%;">
-    <form method="POST" action="{{ url_for('views.get_recipe_image', rname=item) }}">
-        {% if image_data_base64 %}
-          <img src="data:image/png;base64,{{image_data_base64}}" alt="Image" style="height: 10%; width: 10%; object-fit: cover;">
-        {% else %}
-          <!-- <p>No image available for this recipe.</p> -->
-        {% endif %}
-        <input type="hidden" value="Show Image">
-    </form>
     <form method="POST" action="{{ url_for('views.add_favorite', rname=item) }}">
       <p style="font-size: 2.5rem; text-align: center; justify-content: center; font-family: 'Times New Roman', Times, serif"> {{item}} </p>
       <br>
