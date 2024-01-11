@@ -60,7 +60,7 @@ def signup():
             flash('Password must be at least 7 characters.', category='error')
         else:
             print("hello, world!")
-            new_user = User(id=str(uuid.uuid4()), email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name=last_name, is_chef=is_chef)
+            new_user = User(id=str(uuid.uuid4()), email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name=last_name, isChef=is_chef)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
