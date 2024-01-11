@@ -2,16 +2,17 @@
 {% block title %}Chef Profile{% endblock %}
 {% block content %}
 
-
 <div class="user-heading round">
-    <h1>{{chef_info[3]}} {{chef_info[4]}}</h1>
-    <p>{{chef_info[1]}}</p>
+    <h1>{{ chef_info[3] }} {{ chef_info[4] }}</h1>
+    <p>{{ chef_info[1] }}</p>
 </div>
 <div>
-    <ul class="nav nav-pills nav-stacked" style="font-size: large;">
+    <h2>Chef's Recipes</h2>
+    <ul class="list-group">
         {% for recipe in list_recipes %}
-        <li>{{recipe}}</li>
+            <li class="list-group-item" style="font-size: 24px;">{{recipe}}</li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}

@@ -1,21 +1,17 @@
 from flask import Blueprint, render_template, request, url_for, redirect, flash, send_file, Flask
-import logging
-import sqlalchemy
-import sqlite3
 from logging import Formatter, FileHandler
-from .forms import *
 from flask_login import login_required, current_user, logout_user
 from backend.controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database, chef_database
 import base64
 from models.validation import Reviews
-from urllib.parse import quote
-#from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
-database_path = "ThePantryPuzzle/instance/MainDB.db"
+database_path = "instance/MainDB.db"
 user_profile = 'views.userprofile'
 Page_Recipes = 'pages/Recipes.html'
+home = 'views.home'
 
 
 @views.route('/')
@@ -46,7 +42,7 @@ def delete_account(userid):
     if result == "User deleted":
         # Log the user out and redirect to the home page
         logout_user()
-        return redirect(url_for('views.home'))
+        return redirect(url_for(home))
     else:
         flash("Error deleting account.")
         return redirect(url_for(user_profile, userid=userid))
@@ -139,7 +135,29 @@ def recipeinfo(rname, userid):
 
     if database_manager_chef.get_chef_id(rname):
         chef_id = database_manager_chef.get_chef_id(rname)
+    else:
+        chef_id = None
+    return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname,
+                           image_data_base64=image_data_base64, form=form, review_list=review_list, chef_id=chef_id)
 
+@views.route('/chef_profile/<chef_id>/<rating>/<rname>', methods=["GET", "POST"])
+def rate_recipe(chef_id, rating, rname):
+    form = Reviews()
+    reviews_db = reviews_database(database_path)
+    user_db = user_database(database_path)
+    chef_db = chef_database(database_path)
+    chef_db.add_Rating(chef_id,int(rating))
+    database_manager = pantry_database(database_path)
+    ingredients = database_manager.get_recipe_info(rname)
+    image_data = database_manager.get_recipe_image(rname)
+    database_manager_chef = chef_database(database_path)
+    review_list = reviews_db.display_review(rname)
+    image = image_data[0]
+    image_data_base64 = base64.b64encode(image).decode('utf-8')
+    if database_manager_chef.get_chef_id(rname):
+        chef_id = database_manager_chef.get_chef_id(rname)
+    else:
+        chef_id = None
     return render_template('pages/RecipeInfo.html', ingredientlist=ingredients, Recipe=rname,
                            image_data_base64=image_data_base64, form=form, review_list=review_list, chef_id=chef_id)
 

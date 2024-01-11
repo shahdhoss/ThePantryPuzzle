@@ -6,17 +6,24 @@ from .models import User
 from .views import views
 from .auth import auth
 from .extensions import db
-from os import urandom
+import os
 DB_NAME = "MainDB.db"
 
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    secret_key = urandom(24)
+    secret_key = os.urandom(24)
     app.config["SECRET_KEY"] = secret_key
     app.config["RECAPTCHA_USE_SSL"] = False
     app.config["RECAPTCHA_PUBLIC_KEY"] = "6Lfer0kpAAAAAJnXGODihTewNcf3RDCXgc5FE7XY"
-    app.config["RECAPTCHA_PRIVATE_KEY"] = "6Lfer0kpAAAAAEAtPP1igzvVEtUySFK8UpOCN57X"
+
+    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+    print(f"RECAPTCHA_PRIVATE_KEY: {RECAPTCHA_PRIVATE_KEY}")
+    
+    if not RECAPTCHA_PRIVATE_KEY:
+        raise ValueError("RECAPTCHA_PRIVATE_KEY environment variable is not set")
+    app.config["RECAPTCHA_PRIVATE_KEY"] = RECAPTCHA_PRIVATE_KEY
+
     app.config["RECAPTCHA_OPTIONS"] = {'theme' : 'black'}
     db.init_app(app)
 
