@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
-database_path = "instance/MainDB.db"
+database_path = "ThePantryPuzzle/instance/MainDB.db"
 user_profile = 'views.userprofile'
 Page_Recipes = 'pages/Recipes.html'
 home = 'views.home'
@@ -144,7 +144,6 @@ def recipeinfo(rname, userid):
 def rate_recipe(chef_id, rating, rname):
     form = Reviews()
     reviews_db = reviews_database(database_path)
-    user_db = user_database(database_path)
     chef_db = chef_database(database_path)
     chef_db.add_Rating(chef_id,int(rating))
     database_manager = pantry_database(database_path)

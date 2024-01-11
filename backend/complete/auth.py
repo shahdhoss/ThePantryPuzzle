@@ -9,7 +9,7 @@ import sys
 
 
 auth = Blueprint('auth', __name__)
-
+home = 'views.home'
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -22,7 +22,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for(home))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -35,7 +35,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('views.home'))
+    return redirect(url_for(home))
 
 @auth.route('/signup', methods=['GET','POST'])
 def signup():
@@ -46,7 +46,7 @@ def signup():
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-        isChef = request.form.get('chefAccount')
+        is_chef = request.form.get('chefAccount')
         print(request.form, flush=True)
         if len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
@@ -60,11 +60,11 @@ def signup():
             flash('Password must be at least 7 characters.', category='error')
         else:
             print("hello, world!")
-            new_user = User(id=str(uuid.uuid4()), email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name=last_name, isChef=isChef)
+            new_user = User(id=str(uuid.uuid4()), email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), first_name=first_name, last_name=last_name, is_chef=is_chef)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.home'))
+            return redirect(url_for(home))
 
     return render_template("forms/signup.html")
