@@ -111,7 +111,7 @@
 <br><br><br><br>
 {% if chef_id %}
 <div class="dropdown">
-  <button class="dropbtn">Rate</button>
+  <button class="dropbtn GreenButton" style="background-color: #98bfa3; width: 150px;">Rate</button>
   <div class="dropdown-content">
     <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=1,rname=Recipe)}}">1 Star</a>
     <a href="{{ url_for('views.rate_recipe', chef_id=chef_id, rating=2,rname=Recipe)}}">2 Star</a>
