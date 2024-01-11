@@ -1,14 +1,14 @@
 import sqlite3
 import base64
 class database_base_model:
+    def __init__(self, database_name):
+        self.database_name = database_name
     def l_tuple_to_list(self,tuplee):                       #function to change a list of tuples to a normal list
         listt =[]
         for item in tuplee:
             for itemm in item:
                 listt.append(itemm)        # all the ingredients are now in a normal list
         return listt    
-    def __init__(self, database_name):
-        self.database_name = database_name
     def establish_connection(self):
         self.connection = sqlite3.connect(self.database_name, timeout = 5000)
     def cursor(self):
@@ -75,19 +75,6 @@ class user_database(database_base_model):
         finally:
             self.close()
 
-    def tuple_to_dictt(self, user_tuple):
-        user_info = user_tuple.fetchone()
-        if user_info:
-            dicttionary = {
-                "Id": user_info[0],
-                "Email": user_info[1],
-                "Password" :user_info[2],
-                "First name" : user_info[3],
-                "Last name" : user_info[4]
-            }
-            return dicttionary
-        else:
-            return None
     def is_chef(self,id):
         cursor=self.cursor().execute("select count(*) from User where id = ? and isChef = 'on' ",(str(id),))
         count=cursor.fetchall()
@@ -201,14 +188,20 @@ class pantry_database(database_base_model):
         ingredients=self.l_tuple_to_list(ingredients) 
         cursor.close()
         return ingredients
-    
+    def get_recipe_ingredients(self,recipe_n):
+        cursor=self.cursor().execute("Select distinct Ingredient from Recipes where Recipe_name = ?", ([recipe_n]))
+        ingredients=cursor.fetchall()
+        ingredients=self.l_tuple_to_list(ingredients) 
+        cursor.close()
+        return ingredients
     def recipe_ingredient_dictt(self):
         recipes_and_ingredients_dictt={}
         recipe_l=self.return_all_recipe_names()
         for recipe in recipe_l:
-            ingredients_l=self.get_recipe_info(recipe)
+            ingredients_l=self.get_recipe_ingredients(recipe)
             recipes_and_ingredients_dictt[recipe]=ingredients_l
         return recipes_and_ingredients_dictt
+    
     def recommend_recipes(self,user_id):
         recommendedrecipes = []
         dictt=self.recipe_ingredient_dictt()
@@ -218,10 +211,9 @@ class pantry_database(database_base_model):
                     for ingre2 in self.display_pantry(user_id):
                         if ingre1==ingre2:
                             available.append(ingre1)
-            intersection = set(available) & set(dictt[key])
-            if (len(dictt[key])-len(available))<=3 and len(intersection) >0 :       #if all the ingredients are available in the pantry
-                recommendedrecipes.append(key)
-        return recommendedrecipes
+            if len(available)>0: 
+                recommendedrecipes.append(key)                               #if all the ingredients are available in the pantry
+        return recommendedrecipes 
     def ingredient_list(self):
         cursor=self.cursor().execute("Select Distinct Ingredient from Recipes")
         ingredient_list_of_tuples=cursor.fetchall()                 #the database returns a list of tuples.
@@ -233,11 +225,12 @@ class pantry_database(database_base_model):
         ingredient_tuple=cursor.fetchall()
         users_ingredients=self.l_tuple_to_list(ingredient_tuple)
         return users_ingredients
+    
     def insert_into_pantry(self,user_id,ingredient):
         all_ingredients= self.ingredient_list()
         users_pantry=self.display_pantry(user_id)
         if ingredient in all_ingredients and ingredient not in users_pantry:
-            self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",(user_id,ingredient))
+            self.cursor().execute("insert into Userspantry(User_id, ingredient) values(?,?)",((user_id),(ingredient)))
             self.commit()
     def remove_from_pantry(self,user_id,ingredient):
         users_pantry=self.display_pantry(user_id)
@@ -279,6 +272,22 @@ class chef_database(database_base_model):
         self.commit()
         self.cursor().execute("update Recipe_Images set Recipe_Image =? where Recipe_Name=?", ((pic), str(recipe_name)))
         self.commit()
+    def get_chef_id(self, recipe_name):
+        result = self.cursor().execute("SELECT id FROM Chef WHERE recipe_name = ?", (recipe_name,))
+        chef_id = result.fetchall()
+        if chef_id:
+            return chef_id[0][0]
+        else:
+            return None
+    def get_recipes(self, chef_id):
+        query = "select recipe_name from Chef where id = ?"
+        data = self.cursor().execute(query, (chef_id,)).fetchall()
+        recipes_list = []
+        for recipe in data:
+            recipes_list.append(recipe[0])
+        return recipes_list
+
+
 #fetch all function gets whats stored in the database
 
 class reviews_database(database_base_model):
@@ -304,7 +313,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("ThePantryPuzzle\\instance\\MainDB.db")
+        tempobject=user_database("ThePantryPuzzle/instance/MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
@@ -341,3 +350,5 @@ class dietary_prefernces_database(database_base_model):
     def connection_close(self):
         self.close()
     
+# chef = chef_database("ThePantryPuzzle/instance/MainDB.db")
+# print(chef.get_chef("Okra"))
