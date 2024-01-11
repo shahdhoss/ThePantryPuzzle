@@ -282,10 +282,10 @@ class chef_database(database_base_model):
             return None
     def get_chef_rating(self, chefid):
         result = self.cursor().execute("SELECT Rating FROM Chef WHERE id = ?", (chefid,))
-        Rating = result.fetchone()
+        rating = result.fetchone()
         result = self.cursor().execute("SELECT rNum FROM Chef WHERE id = ?", (chefid,))
         number = result.fetchone()
-        return floor(Rating/number)
+        return floor(rating/number)
 
     def add_Rating(self, chefid, rating_to_add):
         result = self.cursor().execute("SELECT Rating, rNum FROM Chef WHERE id = ?", (chefid,))
@@ -294,18 +294,18 @@ class chef_database(database_base_model):
         if chef_data is None:
             result = self.cursor().execute("INSERT INTO Chef (id, Rating, rNum) VALUES (?, ?, ?)", (chefid, rating_to_add, 1))
         else:
-            current_rating, rNum = chef_data
+            current_rating, r_num = chef_data
 
-            if current_rating is not None and rNum is not None:
+            if current_rating is not None and r_num is not None:
                 new_rating = current_rating + rating_to_add
-                new_rNum = rNum + 1
+                new_rum = r_num + 1
             else:
                 new_rating = rating_to_add
-                new_rNum = 1
+                new_rum = 1
 
-            result = self.cursor().execute("UPDATE Chef SET Rating = ?, rNum = ? WHERE id = ?", (new_rating, new_rNum, chefid))
+            result = self.cursor().execute("UPDATE Chef SET Rating = ?, rNum = ? WHERE id = ?", (new_rating, new_rum, chefid))
         self.commit()
-        return
+        return result
 
         
     def get_recipes(self, chef_id):
@@ -342,7 +342,7 @@ class reviews_database(database_base_model):
     def display_review(self, recipe_name):
         query = "select User_ID, comment from Reviews where Recipe_Name = ?"
         data = self.cursor().execute(query, (recipe_name,)).fetchall()
-        tempobject=user_database("instance/MainDB.db")
+        tempobject=user_database("ThePantryPuzzle/instance/MainDB.db")
         finaltuple=()
         listfadya=[]
         for items in data:
@@ -378,6 +378,3 @@ class dietary_prefernces_database(database_base_model):
     
     def connection_close(self):
         self.close()
-    
-# chef = chef_database("ThePantryPuzzle/instance/MainDB.db")
-# print(chef.get_chef("Okra"))
