@@ -30,28 +30,3 @@ jobs:
           docker build -t ${{secrets.LOGIN_SERVER}}/flask-app:latest .
           docker login ${{secrets.LOGIN_SERVER}} -u ${{secrets.AZURE_USERNAME}} -p ${{secrets.AZURE_PASSWORD}}
           docker push ${{secrets.LOGIN_SERVER}}/flask-app:latest
-
-  deploy-and-get-url:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to GitHub Pages
-        run: |
-          git checkout -b main
-          cp -R path/to/deployed/files/* .
-          git add .
-          git commit -m "Deploy to GitHub Pages"
-          git push origin gh-pages
-
-      - name: Set Deployment URL as Output
-        id: set-url
-        run: echo "::set-output name=url::https://malak-elbanna.github.io/thepantrypuzzle"
-
-  get-url:
-    needs: deploy-and-get-url
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Get Deployment URL
-        run: echo "The deployment URL is ${{ needs.deploy-and-get-url.outputs.url }}"
