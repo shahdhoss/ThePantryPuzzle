@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         run: |
-          git checkout -b gh-pages
+          git checkout -b main
           cp -R path/to/deployed/files/* .
           git add .
           git commit -m "Deploy to GitHub Pages"
