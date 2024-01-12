@@ -24,7 +24,7 @@ jobs:
       - name: Run tests with pytest
         run: |
           pip3 install pytest
-      
+          pytest
 
       - name: Build and push Docker image
         run: |
