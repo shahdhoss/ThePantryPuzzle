@@ -26,5 +26,5 @@ jobs:
       - name: Build and push docker image
         run:
           docker build -t ${{secrets.LOGIN_SERVER}}/flask-app:latest .
-          docker login ${{secrets.LOGIN_SERVER}} -u ${{secrets.AZURE_USERNAME}} -p ${{secrets.AZURE_PASSWORD}
+          docker login ${{secrets.LOGIN_SERVER}} -u ${{secrets.AZURE_USERNAME}} -p ${{secrets.AZURE_PASSWORD}}
           docker push ${{secrets.LOGIN_SERVER}}/flask-app:latest
