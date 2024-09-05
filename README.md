@@ -30,9 +30,6 @@ Note: The sqlite3 library is not required to be installed separately as it is in
    ```bash
     python main.py
 ```
-
-# Home page
-![Home page](<screenshots_of_app/home.png>)
 # Technical Approach
     Project Setup (MPA):
     Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
@@ -46,15 +43,15 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     How users respond is a great risk to our business, as our service is built upon users interacting and rating each other’s recipes. 
     The main concern is that other users review bombing chefs' recipes they don't like, which could be avoided 
     by verifying reviews before posting them through a captcha verification system.
+    
+# Home page
+![Home page](<screenshots_of_app/home.png>)
 
-# Feasibility Matrix
-![Feasibility Matrix](<system_designs/Feasibility Matrix.png>)
+# Personal Profile
+![Personal Profile](<screenshots_of_app/profile.png>)
 
-# Context Diagram
-![Context Diagram](<system_designs/Context Diagram.png>)
+# Recipes Home Page
+![Recipes](<system_designs/recipes.png>)
 
-# Class Diagram
-![Class Diagram](<system_designs/Class Diagram.png>)
-
-# Use Case Diagrams
-![Use Case](<system_designs/Use Case.png>)
+# Pantry Functionality
+![pantry](<system_designs/pantry.png>)
