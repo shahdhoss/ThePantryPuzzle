@@ -51,7 +51,7 @@ Note: The sqlite3 library is not required to be installed separately as it is in
 ![Personal Profile](<screenshots_of_app/profile.png>)
 
 # Recipes Home Page
-![Recipes](<system_designs/recipes.png>)
+![Recipes](<screenshots_of_app/recipes.png>)
 
 # Pantry Functionality
-![pantry](<system_designs/pantry.png>)
+![pantry](<screenshots_of_app/pantry.png>)
