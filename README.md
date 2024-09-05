@@ -31,8 +31,8 @@ Note: The sqlite3 library is not required to be installed separately as it is in
     python main.py
 ```
 
-# Competitve Analysis
-![Competitive Analysis](<system_designs/Competitive Analysis.png>)
+# Home page
+![Competitive Analysis](<ThePantryPuzzle\screenshots_of_app\Screenshot 2024-09-05 142002.png>)
 # Technical Approach
     Project Setup (MPA):
     Multi-Page Application: it is SEO friendly, compatible with a wider range of web browsers, a more straightforward development process.
