@@ -17,14 +17,14 @@ def create_app():
     app.config["RECAPTCHA_USE_SSL"] = False
     app.config["RECAPTCHA_PUBLIC_KEY"] = "6Lfer0kpAAAAAJnXGODihTewNcf3RDCXgc5FE7XY"
 
-    RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
-    print(f"RECAPTCHA_PRIVATE_KEY: {RECAPTCHA_PRIVATE_KEY}")
+    # RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+    # print(f"RECAPTCHA_PRIVATE_KEY: {RECAPTCHA_PRIVATE_KEY}")
     
-    if not RECAPTCHA_PRIVATE_KEY:
-        raise ValueError("RECAPTCHA_PRIVATE_KEY environment variable is not set")
-    app.config["RECAPTCHA_PRIVATE_KEY"] = RECAPTCHA_PRIVATE_KEY
+    # if not RECAPTCHA_PRIVATE_KEY:
+    #     raise ValueError("RECAPTCHA_PRIVATE_KEY environment variable is not set")
+    # app.config["RECAPTCHA_PRIVATE_KEY"] = RECAPTCHA_PRIVATE_KEY
 
-    app.config["RECAPTCHA_OPTIONS"] = {'theme' : 'black'}
+    # app.config["RECAPTCHA_OPTIONS"] = {'theme' : 'black'}
     db.init_app(app)
 
     app.register_blueprint(views, url_prefix='/')

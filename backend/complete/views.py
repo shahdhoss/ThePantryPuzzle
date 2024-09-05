@@ -7,13 +7,13 @@ from .forms import *
 from flask_login import login_required, current_user, logout_user
 from backend.controllers.database import pantry_database, shopping_list_database, user_database, favorite_recipe, reviews_database, dietary_prefernces_database, chef_database
 import base64
-from models.validation import Reviews
+from Models import validation
 from urllib.parse import quote
 from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 
-database_path = "instance/MainDB.db"
+database_path = "ThePantryPuzzle\\instance\\MainDB.db"
 user_profile = 'views.userprofile'
 Page_Recipes = 'pages/Recipes.html'
 
@@ -122,7 +122,7 @@ def get_recipe_image(rname):
         
 @views.route('/RecipeInfo/<rname>/<userid>', methods=["POST", "GET"])
 def recipeinfo(rname, userid):
-    form = Reviews()
+    form = validation.Reviews()
     reviews_db = reviews_database(database_path)
     if form.validate_on_submit():
         review_text = form.review.data
@@ -147,7 +147,7 @@ def recipeinfo(rname, userid):
 @views.route('/chef_profile/<chef_id>/<rating>/<rname>', methods=["GET", "POST"])
 @login_required
 def rate_recipe(chef_id, rating, rname):
-    form = Reviews()
+    form = validation.Reviews()
     reviews_db = reviews_database(database_path)
     chef_db = chef_database(database_path)
     chef_db.add_Rating(chef_id,int(rating))
